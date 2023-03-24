@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="commonLayout" template="/WEB-INF/tiles/common/layout/commonLayout.jsp">
+		<put-attribute name="tablib" value="/WEB-INF/tiles/common/tiles/tile/taglib.jsp" />
+		<put-attribute name="title" value="" />
+		<put-attribute name="commonHeader" value="/WEB-INF/tiles/common/tiles/tile/commonHeader.jsp" />
+		<put-attribute name="commonBody" value="" />
+		<put-attribute name="commonFooter" value="/WEB-INF/tiles/common/tiles/tile/commonFooter.jsp" />
+	</definition>
+ 
+	<definition name="main" extends="commonLayout">
+		<put-attribute name="title" value="메인" />
+		<put-attribute name="commonBody" value="/WEB-INF/views/main/main.jsp" />
+	</definition>
+
+	<definition name="adminLayout" template="/WEB-INF/tiles/Admin/layout/adminLayout.jsp">
+		<put-attribute name="Adminheader" value ="/WEB-INF/tiles/Admin/tiles/tile/Adminheader.jsp"/>
+		<put-attribute name="Adminbody" value =""/>
+		<put-attribute name="Adminfooter" value="/WEB-INF/tiles/Admin/tiles/tile/Adminfooter.jsp"/>
+		<put-attribute name="AdminSideBar" value ="/WEB-INF/tiles/Admin/tiles/tile/AdminSideBar.jsp"/>
+	
+	</definition>
+	
+	<definition name="/admin/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/{1}.jsp"/>
+	</definition>
+	
+</tiles-definitions>
