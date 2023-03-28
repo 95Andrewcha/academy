@@ -3,6 +3,7 @@ package com.academy.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,10 +35,19 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	@GetMapping(value="admin_login")
-	public String doLogin(HttpServletRequest request) {
+	@GetMapping(value="login/admin_login")
+	public String doLogin(String error, String logout, Model model, HttpServletRequest request) {
 		
-		System.out.println("login");
+	
+		log.info("error:" + error);
+		log.info("logout:" + logout);
+		
+		if(error != null) {
+			model.addAttribute("error", "Login Error Check Your Account");
+		}
+		if(logout != null) {
+			model.addAttribute("logout", "logout!!");
+		}
 		return request.getRequestURI();
 	}
 }

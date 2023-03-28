@@ -7,13 +7,20 @@
 
 <security:http>
 	<security:intercept-url pattern="/admin/*"
-	access="hasRole('ROLE_AD')"/>
-	<security:form-login/>
+	access="hasAnyRole('ROLE_AD', 'ROLE_A')"/>
+	
+	
+	<security:access-denied-handler error-page="/accessError"/>
+	
+	<!-- security:form-login -->
+	<security:form-login login-page="/admin/login/admin_login" />
 </security:http>
 <security:authentication-manager>
 	<security:authentication-provider>
 	<security:user-service>
 		<security:user name="member" password="{noop}member" authorities="ROLE_AD"/>
+		<security:user name="admin" password="{noop}admin" authorities="ROLE_A"/>
+		<security:user name="cus" password="{noop}cus" authorities="ROLE_C"/>
 	</security:user-service>
 		
 	</security:authentication-provider>
