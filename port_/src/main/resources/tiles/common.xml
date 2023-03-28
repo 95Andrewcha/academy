@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<!-- 공통 레이아웃 -->
+	<definition name="commonLayout" template="/WEB-INF/tiles/common/layout/commonLayout.jsp">
+		<put-attribute name="link" value="/WEB-INF/tiles/common/tiles/tile/link.jsp" />
+		<put-attribute name="title" value="" />
+		<put-attribute name="commonHeader" value="/WEB-INF/tiles/common/tiles/tile/commonHeader.jsp" />
+		<put-attribute name="commonBody" value="" />
+		<put-attribute name="commonFooter" value="/WEB-INF/tiles/common/tiles/tile/commonFooter.jsp" />
+	</definition>
+ 	
+ 	<!-- 메인 페이지 -->
+	<definition name="main" extends="commonLayout">
+		<put-attribute name="title" value="메인" />
+		<put-attribute name="commonBody" value="/WEB-INF/views/main/main.jsp" />
+	</definition>
+</tiles-definitions>
