@@ -10,11 +10,25 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class MainController {
-
+	
+	// 메인
 	@GetMapping("/main")
 	public String main(HttpServletRequest request) {
-		log.info("�� �������� �׽�Ʈ");
-		return "main";
+		return request.getRequestURI();
+	}
+	
+	// 학원
+	// (메인 > 학원)
+	@GetMapping("/academy")
+	public String academy(HttpServletRequest request) {
+		return request.getRequestURI();
+	}
+	
+	// 마이페이지 메인
+	// (메인 > 마이페이지 메인)
+	@GetMapping("/myPage/myMain")
+	public String myMain(HttpServletRequest request) {
+		return request.getRequestURI();
 	}
 	
 }
