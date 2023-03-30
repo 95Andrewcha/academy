@@ -14,20 +14,20 @@
 	</definition>
 
 	<!-- 메인 -->
-	<definition name="/main" extends="commonLayout">
+	<definition name="/user/main" extends="commonLayout">
 	<put-attribute name="title" value="메인" />
-		<put-attribute name="commonBody" value="/WEB-INF/views/main/main.jsp" />
+		<put-attribute name="commonBody" value="/WEB-INF/views/user/main.jsp" />
 	</definition>
 	
 	<!-- 메인 > 학원 -->
-	<definition name="/academy" extends="commonLayout">
+	<definition name="/user/academy" extends="commonLayout">
 		<put-attribute name="title" value="학원" />
-		<put-attribute name="commonBody" value="/WEB-INF/views/main/academy/academy.jsp" />
+		<put-attribute name="commonBody" value="/WEB-INF/views/user/academy/academy.jsp" />
 	</definition>
 	
 	<!-- 메인 > 마이페이지 -->
-	<definition name="/myPage/*" extends="commonLayout">
-		<put-attribute name="title" value="학원" />
-		<put-attribute name="commonBody" value="/WEB-INF/views/main/myPage/{1}.jsp" />
+	<definition name="/user/my_page/*" extends="commonLayout">
+		<put-attribute name="title" value="마이페이지" />
+		<put-attribute name="commonBody" value="/WEB-INF/views/user/my_page/{1}.jsp" />
 	</definition>
 </tiles-definitions>

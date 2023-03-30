@@ -12,7 +12,7 @@
 	</definition>
 	
 	<!-- 로그인 페이지 -->
-	<definition name="/login/*" extends="loginLayout">
-		<put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp" />
+	<definition name="/user/login" extends="loginLayout">
+		<put-attribute name="body" value="/WEB-INF/views/user/login/loginPage.jsp" />
 	</definition>
 </tiles-definitions>
