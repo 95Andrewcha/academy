@@ -13,7 +13,7 @@
 	<security:access-denied-handler error-page="/accessError"/>
 	
 	<!-- security:form-login -->
-	<security:form-login login-page="/admin/login/admin_login" />
+	<security:form-login/>
 </security:http>
 <security:authentication-manager>
 	<security:authentication-provider>

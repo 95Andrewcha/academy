@@ -20,5 +20,40 @@
 	<definition name="/admin/login/*" extends="adminLayout">
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/login/{1}.jsp"/>
 	</definition>
+	<!-- 학원 정보 -->
+	<definition name="/admin/ac_info/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/ac_info/{1}.jsp"/>
+	</definition>
+	<!--  학생관리 -->
+	<definition name="/admin/stu_manage/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/stu_manage/{1}.jsp"/>
+	</definition>
+	<!-- 게시판관리 -->
+	<definition name="/admin/board/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/board/{1}.jsp"/>
+	</definition>
+	<!-- 문자 관리 -->
+	<definition name="/admin/text_managee/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/text_managee/{1}.jsp"/>
+	</definition>
+	
+	<!-- 광고 관리 -->
+	<definition name="/admin/ad_manage/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/ad_manage/{1}.jsp"/>
+	</definition>
+	<!-- 쿠폰관리 -->
+	<definition name="/admin/coupon_manage/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/coupon_manage/{1}.jsp"/>
+	</definition>
+	<!-- 통계관리 -->
+	<definition name="/admin/stats_manage/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/stats_manage/{1}.jsp"/>
+	</definition>
+	
+	<!-- 결제 -->
+	<definition name="/admin/pay_manage/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/pay_manage/{1}.jsp"/>
+	</definition>
+	
 	
 </tiles-definitions>

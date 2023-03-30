@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div> -->
-       <form method='post' action="/login">
+       <form method="post" action="/login/admin_login">
        <div>
        <input type="text" name="username" value="admin">
        </div>
