@@ -30,4 +30,10 @@
 		<put-attribute name="title" value="마이페이지" />
 		<put-attribute name="body" value="/WEB-INF/views/user/my_page/{1}.jsp" />
 	</definition>
+	
+	<!-- 메인 > 커뮤니티 > 수다게시판 -->
+	<definition name="/user/community/*" extends="commonLayout">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/{1}.jsp" />
+	</definition>
 </tiles-definitions>

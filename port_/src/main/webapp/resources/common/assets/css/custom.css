@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+/* 
+---------------------------------------------
+Common Style
+--------------------------------------------- 
+*/
 .main-color {
 	color: #e75e8d !important;
 }
@@ -17,19 +22,11 @@
 	background-color: #444 !important;
 }
 
-.login li a {
-	padding-left: 10px !important;
-	padding-right: 10px !important;
-}
-
-.login li:last-child a {
-	padding-right: 0 !important;
-}
-
-.login a {
-	font-size: 14px !important;
-	font-weight: normal !important;
-}
+/* 
+---------------------------------------------
+Main Style
+--------------------------------------------- 
+*/
 
 .main-menu-bg {
 	background-color: #fff;
@@ -81,3 +78,91 @@
 	height: 180px;
 }
 
+/* 
+---------------------------------------------
+Login Style
+--------------------------------------------- 
+*/
+
+.login li a {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.login li:last-child a {
+	padding-right: 0 !important;
+}
+
+.login a {
+	font-size: 14px !important;
+	font-weight: normal !important;
+}
+
+/* 
+---------------------------------------------
+Free Board Style
+--------------------------------------------- 
+*/
+
+.free-board {
+	background-color: #f7f7f7;
+}
+
+.free-board .fb-left-menu {
+	height: 650px;
+	border-radius: 10px;
+	border: 1px solid #d7d5d5;
+	background-color: #fff;
+	padding: 20px;
+	color: #666;
+}
+
+.free-board .fb-left-menu-header {
+	font-size: 18px;
+    border-bottom: 1px solid #d7d5d5;
+    padding: 5px 0;
+    margin-bottom: 10px;
+}
+
+.free-board .fb-board {
+	height: 650px;
+	border-radius: 10px;
+	border: 1px solid #d7d5d5;
+	background-color: #fff;
+	padding: 20px;
+	color: #666;
+}
+
+.free-board .fb-board table {
+	text-align: center;
+}
+
+.free-board .fb-board table tr {
+	border-bottom: 1px solid rgba(215,213,213,0.5);
+	font-weight: 300;
+}
+
+.free-board .fb-board table thead tr {
+	border-bottom: 1px solid #e75e8d;
+    border-top: 2px solid #e75e8d;
+}
+
+.free-board .fb-board table th, td {
+	font-size: 14px;
+	padding: 5px 0;
+}
+
+.free-board .fb-board table th {
+	padding: 10px 0;
+}
+
+.free-board .fb-left-menu-list li a {
+    display: block;
+	width: 100%;
+    padding: 5px 0;
+    color: #666;
+}
+
+.free-board .fb-left-menu-list li a:hover {
+	color: #e75e8d;
+}

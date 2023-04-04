@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,7 +20,7 @@ public class UserController {
 
 	/**
 	 * 메인 페이지
-	 * @param request
+	 * @param 
 	 * @return String
 	 */
 	@GetMapping("main")
@@ -29,7 +30,7 @@ public class UserController {
 
 	/**
 	 * 로그인 페이지
-	 * @param request
+	 * @param 
 	 * @return String
 	 */
 	@RequestMapping("login")
@@ -56,7 +57,7 @@ public class UserController {
 	
 	/**
 	 * 로그아웃
-	 * @param request
+	 * @param 
 	 * @return String
 	 */
 	@RequestMapping("logout")
@@ -69,15 +70,22 @@ public class UserController {
 
 		return "redirect:/user/main";
 	}
-
-	// ---------------------------------------------------------
-	// 학원 start
-	// ---------------------------------------------------------
-
+	
+	/**
+	 * 메인 > 마이페이지 메인
+	 * 
+	 * @param 
+	 * @return String
+	 */
+	@GetMapping("my_page/my_main")
+	public String myMain(HttpServletRequest request) {
+		return request.getRequestURI();
+	}
+	
 	/**
 	 * 메인 > 학원 페이지
 	 * 
-	 * @param request
+	 * @param 
 	 * @return String
 	 */
 	@GetMapping("academy")
@@ -88,35 +96,23 @@ public class UserController {
 	/**
 	 * 메인 > 학원 > 학원 상세 팝업 페이지
 	 * 
-	 * @param request
+	 * @param 
 	 * @return String
 	 */
 	@GetMapping("academy/academy_detail_pop")
 	public String academy_detail_pop(HttpServletRequest request) {
 		return request.getRequestURI();
 	}
-
-	// ---------------------------------------------------------
-	// 학원 end
-	// ---------------------------------------------------------
-
-	// ---------------------------------------------------------
-	// 마이페이지 start
-	// ---------------------------------------------------------
-
+	
 	/**
-	 * 메인 > 마이페이지 메인
-	 * 
-	 * @param request
+	 * 메인 > 커뮤니티 > 수다게시판 페이지
+	 * @param 
 	 * @return String
 	 */
-	@GetMapping("my_page/my_main")
-	public String myMain(HttpServletRequest request) {
+	@GetMapping("community/free_board")
+	public String free_board(HttpServletRequest request, Model model) {
+		model.addAttribute("title", "수다게시판");
 		return request.getRequestURI();
 	}
-
-	// ---------------------------------------------------------
-	// 마이페이지 end
-	// ---------------------------------------------------------
-
+	
 }
