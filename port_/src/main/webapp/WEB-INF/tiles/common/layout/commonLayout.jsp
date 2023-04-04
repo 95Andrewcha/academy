@@ -6,23 +6,29 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-	<title>메인</title>
-    <tiles:insertAttribute name="link"/>
+	<title><tiles:insertAttribute name="title"/></title>
+	<tiles:insertAttribute name="link"/>
 </head>
 <body>
-	<!-- Navbar Start -->
-    <tiles:insertAttribute name="commonHeader"/>
-    <!-- Navbar End -->
+	<!-- ***** Preloader Start ***** -->
+	<div id="js-preloader" class="js-preloader">
+		<div class="preloader-inner">
+			<span class="dot"></span>
+			<div class="dots">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</div>
+	<!-- ***** Preloader End ***** -->
+
+	<tiles:insertAttribute name="header"/>
 	
-	<tiles:insertAttribute name="commonBody"/>
+	<tiles:insertAttribute name="body"/>
 	
-	<!-- Footer Start -->
-	<tiles:insertAttribute name="commonFooter"/>
-	<!-- Footer End -->
-	
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+	<tiles:insertAttribute name="footer"/>
 </body>
 </html>

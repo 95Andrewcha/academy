@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div> -->
-       <form method="post" action="/login/admin_login">
+       <form method="post" action="/admin/loginProc">
        <div>
        <input type="text" name="username" value="admin">
        </div>
@@ -91,9 +91,15 @@
        </div>
        
        
-        <input type="hidden" name="${_crsf.parameterName}" value="${_csrf.token }"/>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }"/>
        </form>
-       
+       	<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+			<font color="red">
+				로그인 실패<br/>
+				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+				<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+			</font>
+		</c:if>
        
         <!-- Sign In End -->
     </div>

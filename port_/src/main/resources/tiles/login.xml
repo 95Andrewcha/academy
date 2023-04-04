@@ -13,6 +13,6 @@
 	
 	<!-- 로그인 페이지 -->
 	<definition name="/user/login" extends="loginLayout">
-		<put-attribute name="body" value="/WEB-INF/views/user/login/loginPage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/login/login.jsp" />
 	</definition>
 </tiles-definitions>

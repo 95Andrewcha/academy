@@ -8,26 +8,26 @@
 	<definition name="commonLayout" template="/WEB-INF/tiles/common/layout/commonLayout.jsp">
 		<put-attribute name="link" value="/WEB-INF/tiles/common/tiles/tile/link.jsp" />
 		<put-attribute name="title" value="" />
-		<put-attribute name="commonHeader" value="/WEB-INF/tiles/common/tiles/tile/commonHeader.jsp" />
-		<put-attribute name="commonBody" value="" />
-		<put-attribute name="commonFooter" value="/WEB-INF/tiles/common/tiles/tile/commonFooter.jsp" />
+		<put-attribute name="header" value="/WEB-INF/tiles/common/tiles/tile/commonHeader.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/common/tiles/tile/commonFooter.jsp" />
 	</definition>
 
 	<!-- 메인 -->
 	<definition name="/user/main" extends="commonLayout">
 	<put-attribute name="title" value="메인" />
-		<put-attribute name="commonBody" value="/WEB-INF/views/user/main.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/main.jsp" />
 	</definition>
 	
 	<!-- 메인 > 학원 -->
 	<definition name="/user/academy" extends="commonLayout">
 		<put-attribute name="title" value="학원" />
-		<put-attribute name="commonBody" value="/WEB-INF/views/user/academy/academy.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/academy/academy.jsp" />
 	</definition>
 	
 	<!-- 메인 > 마이페이지 -->
 	<definition name="/user/my_page/*" extends="commonLayout">
 		<put-attribute name="title" value="마이페이지" />
-		<put-attribute name="commonBody" value="/WEB-INF/views/user/my_page/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/my_page/{1}.jsp" />
 	</definition>
 </tiles-definitions>

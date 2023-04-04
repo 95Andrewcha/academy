@@ -2,39 +2,38 @@
     pageEncoding="UTF-8"%>
     
 <meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Favicon -->
-<link href="${contextPath }/resources/common/img/favicon.ico" rel="icon">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet"> 
+<!-- Bootstrap core CSS -->
+<link href="/resources/common/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Icon Font Stylesheet -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
-<link href="${contextPath }/resources/common/lib/animate/animate.min.css" rel="stylesheet">
-<link href="${contextPath }/resources/common/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<!-- Additional CSS Files -->
+<link rel="stylesheet" href="/resources/common/assets/css/fontawesome.css">
+<link rel="stylesheet" href="/resources/common/assets/css/templatemo-cyborg-gaming.css">
+<link rel="stylesheet" href="/resources/common/assets/css/owl.css">
+<link rel="stylesheet" href="/resources/common/assets/css/animate.css">
+<link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 
-<!-- Customized Bootstrap Stylesheet -->
-<link href="${contextPath }/resources/common/css/bootstrap.min.css" rel="stylesheet">
+<!--
 
-<!-- Template Stylesheet -->
-<link href="${contextPath }/resources/common/css/style.css" rel="stylesheet">
+TemplateMo 579 Cyborg Gaming
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="${contextPath }/resources/common/lib/wow/wow.min.js"></script>
-<script src="${contextPath }/resources/common/lib/easing/easing.min.js"></script>
-<script src="${contextPath }/resources/common/lib/waypoints/waypoints.min.js"></script>
-<script src="${contextPath }/resources/common/lib/owlcarousel/owl.carousel.min.js"></script>
+https://templatemo.com/tm-579-cyborg-gaming
 
-<!-- Template Javascript -->
-<script src="${contextPath }/resources/common/js/main.js"></script>
+-->
+
+<!-- Scripts -->
+<!-- Bootstrap core JavaScript -->
+<script src="/resources/common/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/common/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="/resources/common/assets/js/isotope.min.js"></script>
+<script src="/resources/common/assets/js/owl-carousel.js"></script>
+<script src="/resources/common/assets/js/tabs.js"></script>
+<script src="/resources/common/assets/js/popup.js"></script>
+<script src="/resources/common/assets/js/custom.js"></script>
+
+<link rel="stylesheet" href="/resources/common/assets/css/custom.css">
