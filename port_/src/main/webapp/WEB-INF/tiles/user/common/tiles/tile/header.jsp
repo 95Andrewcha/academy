@@ -17,7 +17,7 @@
 							<a href="#">커뮤니티</a>
 							<ul class="position-absolute w-100 text-center inner-menu">
 								<li><a href="${contextPath }/user/community/free_board">수다게시판</a></li>
-								<li><a href="#">자료게시판</a></li>
+								<li><a href="${contextPath }/user/community/data_board">자료게시판</a></li>
 								<li><a href="#">QnA</a></li>
 								<li><a href="#">리뷰</a></li>
 							</ul>

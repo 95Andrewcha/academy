@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.academy.common.Common;
+
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -72,19 +74,18 @@ public class UserController {
 	}
 	
 	/**
-	 * 메인 > 마이페이지 메인
-	 * 
+	 * 메인 > 마이페이지 메인 페이지
 	 * @param 
 	 * @return String
 	 */
 	@GetMapping("my_page/my_main")
-	public String myMain(HttpServletRequest request) {
+	public String myMain(HttpServletRequest request, Model model) {
+		model.addAttribute("title", Common.setTitle("마이페이지"));
 		return request.getRequestURI();
 	}
 	
 	/**
 	 * 메인 > 학원 페이지
-	 * 
 	 * @param 
 	 * @return String
 	 */
@@ -95,7 +96,6 @@ public class UserController {
 
 	/**
 	 * 메인 > 학원 > 학원 상세 팝업 페이지
-	 * 
 	 * @param 
 	 * @return String
 	 */
@@ -111,7 +111,18 @@ public class UserController {
 	 */
 	@GetMapping("community/free_board")
 	public String free_board(HttpServletRequest request, Model model) {
-		model.addAttribute("title", "수다게시판");
+		model.addAttribute("title", Common.setTitle("수다게시판"));
+		return request.getRequestURI();
+	}
+	
+	/**
+	 * 메인 > 커뮤니티 > 자료게시판 페이지
+	 * @param 
+	 * @return String
+	 */
+	@GetMapping("community/data_board")
+	public String data_board(HttpServletRequest request, Model model) {
+		model.addAttribute("title", Common.setTitle("자료게시판"));
 		return request.getRequestURI();
 	}
 	

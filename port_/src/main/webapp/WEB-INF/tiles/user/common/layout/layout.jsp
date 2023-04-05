@@ -24,11 +24,10 @@
 		</div>
 	</div>
 	<!-- ***** Preloader End ***** -->
-
+<div class="min-h-100 position-relative main-container">
 	<tiles:insertAttribute name="header"/>
-	
 	<tiles:insertAttribute name="body"/>
-	
 	<tiles:insertAttribute name="footer"/>
+</div>
 </body>
 </html>

@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/resources/common/assets/css/templatemo-cyborg-gaming.css">
 <link rel="stylesheet" href="/resources/common/assets/css/owl.css">
 <link rel="stylesheet" href="/resources/common/assets/css/animate.css">
-<!-- <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/> -->
+<link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 
 <!--
 
@@ -36,4 +36,5 @@ https://templatemo.com/tm-579-cyborg-gaming
 <script src="/resources/common/assets/js/popup.js"></script>
 <script src="/resources/common/assets/js/custom.js"></script>
 
+<!-- 새로 추가한 css, js들 -->
 <link rel="stylesheet" href="/resources/common/assets/css/custom.css">

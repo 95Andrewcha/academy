@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<!-- 커뮤니티 게시판 레이아웃 -->
+	<definition name="communityLayout" template="/WEB-INF/tiles/user/community/layout/boardLayout.jsp">
+		<put-attribute name="link" value="/WEB-INF/tiles/user/common/tiles/tile/link.jsp" />
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/tiles/user/common/tiles/tile/header.jsp" />
+		<put-attribute name="aside" value="/WEB-INF/tiles/user/community/tiles/tile/aside.jsp" />
+		<put-attribute name="searchArea" value="/WEB-INF/tiles/user/community/tiles/tile/searchArea.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/user/common/tiles/tile/footer.jsp" />
+	</definition>
+
+
+	<!-- 메인 > 커뮤니티 > 수다게시판 -->
+	<definition name="/user/community/*" extends="communityLayout">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/{1}.jsp" />
+	</definition>
+</tiles-definitions>

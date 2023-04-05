@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<!-- 마이페이지 레이아웃 -->
+	<definition name="myPageLayout" template="/WEB-INF/tiles/user/myPage/layout/layout.jsp">
+		<put-attribute name="link" value="/WEB-INF/tiles/user/common/tiles/tile/link.jsp" />
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/tiles/user/common/tiles/tile/header.jsp" />
+		<put-attribute name="aside" value="/WEB-INF/tiles/user/myPage/tiles/tile/aside.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/user/common/tiles/tile/footer.jsp" />
+	</definition>
+
+
+	<!-- 메인 > 마이페이지 -->
+	<definition name="/user/my_page/*" extends="myPageLayout">
+		<put-attribute name="title" expression="${title}" />
+		<put-attribute name="body" value="/WEB-INF/views/user/my_page/{1}.jsp" />
+	</definition>
+</tiles-definitions>
