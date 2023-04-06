@@ -1,9 +1,15 @@
 package com.academy.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,33 +36,60 @@ public class AdminController {
 	@GetMapping(value = "admin_admin")
 	public String doAdmin(HttpServletRequest request) {
 		log.info("admin only");
-		System.out.println("admin_admin page占쌉니댐옙.");
+		System.out.println("admin_admin page����������.");
 		System.out.println(request.getRequestURI());
 		return request.getRequestURI();
 	}
 	
-	
 	@GetMapping(value="login")
-	public String doLogin(String error, String logout, Model model, HttpServletRequest request) {
-		
-	
-		log.info("error:" + error);
-		log.info("logout:" + logout);
-		
-		if(error != null) {
-			model.addAttribute("error", "Login Error Check Your Account");
+	public String doLogin(HttpServletRequest request) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		log.info(auth);
+
+		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+
+		for(GrantedAuthority authority : authorities) {
+			// 이미 로그인 된 관리자일 경우 관리자 메인 페이지로 이동
+			if(authority.getAuthority().equals("ROLE_AD")) {
+				log.info("이미 로그인 된 관리자입니다. 관리자 메인으로 이동합니다." + authority.getAuthority());
+				return "redirect:/admin/admin";
+			}
 		}
-		if(logout != null) {
-			model.addAttribute("logout", "logout!!");
+
+		request.getSession().setAttribute("admin", true);
+
+		// 이전 페이지 URI
+		String prevUri = request.getHeader("Referer");
+
+		if(prevUri != null && !prevUri.contains("/login")) {
+			request.getSession().setAttribute("prevUri", prevUri);
 		}
+
 		return request.getRequestURI();
 	}
+
+	/**
+	 * 로그아웃
+	 * @param request
+	 * @return String
+	 */
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if(auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+
+		return "redirect:/admin/login";
+	}
+	   
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싻울옙 占쏙옙占쏙옙*/
+	/*������������������ ������������������ ���살�몄�� ������������*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	
-	/*占싻울옙 占쏙옙占쏙옙*/
+	/*���살�몄�� ������������*/
 	@RequestMapping(value = "ac_info/ac_info", method = RequestMethod.GET)
 	public String ac_info(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
@@ -64,7 +97,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	/*占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙*/
+	/*������������������������������������*/
 	@RequestMapping(value = "ac_info/subject_info", method = RequestMethod.GET)
 	public String subject_info(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
@@ -72,7 +105,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	/*占시곤옙표*/
+	/*����怨ㅼ����*/
 	@RequestMapping(value = "ac_info/ac_schedule", method = RequestMethod.GET)
 	public String schedule(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
@@ -80,7 +113,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	/*占쏙옙占쏙옙占쏙옙占�*/
+	/*��������������������占�*/
 	@RequestMapping(value = "ac_info/ac_test_manage", method = RequestMethod.GET)
 	public String ac_test_manage(HttpServletRequest request) {
 		System.out.println("ac_test_manage");
@@ -98,10 +131,10 @@ public class AdminController {
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占싻삼옙 占쏙옙占쏙옙*/
+	/*���살�쇱�� ������������*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	
-	/*占쏙옙占쏙옙占쏙옙*/
+	/*������������������*/
 	@RequestMapping(value = "stu_manage/att_manage", method = RequestMethod.GET)
 	public String att_manage(HttpServletRequest request) {
 		System.out.println("att_manage");
@@ -112,14 +145,14 @@ public class AdminController {
 	
 	
 	
-	/*占쏙옙占쏙옙 占쏙옙占쏙옙*/
+	/*������������ ������������*/
 	@RequestMapping(value = "stu_manage/grade_manage", method = RequestMethod.GET)
 	public String grade_manage(HttpServletRequest request) {
 		System.out.println("grade_manage");
 		
 		return request.getRequestURI();
 	}
-	/*占싻삼옙 占쏙옙占쏙옙*/
+	/*���살�쇱�� ������������*/
 	@RequestMapping(value = "stu_manage/stu_info", method = RequestMethod.GET)
 	public String stu_info(HttpServletRequest request) {
 		System.out.println("stu_info");
@@ -134,7 +167,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쌉쏙옙占쏙옙 占쏙옙占쏙옙*/
+	/*�������������� ������������*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "board/data_board", method = RequestMethod.GET)
 	public String data_board(HttpServletRequest request) {
@@ -164,7 +197,7 @@ public class AdminController {
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쏙옙占쏙옙 占쏙옙占쏙옙*/
+	/*������������ ������������*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "text_manage/text_manage", method = RequestMethod.GET)
 	public String text_manage(HttpServletRequest request) {
@@ -175,7 +208,7 @@ public class AdminController {
 	
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쏙옙占쏙옙 占쏙옙占쏙옙*/
+	/*������������ ������������*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "ad_manage/ad_manage", method = RequestMethod.GET)
 	public String ad_manage(HttpServletRequest request) {
@@ -185,7 +218,7 @@ public class AdminController {
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쏙옙占쏙옙 占쏙옙占쏙옙*/ /*coupon_manage*/
+	/*������������ ������������*/ /*coupon_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "coupon_manage/coupon_manage", method = RequestMethod.GET)
 	public String coupon_manage(HttpServletRequest request) {
@@ -194,7 +227,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쏙옙占쏙옙占쏙옙*/ /*stats_manage*/
+	/*������������������*/ /*stats_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "stats_manage/stats_manage", method = RequestMethod.GET)
 	public String stats_manage(HttpServletRequest request) {
@@ -203,6 +236,6 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*占쏙옙占쏙옙占� 占쏙옙占쏙옙*/ /*coupon_manage*/
+	/*��������������占� ������������*/ /*coupon_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 }
