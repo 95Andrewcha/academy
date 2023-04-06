@@ -6,11 +6,25 @@
 
 <tiles-definitions>
 	<definition name="adminLayout" template="/WEB-INF/tiles/Admin/layout/adminLayout.jsp">
+		<put-attribute name="AdminLink" value="/WEB-INF/tiles/Admin/tiles/tile/AdminLink.jsp" />
+		<put-attribute name="scriptLink" value="/WEB-INF/tiles/Admin/tiles/tile/scriptLink.jsp" />
 		<put-attribute name="Adminheader" value ="/WEB-INF/tiles/Admin/tiles/tile/Adminheader.jsp"/>
 		<put-attribute name="Adminbody" value =""/>
 		<put-attribute name="Adminfooter" value="/WEB-INF/tiles/Admin/tiles/tile/Adminfooter.jsp"/>
 		<put-attribute name="AdminSideBar" value ="/WEB-INF/tiles/Admin/tiles/tile/AdminSideBar.jsp"/>
+	</definition>
 	
+	<definition name="adminPopupLayout" template="/WEB-INF/tiles/Admin/layout/adminPopupLayout.jsp">
+		<put-attribute name="AdminLink" value="/WEB-INF/tiles/Admin/tiles/tile/AdminLink.jsp" />
+		<put-attribute name="scriptLink" value="/WEB-INF/tiles/Admin/tiles/tile/scriptLink.jsp" />
+		<put-attribute name="popupheader" value ="/WEB-INF/tiles/Admin/tiles/tile/adminpopup/popupheader.jsp"/>
+		<put-attribute name="popupbody" value =""/>	
+	</definition>
+	
+	
+	<!-- adminpopup -->
+	<definition name="/admin/stu_manage/open_detail" extends="adminPopupLayout">
+		<put-attribute name="popupbody" value="/WEB-INF/views/admin/stu_manage/open_detail.jsp"/>
 	</definition>
 	
 	<definition name="/admin/*" extends="adminLayout">
@@ -24,6 +38,7 @@
 	<definition name="/admin/ac_info/*" extends="adminLayout">
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/ac_info/{1}.jsp"/>
 	</definition>
+	
 	<!--  학생관리 -->
 	<definition name="/admin/stu_manage/*" extends="adminLayout">
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/stu_manage/{1}.jsp"/>
@@ -54,6 +69,8 @@
 	<definition name="/admin/pay_manage/*" extends="adminLayout">
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/pay_manage/{1}.jsp"/>
 	</definition>
+	
+	
 	
 	
 </tiles-definitions>

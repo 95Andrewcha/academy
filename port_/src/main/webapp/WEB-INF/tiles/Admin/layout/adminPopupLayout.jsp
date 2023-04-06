@@ -6,32 +6,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AdminLayout</title>
+<title>AdminPopupLayout</title>
 <tiles:insertAttribute name="AdminLink"/>
 
 
 </head>
 <body>
-
-	<div id="AdminSideBar">
-		<tiles:insertAttribute name="AdminSideBar"/>
+<div class="content">
+<header id="popupheader">
+		<tiles:insertAttribute name="popupheader"/>
+</header>
+<div id="popupbody">
+		<tiles:insertAttribute name="popupbody"/>
 	</div>
-	<div class="content">
-	<header id="Adminheader">
-		<tiles:insertAttribute name="Adminheader"/>
-	</header>
-	 
-	<div id="Adminbody">
-		<tiles:insertAttribute name="Adminbody"/>
 	</div>
- 	</div> 
-	<footer id="Adminfooter">
-		<tiles:insertAttribute name="Adminfooter"/>
-	</footer>
 	
 	
 	<tiles:insertAttribute name="scriptLink"/>
-     
-    
 </body>
 </html>

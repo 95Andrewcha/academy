@@ -30,7 +30,7 @@ public class AdminController {
 	@GetMapping(value = "admin_admin")
 	public String doAdmin(HttpServletRequest request) {
 		log.info("admin only");
-		System.out.println("admin_admin pageÀÔ´Ï´Ù.");
+		System.out.println("admin_admin pageå ìŒ‰ë‹ˆëŒì˜™.");
 		System.out.println(request.getRequestURI());
 		return request.getRequestURI();
 	}
@@ -53,10 +53,10 @@ public class AdminController {
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*°ü¸®ÀÚ ÆäÀÌÁö ÇĞ¿ø Á¤º¸*/
+	/*å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹»ìš¸ì˜™ å ì™ì˜™å ì™ì˜™*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	
-	/*ÇĞ¿ø Á¤º¸*/
+	/*å ì‹»ìš¸ì˜™ å ì™ì˜™å ì™ì˜™*/
 	@RequestMapping(value = "ac_info/ac_info", method = RequestMethod.GET)
 	public String ac_info(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
@@ -64,7 +64,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	/*¼ö°­°ú¸ñÁ¤º¸*/
+	/*å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™*/
 	@RequestMapping(value = "ac_info/subject_info", method = RequestMethod.GET)
 	public String subject_info(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
@@ -72,15 +72,15 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	/*½Ã°£Ç¥*/
-	@RequestMapping(value = "ac_info/schedule", method = RequestMethod.GET)
+	/*å ì‹œê³¤ì˜™í‘œ*/
+	@RequestMapping(value = "ac_info/ac_schedule", method = RequestMethod.GET)
 	public String schedule(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
 		
 		return request.getRequestURI();
 	}
 	
-	/*½ÃÇè°ü¸®*/
+	/*å ì™ì˜™å ì™ì˜™å ì™ì˜™å ï¿½*/
 	@RequestMapping(value = "ac_info/ac_test_manage", method = RequestMethod.GET)
 	public String ac_test_manage(HttpServletRequest request) {
 		System.out.println("ac_test_manage");
@@ -88,11 +88,20 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
+	@RequestMapping(value = "ac_info/insert", method = RequestMethod.GET)
+	public String insert(HttpServletRequest request) {
+		System.out.println("insert");
+		String reuqest = request.getRequestURI();
+		System.out.println(reuqest);
+		
+		return request.getRequestURI();
+	}
+	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*ÇĞ»ı °ü¸®*/
+	/*å ì‹»ì‚¼ì˜™ å ì™ì˜™å ì™ì˜™*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	
-	/*Ãâ°á°ü¸®*/
+	/*å ì™ì˜™å ì™ì˜™å ì™ì˜™*/
 	@RequestMapping(value = "stu_manage/att_manage", method = RequestMethod.GET)
 	public String att_manage(HttpServletRequest request) {
 		System.out.println("att_manage");
@@ -100,26 +109,42 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	/*¼ºÀû °ü¸®*/
+	
+	
+	
+	/*å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™*/
 	@RequestMapping(value = "stu_manage/grade_manage", method = RequestMethod.GET)
 	public String grade_manage(HttpServletRequest request) {
 		System.out.println("grade_manage");
 		
 		return request.getRequestURI();
 	}
-	/*ÇĞ»ı Á¤º¸*/
+	/*å ì‹»ì‚¼ì˜™ å ì™ì˜™å ì™ì˜™*/
 	@RequestMapping(value = "stu_manage/stu_info", method = RequestMethod.GET)
 	public String stu_info(HttpServletRequest request) {
 		System.out.println("stu_info");
 		
 		return request.getRequestURI();
 	}
+	
+	@RequestMapping(value = "stu_manage/open_detail", method = RequestMethod.GET)
+	public String open_datail(HttpServletRequest request) {
+		System.out.println("open_datail");
+		System.out.println(request.getRequestURI());
+		return request.getRequestURI();
+	}
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*°Ô½ÃÆÇ °ü¸®*/
+	/*å ìŒ‰ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "board/data_board", method = RequestMethod.GET)
 	public String data_board(HttpServletRequest request) {
 		System.out.println("data_board");
+		
+		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "board/enroll", method = RequestMethod.GET)
+	public String enroll(HttpServletRequest request) {
 		
 		return request.getRequestURI();
 	}
@@ -139,7 +164,7 @@ public class AdminController {
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*¹®ÀÚ °ü¸®*/
+	/*å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "text_manage/text_manage", method = RequestMethod.GET)
 	public String text_manage(HttpServletRequest request) {
@@ -150,7 +175,7 @@ public class AdminController {
 	
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*±¤°í °ü¸®*/
+	/*å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "ad_manage/ad_manage", method = RequestMethod.GET)
 	public String ad_manage(HttpServletRequest request) {
@@ -160,7 +185,7 @@ public class AdminController {
 	}
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*ÄíÆù °ü¸®*/ /*coupon_manage*/
+	/*å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™*/ /*coupon_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "coupon_manage/coupon_manage", method = RequestMethod.GET)
 	public String coupon_manage(HttpServletRequest request) {
@@ -169,7 +194,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*Åë°è°ü¸®*/ /*stats_manage*/
+	/*å ì™ì˜™å ì™ì˜™å ì™ì˜™*/ /*stats_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "stats_manage/stats_manage", method = RequestMethod.GET)
 	public String stats_manage(HttpServletRequest request) {
@@ -178,6 +203,6 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	/*--------------------------------------------------------------------------------------------------------------*/
-	/*»ç¿ëÀÚ °ü¸®*/ /*coupon_manage*/
+	/*å ì™ì˜™å ì™ì˜™å ï¿½ å ì™ì˜™å ì™ì˜™*/ /*coupon_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
 }

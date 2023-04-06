@@ -1,20 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>AdminSiderBar</title>
-</head>
-<body>
+
   <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a href="/admin/admin" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>123</h3>
-                </a>
+            <nav class="navbar bg-light navbar-light justify-content-center">
+             <a href="/admin/admin" class="navbar-brand ms-4 ms-lg-0">
+            <h3 class="fw-bold text-primary m-0">학원<span class="text-secondary">플러스</span></h1>
+        </a>
+              
                 <div class="d-flex align-items-center ms-4 mb-4">
                     
                     <div class="ms-3">
@@ -28,7 +21,7 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/admin/ac_info/ac_info" class="dropdown-item">학원정보</a>
                             <a href="/admin/ac_info/subject_info" class="dropdown-item">수강과목</a>
-                            <a href="/admin/ac_info/schedule" class="dropdown-item">시간표</a>
+                            <a href="/admin/ac_info/ac_schedule" class="dropdown-item">시간표</a>
                              <a href="/admin/ac_info/ac_test_manage" class="dropdown-item">시험관리</a>
                         </div>
                     </div>
@@ -82,5 +75,3 @@
             </nav>
         </div>
         <!-- Sidebar End -->
-</body>
-</html>
