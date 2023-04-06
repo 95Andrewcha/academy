@@ -17,8 +17,8 @@
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/{1}.jsp"/>
 	</definition>
 	
-	<definition name="/admin/login" extends="adminLayout">
-		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/login/admin_login.jsp"/>
+	<definition name="/admin/login/*" extends="adminLayout">
+		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/login/{1}.jsp"/>
 	</definition>
 	<!-- 학원 정보 -->
 	<definition name="/admin/ac_info/*" extends="adminLayout">
