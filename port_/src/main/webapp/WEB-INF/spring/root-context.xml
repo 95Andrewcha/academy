@@ -10,7 +10,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<!-- HikariCP configuration -->
-	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>
 		<property name="username" value="academy"/>
@@ -25,7 +25,7 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>	
 	
-	<mybatis-spring:scan base-package="com.academy.mapper"/> -->
+	<mybatis-spring:scan base-package="com.academy.mapper"/>
 	
 	<context:component-scan base-package="com.academy.*"/>
 
