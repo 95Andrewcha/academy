@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<div class="cb-board">
+<div class="border-radius-white p-4 mb-4">
 	<div class="row">
-		<div class="d-flex justify-content-between align-items-center mb-2">
-			<div class="board-title">
-				<span>수다게시판</span>
-				<span>5건</span>
+		<div class="board-title">
+			<div>
+				<span class="fs-5 fw-bold">수다게시판</span>
+				<span class="fs-7 ps-1">5건</span>
 			</div>
-			<div class="board-write-btn">
+			<div class="custom-btn fs-7 px-3 fw-bold">
 				<i class="fa-solid fa-pencil"></i> 글쓰기
 			</div>
 		</div>
 	</div>
-	<table class="w-100">
+	<table class="board-table">
 		<colgroup>
 			<col width="7%">
 			<col width="60%">

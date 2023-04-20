@@ -12,10 +12,10 @@
 	<tiles:insertAttribute name="link"/>
 </head>
 <body>
-	<div class="community-board-container min-h-100 position-relative">
+	<div class="footer-bottom min-h-100 position-relative bg-color">
 		<tiles:insertAttribute name="header"/>
 		<form action="#">
-			<div class="community-board">
+			<div>
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12">

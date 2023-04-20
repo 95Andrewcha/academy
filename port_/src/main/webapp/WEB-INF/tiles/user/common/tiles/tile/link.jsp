@@ -36,5 +36,13 @@ https://templatemo.com/tm-579-cyborg-gaming
 <script src="/resources/common/assets/js/popup.js"></script>
 <script src="/resources/common/assets/js/custom.js"></script>
 
+
 <!-- 새로 추가한 css, js들 -->
+<!-- css -->
 <link rel="stylesheet" href="/resources/common/assets/css/custom.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- script -->
+<script src="/resources/admin/lib/tempusdominus/js/moment.min.js"></script>
+<script src="/resources/admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

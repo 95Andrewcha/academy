@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-12">
 				<nav class="main-nav">
-					<h1>
+					<h1 class="fw-bold">
 						<a href="${contextPath }/user/main" class="main-color">ACADEMY</a>
 					</h1>
 					<ul class="nav main-menu">
@@ -30,7 +30,7 @@
 							<li><a href="#">회원가입</a></li>
 						</sec:authorize>
 						<sec:authorize access="!isAnonymous() && isAuthenticated()">
-							<li><a href="${contextPath }/user/my_page/my_main">마이페이지</a></li>
+							<li><a href="${contextPath }/user/my_page/my_payment">마이페이지</a></li>
 							<li><a href="${contextPath }/user/logout">로그아웃</a></li>
 						</sec:authorize>
 					</ul>

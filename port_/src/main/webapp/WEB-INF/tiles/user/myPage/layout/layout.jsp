@@ -12,12 +12,20 @@
 	<tiles:insertAttribute name="link"/>
 </head>
 <body>
-	<div class="myPage-container min-h-100 position-relative">
+	<div class="footer-bottom min-h-100 position-relative bg-color">
 		<tiles:insertAttribute name="header"/>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="page-content">
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-10">
+								<div class="font-color fs-4 fw-bold pb-3">
+									마이페이지 > <span class="fs-5 fw-normal"><tiles:insertAttribute name="subMenuTitle"/></span>
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-2">
 								<tiles:insertAttribute name="aside"/>
