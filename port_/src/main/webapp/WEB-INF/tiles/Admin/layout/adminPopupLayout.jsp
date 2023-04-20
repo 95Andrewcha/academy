@@ -12,13 +12,11 @@
 
 </head>
 <body>
-<div class="content">
 <header id="popupheader">
-		<tiles:insertAttribute name="popupheader"/>
-</header>
-<div id="popupbody">
+			<tiles:insertAttribute name="popupheader"/>
+	</header>
+	<div id="popupbody" style="background-color:white;">
 		<tiles:insertAttribute name="popupbody"/>
-	</div>
 	</div>
 	
 	

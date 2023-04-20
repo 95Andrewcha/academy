@@ -174,11 +174,12 @@
              
              function Popupopen(){
             	 
-            	 var url = "open_detail"
+            	 var url = "open_detail";
             	 
-            	 var name="detail_name"
+            	 var name="detail_name";
+            	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
            
-            	 window.open(url, name,"width=1000,heightght=1000,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50");
+            	 window.open(url, name, status);
             	 
              }
             	 

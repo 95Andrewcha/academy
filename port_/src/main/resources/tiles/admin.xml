@@ -12,6 +12,7 @@
 		<put-attribute name="Adminbody" value =""/>
 		<put-attribute name="Adminfooter" value="/WEB-INF/tiles/Admin/tiles/tile/Adminfooter.jsp"/>
 		<put-attribute name="AdminSideBar" value ="/WEB-INF/tiles/Admin/tiles/tile/AdminSideBar.jsp"/>
+		
 	</definition>
 	
 	<definition name="adminPopupLayout" template="/WEB-INF/tiles/Admin/layout/adminPopupLayout.jsp">
@@ -27,12 +28,25 @@
 		<put-attribute name="popupbody" value="/WEB-INF/views/admin/stu_manage/open_detail.jsp"/>
 	</definition>
 	
+	<definition name="/admin/ad_manage/reasonpopup" extends="adminPopupLayout">
+		<put-attribute name="popupbody" value="/WEB-INF/views/admin/ad_manage/reasonpopup.jsp"/>
+	</definition>
+	
+	<definition name="/admin/board/enroll" extends="adminPopupLayout">
+		<put-attribute name="popupbody" value="/WEB-INF/views/admin/board/enroll.jsp"/>
+	</definition>
+	
+	<!-- adminpopup end -->
+	
 	<definition name="/admin/*" extends="adminLayout">
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/{1}.jsp"/>
 	</definition>
 	
 	<definition name="/admin/login" extends="adminLayout">
 		<put-attribute name="Adminbody" value="/WEB-INF/views/admin/login/admin_login.jsp"/>
+		<put-attribute name="AdminSideBar" value =""/>
+		<put-attribute name="Adminheader" value =""/>
+		<put-attribute name="Adminfooter" value=""/>
 	</definition>
 	<!-- 학원 정보 -->
 	<definition name="/admin/ac_info/*" extends="adminLayout">

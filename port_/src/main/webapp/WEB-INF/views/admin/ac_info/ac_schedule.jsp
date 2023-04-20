@@ -7,6 +7,11 @@
 <title>학원 시간표</title>
 </head>
 <body>
-
+<h1>시간표</h1>
+<table>
+	<tr>
+		<td></td>
+	</tr>
+</table>
 </body>
 </html>

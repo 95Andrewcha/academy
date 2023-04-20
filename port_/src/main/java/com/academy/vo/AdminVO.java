@@ -1,5 +1,9 @@
 package com.academy.vo;
 
-public class AdminVO {
+import lombok.Data;
 
+@Data
+public class AdminVO {
+	private String subject;
+	private String time;
 }

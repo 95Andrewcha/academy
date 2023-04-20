@@ -24,10 +24,11 @@
 	<div id="Adminbody">
 		<tiles:insertAttribute name="Adminbody"/>
 	</div>
- 	</div> 
 	<footer id="Adminfooter">
 		<tiles:insertAttribute name="Adminfooter"/>
 	</footer>
+ 	</div> 
+	
 	
 	
 	<tiles:insertAttribute name="scriptLink"/>

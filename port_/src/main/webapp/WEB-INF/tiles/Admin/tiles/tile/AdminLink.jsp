@@ -10,6 +10,7 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="${contextPath}/resources/admin/lib/chart/chart.min.js"></script>
+
   <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 

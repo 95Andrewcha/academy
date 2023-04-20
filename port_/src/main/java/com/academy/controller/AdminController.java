@@ -1,6 +1,8 @@
 package com.academy.controller;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,8 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.academy.mapper.TimeMapper;
+import com.academy.vo.AdminVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -110,6 +117,8 @@ public class AdminController {
 	public String schedule(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
 		
+		
+		
 		return request.getRequestURI();
 	}
 	
@@ -176,11 +185,6 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
-	@RequestMapping(value = "board/enroll", method = RequestMethod.GET)
-	public String enroll(HttpServletRequest request) {
-		
-		return request.getRequestURI();
-	}
 	
 	@RequestMapping(value = "board/qna_board", method = RequestMethod.GET)
 	public String qna_board(HttpServletRequest request) {
@@ -195,6 +199,24 @@ public class AdminController {
 		
 		return request.getRequestURI();
 	}
+	
+	/*board_popup*/
+	@RequestMapping(value = "board/enroll", method = RequestMethod.GET)
+	public String enroll(HttpServletRequest request) {
+		
+		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "board/showPopUp", method = RequestMethod.GET)
+	public String showPopUp(HttpServletRequest request) {
+		
+		return request.getRequestURI();
+	}
+	
+	
+	
+	
+	
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
 	/*������������ ������������*/
@@ -217,6 +239,17 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
+	
+	@RequestMapping(value = "ad_manage/reasonpopup", method = RequestMethod.GET)
+	public String reasonpopup(HttpServletRequest request) {
+		System.out.println("reasonpopup");
+		
+	
+		return request.getRequestURI();
+	}
+	
+	
+	
 	/*--------------------------------------------------------------------------------------------------------------*/
 	/*������������ ������������*/ /*coupon_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
@@ -235,7 +268,12 @@ public class AdminController {
 		
 		return request.getRequestURI();
 	}
-	/*--------------------------------------------------------------------------------------------------------------*/
-	/*��������������占� ������������*/ /*coupon_manage*/
-	/*--------------------------------------------------------------------------------------------------------------*/
+	
+	@RequestMapping(value = "stats_manage/select", method = RequestMethod.GET)
+	public String select(HttpServletRequest request) {
+		System.out.println("select");
+		
+	
+		return request.getRequestURI();
+	}
 }
