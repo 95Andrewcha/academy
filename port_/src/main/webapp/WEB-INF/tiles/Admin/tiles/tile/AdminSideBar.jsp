@@ -52,6 +52,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>광고관리</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/admin/ad_manage/ad_manage" class="dropdown-item">광고관리</a>
+                            <a href="/admin/ad_manage/popup" class="dropdown-item">팝업관리</a>
+                            <a href="/admin/ad_manage/ac_accept" class="dropdown-item">입점허가관리</a>
                         </div>
                     </div>
                     

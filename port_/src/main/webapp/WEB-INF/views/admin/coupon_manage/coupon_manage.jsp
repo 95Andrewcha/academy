@@ -83,9 +83,28 @@
                     </div>
                     
                      <div class="my-2 text-end">
-                    	<button class="btn btn-primary" onclick="enroll()">등록하기</button>
+                    	<button class="btn btn-primary" onclick="Popupopen()">등록하기</button>
                     	<!-- <button class="btn btn-primary" >삭제</button> --><!-- 실수로 잘못 클릭해서 삭제하지말라고 버튼삭제 -->
                     </div>
                 </div>
             </div>
             <!-- Select table End -->
+            
+<script>
+$(function(){
+      $('#start_date').datepicker();
+      $('#end_date').datepicker();
+   });
+   
+   
+function Popupopen(){
+	 
+	 var url = "coupoon_enroll";
+	 
+	 var name="coupoon_enroll";
+	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
+
+	 window.open(url, name, status);
+	 
+}
+</script>

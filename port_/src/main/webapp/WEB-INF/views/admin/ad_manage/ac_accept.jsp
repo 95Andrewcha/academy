@@ -10,15 +10,9 @@
                             <h6 class="mb-4">Horizontal Form</h6>
                             <form action="select" method="get">
                                 <div class="row mb-3">
-                                    <label for="name" class="col-sm-2 col-form-label">이름</label>
+                                    <label for="name" class="col-sm-2 col-form-label">학원명</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="name" name="name">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="year" class="col-sm-2 col-form-label">생년</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="year" name="year">
                                     </div>
                                 </div>
 								<fieldset class="row mb-3">
@@ -26,23 +20,30 @@
                                     <div class="col-sm-10">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="gridRadios"
-                                                id="gridRadios1" value="남자" checked>
+                                                id="gridRadios1" value="승인" checked>
                                             <label class="form-check-label" for="gridRadios1">
-                                                남자
+                                                승인
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="gridRadios"
-                                                id="gridRadios2" value="여자">
+                                                id="gridRadios2" value="보류">
                                             <label class="form-check-label" for="gridRadios2">
-                                                여자
+                                                보류
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="gridRadios2" value="거절">
+                                            <label class="form-check-label" for="gridRadios2">
+                                                거절
                                             </label>
                                         </div>
                                     </div>
                                 </fieldset>
                                
-								<button type="submit" class="btn btn-primary">Sign in</button>
-                                <button type="reset" class="btn btn-primary">reset</button>
+								<button type="submit" class="btn btn-primary">조회하기</button>
+                                <button type="reset" class="btn btn-primary">초기화</button>
                                    
                             
                                 
@@ -58,7 +59,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">학생정보</h6>
+                        <h6 class="mb-0">학원 입점 허가 관리</h6>
                        
                     </div>
                     <div class="table-responsive">
@@ -67,35 +68,43 @@
                             <tbody>
                             <tr class="text-dark">
                                     <th scope="col"><input class="form-check-input" id="chkboxAll" type="checkbox" name="chkboxAll" onclick=checkAll();></th>
-                                    <th scope="col">이름</th>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">학원명</th>
                                     <th scope="col">주소</th>
-                                    <th scope="col">성별</th>
-                                    <th scope="col">출석률</th>
-                                    <th scope="col">학원등록일</th>
-                                    <th scope="col">등록비 납부여부</th>
-                                    <th scope="col">상세정보</th>
+                                    <th scope="col">대표자</th>
+                                    <th scope="col">대표자 전화번호</th>
+                                    <th scope="col">사업자등록 번호</th>
+                                    <th scope="col">입점여부</th>
+                                    <th scope="col">결제여부</th>
+                                    <th scope="col">자세히보기</th>
                                 </tr>
                                 <tr>
                                     <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
-                                    <td>{이름}</td>
-                                    <td>{주소]</td>
-                                    <td>{성별</td>
-                                    <td>{출석률}</td>
-                                    <td>{학원등록일}</td>
-                                    <td>{등록비 납부여부}</td>
-                                    <td>{상세정보}</td>
+                                    <td>{번호}</td>
+                                    <td>{학원명]</td>
+                                    <td>{주소</td>
+                                    <td>{대표자}</td>
+                                    <td>{대표자 전화번호}</td>
+                                    <td>{사업자등록 번호}</td>
+                                    <td>{입점여부}</td>
+                                    <td>{결제여부}</td>
+                                    <td>{자세히보기}</td>
+                                    
                                     <td><button id="detail" class="btn btn-sm btn-primary" >자세히보기</button></td>
                                 </tr>
-                                <tr>
-                                     <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
-                                    <td>{이름}</td>
-                                    <td>{주소]</td>
-                                    <td>{성별</td>
-                                    <td>{출석률}</td>
-                                    <td>{학원등록일}</td>
-                                    <td>{등록비 납부여부}</td>
-                                    <td>{상세정보}</td>
-                                    <td><button id="detail" class="btn btn-sm btn-primary" onclick="Popupopen()">자세히보기</button></td>
+                                 <tr>
+                                    <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
+                                    <td>{번호}</td>
+                                    <td>{학원명]</td>
+                                    <td>{주소</td>
+                                    <td>{대표자}</td>
+                                    <td>{대표자 전화번호}</td>
+                                    <td>{사업자등록 번호}</td>
+                                    <td>{입점여부}</td>
+                                    <td>{결제여부}</td>
+                                    <td>{자세히보기}</td>
+                                    
+                                    <td><button id="detail" class="btn btn-sm btn-primary" onclick="acceptPopup()" >자세히보기</button></td>
                                 </tr>
                                
                                 
@@ -105,9 +114,8 @@
                        
                     </div>
                     <div class="my-2 text-end">
-                    	<button class="btn btn-primary">등록하기</button>
-                    	<button class="btn btn-primary" id="t_update">수정하기</button>
-                    	<button class="btn btn-primary" >삭제</button>
+                    	<button class="btn btn-primary">승인</button>
+                    	<button class="btn btn-primary" onclick="rejectpopup()">거절</button>
                     </div>
                      
                 </div>
@@ -173,15 +181,25 @@
              
              });
              
-             function Popupopen(){
+             function rejectpopup(){
             	 
-            	 var url = "open_detail";
+            	 var url = "rejectPopup";
             	 
-            	 var name="detail_name";
-            	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
+            	 var name="rejectpopup";
+            	 var status ="width=500, height=300,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
            
             	 window.open(url, name, status);
             	 
+             }
+             
+             function acceptPopup(){
+				var url = "acceptPopup";
+            	 
+            	 var name="acceptPopup";
+            	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
+           
+            	 window.open(url, name, status);
+           
              }
             	 
          

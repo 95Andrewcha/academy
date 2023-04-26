@@ -248,6 +248,46 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 	
+	@RequestMapping(value = "ad_manage/popup", method = RequestMethod.GET)
+	public String popup(HttpServletRequest request) {
+		System.out.println("popup");
+		
+	
+		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "ad_manage/popupenroll", method = RequestMethod.GET)
+	public String popupenroll(HttpServletRequest request) {
+		System.out.println("popupenroll");
+		
+	
+		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "ad_manage/ac_accept", method = RequestMethod.GET)
+	public String ac_accept(HttpServletRequest request) {
+		System.out.println("ac_accept");
+		
+	
+		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "ad_manage/acceptPopup", method = RequestMethod.GET)
+	public String acceptPopup(HttpServletRequest request) {
+		System.out.println("ac_accept");
+		
+	
+		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "ad_manage/rejectPopup", method = RequestMethod.GET)
+	public String rejectPopup(HttpServletRequest request) {
+		System.out.println("ac_accept");
+		
+	
+		return request.getRequestURI();
+	}
+	
 	
 	
 	/*--------------------------------------------------------------------------------------------------------------*/
@@ -259,6 +299,15 @@ public class AdminController {
 		
 		return request.getRequestURI();
 	}
+	
+	@RequestMapping(value = "coupon_manage/coupoon_enroll", method = RequestMethod.GET)
+	public String coupoon_enroll(HttpServletRequest request) {
+		System.out.println(request.getRequestURI());
+		
+		return request.getRequestURI();
+	}
+	
+	
 	/*--------------------------------------------------------------------------------------------------------------*/
 	/*������������������*/ /*stats_manage*/
 	/*--------------------------------------------------------------------------------------------------------------*/
