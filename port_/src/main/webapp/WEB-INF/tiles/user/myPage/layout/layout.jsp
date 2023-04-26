@@ -19,19 +19,16 @@
 				<div class="col-lg-12">
 					<div class="page-content">
 						<div class="row">
-							<div class="col-2"></div>
-							<div class="col-10">
-								<div class="font-color fs-4 fw-bold pb-3">
-									마이페이지 > <span class="fs-5 fw-normal"><tiles:insertAttribute name="subMenuTitle"/></span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
 							<div class="col-2">
 								<tiles:insertAttribute name="aside"/>
 							</div>
 							<div class="col-10">
-								<tiles:insertAttribute name="body"/>
+								<div class="font-color fs-5 fw-bold pb-3">
+									<tiles:insertAttribute name="subMenuTitle"/>
+								</div>
+								<div>
+									<tiles:insertAttribute name="body"/>
+								</div>
 							</div>
 						</div>
 					</div>

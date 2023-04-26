@@ -6,8 +6,9 @@
 		<div>
 			<div class="select-box">
 				<select>
-					<option value="01">제목</option>
-					<option value="02">제목+내용</option>
+					<option value="01">전체</option>
+					<option value="01">제목+내용</option>
+					<option value="02">제목</option>
 					<option value="03">작성자</option>
 				</select>
 				<span class="select-arrow">

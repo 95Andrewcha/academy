@@ -101,12 +101,12 @@ a {
 	color: #F99;
 } */
 
-/* h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	color: #fff;
 	font-weight: 700;
-} */
+}
 
 /* ul {
 	margin-bottom: 0px;
@@ -783,18 +783,19 @@ Banner Style
 --------------------------------------------- 
 */
 .main-banner {
-	background-image: url(../images/banner-bg.jpg);
-	background-position: center center;
-	background-size: cover;
-	min-height: 380px;
+	/* background-image: url(../images/banner-bg.jpg); */
+	/* background-position: center center; */
+	/* background-size: cover; */
+	/* min-height: 380px; */
 	/* border-radius: 23px; */
 	border-radius: 10px;
-	padding: 80px 60px;
+	/* padding: 80px 60px; */
+	padding: 60px;
 }
 
 .main-banner h6 {
 	font-size: 20px;
-	color: #fff;
+	/* color: #fff; */
 	font-weight: 400;
 	margin-bottom: 25px;
 }
@@ -802,12 +803,17 @@ Banner Style
 .main-banner h4 {
 	font-size: 45px;
 	text-transform: uppercase;
-	margin-bottom: 25px;
+	/* margin-bottom: 25px; */
 }
 
 .main-banner h4 em {
 	font-style: normal;
-	color: #ec6090;
+	/* color: #ec6090; */
+}
+
+.main-banner i {
+	font-size: 220px;
+	color: var(--custom-main-color);
 }
 
 /* 
@@ -825,7 +831,7 @@ Most Popular Style
 .most-popular .item {
 	/* background-color: #27292a; */
 	/* padding: 30px 15px; */
-	padding: 30px;
+	padding: 20px;
 	border: 1px solid #d7d5d5;
 	border-radius: 10px;
 	margin-bottom: 30px;

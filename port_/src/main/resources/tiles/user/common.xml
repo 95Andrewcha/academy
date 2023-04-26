@@ -16,7 +16,13 @@
 
 	<!-- 메인 -->
 	<definition name="/user/main" extends="commonLayout">
-	<put-attribute name="title" value="메인" />
+	<put-attribute name="title" value="No1 학원 정보 사이트 - ACADEMY" />
 		<put-attribute name="body" value="/WEB-INF/views/user/main.jsp" />
+	</definition>
+	
+	<!-- 메인 > 학원 -->
+	<definition name="/user/academy" extends="commonLayout">
+	<put-attribute name="title" value="학원 - ACADEMY" />
+		<put-attribute name="body" value="/WEB-INF/views/user/academy/academy.jsp" />
 	</definition>
 </tiles-definitions>

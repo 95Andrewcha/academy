@@ -16,9 +16,9 @@
 
 
 	<!-- 메인 > 마이페이지 -->
-	<definition name="/user/my_page/*" extends="myPageLayout">
+	<definition name="/user/my_page/*/*" extends="myPageLayout">
 		<put-attribute name="title" expression="${title}" />
 		<put-attribute name="subMenuTitle" expression="${subMenuTitle}" />
-		<put-attribute name="body" value="/WEB-INF/views/user/my_page/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/user/my_page/{1}/{2}.jsp" />
 	</definition>
 </tiles-definitions>

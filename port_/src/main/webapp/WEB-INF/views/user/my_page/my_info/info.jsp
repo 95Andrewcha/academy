@@ -4,8 +4,10 @@
 <form action="#">
 	<div class="row">
 		<div class="col-12">
+			<div class="fs-6 py-3 fw-bolder font-color">
+				<i class="fa-solid fa-caret-right main-color me-2"></i>로그인 정보
+			</div>
 			<div class="border-radius-white font-color mb-3">
-				<div class="fs-6 p-3 fw-bolder border-bottom-line main-bg-color border-top-radius white-color">로그인 정보</div>
 				<div class="p-3">
 					<table class="board-table">
 						<colgroup>
@@ -33,8 +35,10 @@
 					</table>				
 				</div>
 			</div>
-			<div class="border-radius-white font-color">
-				<div class="fs-6 p-3 fw-bolder border-bottom-line main-bg-color border-top-radius white-color">상세 정보</div>
+			<div class="fs-6 py-3 fw-bolder font-color">
+				<i class="fa-solid fa-caret-right main-color me-2"></i>상세 정보
+			</div>
+			<div class="border-radius-white font-color mb-3">
 				<div class="p-3">
 					<table class="board-table">
 						<colgroup>
@@ -61,6 +65,40 @@
 							<tr class="border-0">
 								<td class="text-start fw-bold py-3">연락처</td>
 								<td class="text-start position-relative">000-0000-0000</td>
+							</tr>
+						</tbody>
+					</table>				
+				</div>
+			</div>
+			<div class="fs-6 py-3 fw-bolder font-color">
+				<i class="fa-solid fa-caret-right main-color me-2"></i>자녀 정보
+			</div>
+			<div class="border-radius-white font-color">
+				<div class="p-3">
+					<table class="board-table">
+						<colgroup>
+							<col width="10%">
+							<col width="15%">
+							<col width="10%">
+							<col width="10%">
+							<col width="15%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>이름</th>
+								<th>전화번호</th>
+								<th>나이</th>
+								<th>성별</th>
+								<th>학교</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="border-bottom-line">
+								<td>000</td>
+								<td>000-0000-0000</td>
+								<td>10</td>
+								<td>남</td>
+								<td>00초등학교</td>
 							</tr>
 						</tbody>
 					</table>				

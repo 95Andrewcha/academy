@@ -26,7 +26,15 @@
 	<!-- ***** Preloader End ***** -->
 <div class="min-h-100 position-relative main-container">
 	<tiles:insertAttribute name="header"/>
-	<tiles:insertAttribute name="body"/>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-content">
+					<tiles:insertAttribute name="body"/>
+				</div>
+			</div>
+		</div>
+	</div>
 	<tiles:insertAttribute name="footer"/>
 </div>
 </body>

@@ -12,16 +12,16 @@
 					</h1>
 					<ul class="nav main-menu">
 						<li><a href="#">정보</a></li>
-						<li><a href="#">학원</a></li>
+						<li><a href="/user/academy">학원</a></li>
 						<li class="position-relative">
 							<a href="#">커뮤니티</a>
 							<ul class="position-absolute w-100 text-center inner-menu">
-								<li><a href="${contextPath }/user/community/free_board">수다게시판</a></li>
-								<li><a href="${contextPath }/user/community/data_board">자료게시판</a></li>
-								<li><a href="#">QnA</a></li>
-								<li><a href="#">리뷰</a></li>
+								<li><a href="/user/community/free_board">수다게시판</a></li>
+								<li><a href="/user/community/data_board">자료게시판</a></li>
 							</ul>
 						</li>
+						<li><a href="#">QNA</a></li>
+						<li><a href="#">리뷰</a></li>
 						<li class="position-fixed main-menu-bg"></li>
 					</ul>
 					<ul class="nav login">
@@ -30,7 +30,7 @@
 							<li><a href="#">회원가입</a></li>
 						</sec:authorize>
 						<sec:authorize access="!isAnonymous() && isAuthenticated()">
-							<li><a href="${contextPath }/user/my_page/my_payment">마이페이지</a></li>
+							<li><a href="${contextPath }/user/my_page/my_payment/payment">마이페이지</a></li>
 							<li><a href="${contextPath }/user/logout">로그아웃</a></li>
 						</sec:authorize>
 					</ul>

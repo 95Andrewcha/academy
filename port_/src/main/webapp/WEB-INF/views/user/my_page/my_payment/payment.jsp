@@ -10,20 +10,22 @@
 <form action="#">
 	<div class="row">
 		<div class="col-12">
+			<div class="fs-6 py-3 fw-bolder font-color">
+				<i class="fa-solid fa-caret-right main-color me-2"></i>검색 옵션
+			</div>
 			<div class="border-radius-white font-color mb-3">
-				<div class="fs-6 p-3 fw-bolder border-bottom-line main-bg-color border-top-radius white-color">검색 옵션</div>
 				<div class="p-3 fw-bold">
 					<div class="row align-items-center mb-3">
 						<div class="col-1">기간</div>
 						<div class="col-11">
-							<input type="text" class="w-auto form-control datepicker d-inline-block" placeholder="시작 날짜" name="start_date">
+							<input type="text" class="w-auto form-control datepicker d-inline-block fs-7" placeholder="시작 날짜" name="start_date">
                             <span class="px-2">~</span>
-                            <input type="text" class="w-auto form-control datepicker d-inline-block" placeholder="종료 날짜" name="end_date">
+                            <input type="text" class="w-auto form-control datepicker d-inline-block fs-7" placeholder="종료 날짜" name="end_date">
 						</div>
 					</div>
 					<div class="row align-items-center">
 						<div class="col-1">검색어</div>
-						<div class="col-11"><input type="text" class="form-control" placeholder="검색어를 입력하세요." name="keyword"></div>
+						<div class="col-11"><input type="text" class="form-control fs-7" placeholder="검색어를 입력하세요." name="keyword"></div>
 					</div>
 					<div class="row">
 						<div class="d-flex justify-content-end">
@@ -34,8 +36,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="fs-6 py-3 fw-bolder font-color">
+				<i class="fa-solid fa-caret-right main-color me-2"></i>최근 결제내역
+			</div>
 			<div class="border-radius-white font-color">
-				<div class="fs-6 p-3 fw-bolder border-bottom-line main-bg-color border-top-radius white-color">최근 결제내역</div>
 				<div class="p-3">
 					<table class="board-table">
 						<colgroup>

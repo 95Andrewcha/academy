@@ -7,6 +7,7 @@
 	--custom-white-color: #fff;
 	--custom-border-color: #d7d5d5;
 	--custom-bg-color: #fbfbfb;
+	--custom-bg-secondary-color: #ededed;
 	
 	/* size */
 	--custom-border-radius: 10px;
@@ -55,6 +56,15 @@ Common Style
 	background-color: var(--custom-bg-color);
 }
 
+.bg-secondary-color {
+	background-color: var(--custom-bg-secondary-color);
+}
+
+.bg-secondary-color li a:hover {
+	color: var(--custom-font-color);
+	text-decoration: underline !important;
+}
+
 .font-color {
 	color: var(--custom-font-color);
 }
@@ -84,6 +94,10 @@ Common Style
 	padding: 1.25rem !important;
 }
 
+.mt-6 {
+	margin-top: 3.5rem;
+}
+
 .custom-btn {
 	background-color: var(--custom-main-color);
 	color: var(--custom-white-color);
@@ -92,7 +106,15 @@ Common Style
 	cursor: pointer;
 }
 
-.custom-btn:hover {
+.custom-btn-secondary {
+	background-color: var(--custom-bg-secondary-color);
+	color: var(--custom-font-color);
+	border-radius: calc(var(--custom-border-radius) / 2);
+	padding: 0.25rem 1rem;
+	cursor: pointer;
+}
+
+.custom-btn:hover, .custom-btn-secondary:hover {
 	background-color: var(--custom-font-color);
 	color: var(--custom-white-color);
 	text-decoration: none;
@@ -156,7 +178,7 @@ Common Style
 }
 
 .fs-7 {
-	font-size: 0.75rem;
+	font-size: 0.85rem;
 }
 
 .search-input {
@@ -327,10 +349,4 @@ Login Style
 MyPage Style
 --------------------------------------------- 
 */
-
-.my-aside-list ul li a:hover {
-	color: var(--custom-white-color);
-	background-color: var(--custom-main-color);
-	font-weight: bold;
-}
 
