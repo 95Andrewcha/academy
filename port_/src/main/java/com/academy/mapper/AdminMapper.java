@@ -1,10 +1,11 @@
-package com.academy.service;
+package com.academy.mapper;
 
 import java.util.List;
 
 import com.academy.vo.PopupVO;
 
-public interface AdminService {
+public interface AdminMapper {
 
+	/*팝업*/
 	public List<PopupVO> getPopup();
 }

@@ -70,8 +70,8 @@
                                         <td>user.birth</td>
                                         <td>att.출결여부</td>
                                         <td>att.이유</td>
+                                        <td><button class="btn"></button></td>
                                     </tr>
-                                    
                                 </tbody>
                             </table>
                             <button 
@@ -144,7 +144,7 @@
                          // ⑤dataset의 이름(String)
                          label: '# of Votes',
                          // ⑥dataset값(Array)
-                         data: [12, 19, 3, 5],
+                         data: [12, 19, 3, 5], //data 값 에서 db에서 select해서 나온값 넣기
                          // ⑦dataset의 배경색(rgba값을 String으로 표현)
                          backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.4)', 'rgba(255, 99, 132, 0.6)', 'rgba(255, 99, 132, 0.8)' ],
                          // ⑧dataset의 선 색(rgba값을 String으로 표현)

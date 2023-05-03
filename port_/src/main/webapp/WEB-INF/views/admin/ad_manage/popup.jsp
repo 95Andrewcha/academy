@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
 <!-- Form Start -->
@@ -55,14 +58,17 @@
                                     <th scope="col">등록자</th>
                                     <th scope="col">내용</th>
                                 </tr>
+                                <c:forEach items="${list}" var="Plist">
                                 <tr>
                                     <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
-                                    <td>{제목}</td>
-                                    <td>{기간]</td>
-                                    <td>{등록자}</td>
-                                    <td>{내용}</td>
+                                    <td><c:out value="${Plist.NAME }"/></td>
+                                   
+                                    <td><fmt:formatDate value="${Plist.START_DATE}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${Plist.END_DATE }" pattern="yyyy-MM-dd"/> </td>
+                                    <td><c:out value="${Plist.REG_ID}"/></td>
+                                    <td><c:out value="${Plist.CONTENT}"/></td>
                                     <td><button id="detail" class="btn btn-sm btn-primary" >자세히보기</button></td>
                                 </tr>
+                                </c:forEach>
                                 <tr>
                                     <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
                                     <td>{제목}</td>

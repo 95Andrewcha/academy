@@ -26,7 +26,7 @@ public class UserVO implements UserDetails {
 	private String year;
 	private String month;
 	private String day;
-	private boolean enabled;
+	private boolean enabled; 
 	private Date regDate;
 	List<GrantedAuthority> auth;
 	
