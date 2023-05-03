@@ -16,6 +16,10 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
+import jdk.internal.org.jline.utils.Log;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 	
 	private RequestCache requestCache = new HttpSessionRequestCache();
@@ -48,10 +52,12 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 		
 		if(savedRequest != null) {
 			uri = savedRequest.getRedirectUrl();
+			log.info("savedRequest uri: " + uri);
 		} else if(prevPage != null && !prevPage.equals("")) {
 			uri = prevPage;
+			log.info("prevPage uri: " + uri);
 		}
-		
+		log.info("최종 uri: " + uri);
 		redirectStrategy.sendRedirect(request, response, uri);
 	}
 

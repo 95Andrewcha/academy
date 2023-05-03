@@ -51,7 +51,7 @@ public class UserController {
 		
 		// 이전페이지 URI
 		String prevUri = request.getHeader("Referer");
-
+		log.info("prevUri: " + prevUri);
 		if(prevUri != null && !prevUri.contains("/login")) {
 			request.getSession().setAttribute("prevUri", prevUri);
 		}

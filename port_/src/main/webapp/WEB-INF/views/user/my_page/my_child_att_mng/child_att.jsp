@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<script type="text/javascript" src="/resources/common/js/Calendar.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var calendar = new Calendar();
+		calendar.init();
+		
+		$('.prev').on('click', function() {
+			calendar.click1();
+		})
+	})
+	
+</script>
 <form action="#">
 	<div class="row">
 		<div class="col-12">
@@ -41,6 +52,9 @@
 			</div>
 			<div class="border-radius-white font-color">
 				<div class="p-3">
+					<div class="prev">prev</div>
+					<div class="next">next</div>
+					<div class="calendar"></div>
 					캘린더 하나 만들어야 함
 				</div>
 			</div>
