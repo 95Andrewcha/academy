@@ -8,5 +8,6 @@
 		<typeAlias type="com.academy.vo.AuthVO" alias="AuthVO"/>
 		<typeAlias type="com.academy.vo.AdVO" alias="AdVO"/>
 		<typeAlias type="com.academy.vo.ReviewVO" alias="ReviewVO"/>
+		<typeAlias type="com.academy.vo.BoardVO" alias="BoardVO"/>
 	</typeAliases>
 </configuration>

@@ -3,6 +3,8 @@ package com.academy.service;
 import java.util.List;
 
 import com.academy.vo.AdVO;
+import com.academy.vo.BoardVO;
+import com.academy.vo.Criteria;
 import com.academy.vo.ReviewVO;
 
 public interface UserService {
@@ -36,4 +38,18 @@ public interface UserService {
 	 * @return List<ReviewVO>
 	 */
 	public List<ReviewVO> getReviewList();
+	
+	/**
+	 * 자료게시판 목록 조회
+	 * @param cri
+	 * @return List<BoardVO>
+	 */
+	public List<BoardVO> getBoardsList(Criteria cri);
+	
+	/**
+	 * 자료게시판 갯수 조회
+	 * @param cri
+	 * @return int
+	 */
+	public int getBoardsCount(Criteria cri);
 }

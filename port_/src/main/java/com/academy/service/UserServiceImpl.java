@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.academy.mapper.UserMapper;
 import com.academy.vo.AdVO;
+import com.academy.vo.BoardVO;
+import com.academy.vo.Criteria;
 import com.academy.vo.ReviewVO;
 
 @Service
@@ -54,5 +56,25 @@ public class UserServiceImpl implements UserService {
 	 */
 	public List<ReviewVO> getReviewList() {
 		return userMapper.getReviewList();
+	}
+	
+	/**
+	 * 자료게시판 목록 조회
+	 * @param cri
+	 * @return List<BoardVO>
+	 */
+	@Override
+	public List<BoardVO> getBoardsList(Criteria cri) {
+		return userMapper.getBoardsList(cri);
+	}
+	
+	/**
+	 * 자료게시판 갯수 조회
+	 * @param cri
+	 * @return int
+	 */
+	@Override
+	public int getBoardsCount(Criteria cri) {
+		return userMapper.getBoardsCount(cri);
 	}
 }

@@ -1,23 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="row">
-	<div>
-		<div class="d-flex justify-content-between mb-2 border-radius-white">
-			자료 카테고리 넣을 예정
-		</div>
-	</div>
-</div>
 <div class="border-radius-white p-4 mb-4">
 	<div class="row">
 		<div class="board-title">
 			<div>
 				<span class="fs-5 fw-bold">자료게시판</span>
-				<span class="fs-7 ps-1">5건</span>
+				<span class="fs-7 ps-1">${pageVO.total }건</span>
 			</div>
-			<div class="custom-btn fs-7 px-3 fw-bold">
-				<i class="fa-solid fa-pencil"></i> 글쓰기
-			</div>
+			<sec:authorize access="!isAnonymous() && isAuthenticated()">
+				<div class="custom-btn fs-7 px-3 fw-bold">
+					<i class="fa-solid fa-pencil"></i> 글쓰기
+				</div>
+			</sec:authorize>
 		</div>
 	</div>
 	<table class="board-table">
@@ -38,56 +36,25 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td class="text-start">
-					<span><i class="fa-solid fa-image" style="color: #2ca54a;"></i></span>
-					<a href="#">테스트 제목1</a>
-				</td>
-				<td class="text-start">작성자1</td>
-				<td>2023.04.04</td>
-				<td>1</td>
-			</tr>
-			<tr>
-				<td>116511</td>
-				<td class="text-start">
-					<span><i class="fa-solid fa-image" style="color: #2ca54a;"></i></span>
-					<a href="#">테스트 제목1</a>
-				</td>
-				<td class="text-start">작성자1</td>
-				<td>2023.04.04</td>
-				<td>1</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td class="text-start">
-					<span><i class="fa-solid fa-comment-dots"></i></span>
-					<a href="#">테스트 제목1</a>
-				</td>
-				<td class="text-start">작성자1</td>
-				<td>2023.04.04</td>
-				<td>232233</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td class="text-start">
-				<span><i class="fa-solid fa-image" style="color: #2ca54a;"></i></span>
-					<a href="#">테스트 제목1</a>
-				</td>
-				<td class="text-start">작성자1</td>
-				<td>2023.04.04</td>
-				<td>1</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td class="text-start">
-					<span><i class="fa-solid fa-comment-dots"></i></span>
-					<a href="#">테스트 제목1</a>
-				</td>
-				<td class="text-start">작성자1</td>
-				<td>2023.04.04</td>
-				<td>1</td>
-			</tr>
+			<c:forEach var="item" items="${list }">
+				<tr>
+					<td>${item.rn }</td>
+					<td class="text-start">
+						<c:choose>
+							<c:when test="${empty item.uuid }">
+								<span><i class="fa-solid fa-comment-dots"></i></span>
+							</c:when>
+							<c:otherwise>
+								<span><i class="fa-solid fa-image" style="color: #2ca54a;"></i></span>
+							</c:otherwise>
+						</c:choose>
+						<a href="javascript:boardDetail(${item.board_no });">${item.board_title }</a>
+					</td>
+					<td class="text-start">${item.board_writer }</td>
+					<td><fmt:formatDate value="${item.board_date }" pattern="yyyy-MM-dd"/></td>
+					<td><fmt:formatNumber type="number" value="${item.board_hit }"/></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>

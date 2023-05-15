@@ -37,11 +37,19 @@
 	</logger>
 	
 	<logger name="jdbc.audit">
+		<level value="info"/>
+	</logger>
+	
+	<logger name="jdbc.sqltiming">
 		<level value="warn"/>
 	</logger>
 	
 	<logger name="jdbc.resultset">
 		<level value="warn"/>
+	</logger>
+	
+	<logger name="jdbc.resultsettable">
+		<level value="info"/>
 	</logger>
 	
 	<logger name="jdbc.connection">
@@ -50,7 +58,7 @@
 	
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
 	

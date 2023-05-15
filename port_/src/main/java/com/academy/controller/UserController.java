@@ -10,10 +10,13 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.academy.common.Common;
 import com.academy.service.UserService;
+import com.academy.vo.Criteria;
+import com.academy.vo.PageVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -84,146 +87,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 메인 > 마이페이지 > 결제내역
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_payment/payment")
-	public String my_payment(HttpServletRequest request, Model model) {
-		String subMenuTitle = "결제내역";
-
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 나의 정보
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_info/info")
-	public String my_info(HttpServletRequest request, Model model) {
-		String subMenuTitle = "나의 정보";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 내가 쓴 글 > 커뮤니티
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_write/community")
-	public String my_board(HttpServletRequest request, Model model) {
-		String subMenuTitle = "내가 쓴 글 > 커뮤니티";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 내가 쓴 글 > QNA
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_write/qna")
-	public String my_qna(HttpServletRequest request, Model model) {
-		String subMenuTitle = "내가 쓴 글 > QNA";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 내가 쓴 글 > 리뷰
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_write/review")
-	public String my_review(HttpServletRequest request, Model model) {
-		String subMenuTitle = "내가 쓴 글 > 리뷰";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 자녀 성적관리 > 시험 결과
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_child_grade_mng/test_result")
-	public String test_result(HttpServletRequest request, Model model) {
-		String subMenuTitle = "자녀 성적관리 > 시험 결과";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 자녀 성적관리 > 시험 결과
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_child_grade_mng/note_test")
-	public String note_test(HttpServletRequest request, Model model) {
-		String subMenuTitle = "자녀 성적관리 > 쪽지 시험 문제";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 마이페이지 > 자녀 출결관리
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("my_page/my_child_att_mng/child_att")
-	public String child_att(HttpServletRequest request, Model model) {
-		String subMenuTitle = "자녀 출결관리";
-		
-		model.addAttribute("subMenuTitle", subMenuTitle);
-		model.addAttribute("title", Common.setTitle(subMenuTitle, Common.MY_PAGE));
-		
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 학원
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("academy")
-	public String academy(HttpServletRequest request, Model model) {
-		return request.getRequestURI();
-	}
-
-	/**
-	 * 메인 > 학원 > 학원 상세
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("academy/academy_detail_pop")
-	public String academy_detail_pop(HttpServletRequest request) {
-		return request.getRequestURI();
-	}
-	
-	/**
 	 * 메인 > 커뮤니티 > 수다게시판
 	 * @param 
 	 * @return String
@@ -240,8 +103,10 @@ public class UserController {
 	 * @return String
 	 */
 	@GetMapping("community/data_board")
-	public String data_board(HttpServletRequest request, Model model) {
+	public String data_board(@ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
 		model.addAttribute("title", Common.setTitle("자료게시판", Common.COMMUNITY));
+		model.addAttribute("list", userService.getBoardsList(cri));
+		model.addAttribute("pageVO", new PageVO(cri, userService.getBoardsCount(cri)));
 		return request.getRequestURI();
 	}
 	

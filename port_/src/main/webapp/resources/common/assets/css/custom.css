@@ -248,22 +248,6 @@ Common Style
     height: 100%;
 }
 
-.pagination {
-	bottom: 20px;
-    left: 0;
-    width: 100%;
-    margin: auto;
-}
-
-.pagination li a {
-	color: var(--custom-font-color);
-	padding: 0 5px;
-}
-
-.pagination li a:hover {
-	color: #e75e8d;
-}
-
 /* 
 ---------------------------------------------
 Main Style
