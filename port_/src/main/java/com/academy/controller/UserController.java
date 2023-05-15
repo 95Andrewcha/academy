@@ -3,17 +3,17 @@ package com.academy.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.academy.common.Common;
-import com.academy.vo.UserVO;
+import com.academy.service.UserService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -21,14 +21,22 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
-
+	
+	@Autowired
+	UserService userService;
+	
 	/**
 	 * 메인
 	 * @param 
 	 * @return String
 	 */
 	@GetMapping("main")
-	public String main(HttpServletRequest request) {
+	public String main(HttpServletRequest request, Model model) {
+		model.addAttribute("userCount", Common.setComma(userService.getUserCount()));		// 회원 수 조회
+		model.addAttribute("reviewCount", Common.setComma(userService.getReviewCount()));	// 리뷰 수 조회
+		model.addAttribute("academyCount", Common.setComma(userService.getAcademyCount()));	// 학원 수 조회
+		model.addAttribute("top4List", userService.getMostPopularAcademyTop4());			// 가장 인기 많은 학원 TOP4 조회
+		model.addAttribute("reviewList", userService.getReviewList());						// 리뷰 조회(최신 리뷰 4개 조회)
 		return request.getRequestURI();
 	}
 

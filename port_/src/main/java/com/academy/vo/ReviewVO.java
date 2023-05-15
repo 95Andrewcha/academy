@@ -2,6 +2,8 @@ package com.academy.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -13,5 +15,7 @@ public class ReviewVO {
 	private int review3;  /*성적 만족도 1~5 점 */
 	private String review_title;
 	private String review_content;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date reg_date;
+	private String name;
 }

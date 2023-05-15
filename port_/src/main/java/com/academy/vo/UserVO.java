@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,7 +28,10 @@ public class UserVO implements UserDetails {
 	private String month;
 	private String day;
 	private boolean enabled; 
+	
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date regDate;
+	
 	List<GrantedAuthority> auth;
 	
 	@Override
