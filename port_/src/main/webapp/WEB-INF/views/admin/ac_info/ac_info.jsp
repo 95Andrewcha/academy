@@ -1,20 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
     
 <div class="col-sm-12 col-xl-10 m-sm-auto" style="border:3px solid #e3e3e3">
                         <div class="rounded h-100 p-4">
                             <h6 class="mb-4">시간표</h6>
-                            <table>
-                            <tr>
-                            	<th>a</th>
-                            	<td>b</td>
-                            	<td>c</td>
-                            	<td>d</td>
-                            	<td>e</td>
-                            	<td>f</td>
-                            	<td>g</td>
-                            </tr>
+                            <table class="table table-bordered">
+                            <thead>
+	                            <tr>
+	                            	<th>시간</th>
+	                            	<td>월</td>
+	                            	<td>화</td>
+	                            	<td>수</td>
+	                            	<td>목</td>
+	                            	<td>금</td>
+	                            	<td>토</td>
+	                            	<td>일</td>
+	                            </tr>
+                            </thead>
+                            <tbody>
+	                            
+	                            <c:forEach items="${timetableList}" var="tlist">
+	                                <tr>
+	                                	<c:if test="${null ne time }">
+	                                		<th>비어 있습니다.
+	                                	</c:if>
+		                            	<th><c:out value="${tlist.time}"/></th>
+		                            	<td><c:out value="${tlist.m }"/></td>
+		                            	<td><c:out value="${tlist.t }"/></td>
+		                            	<td><c:out value="${tlist.w }"/></td>
+		                            	<td><c:out value="${tlist.th }"/></td>
+		                            	<td><c:out value="${tlist.f }"/></td>
+		                            	<td><c:out value="${tlist.sa }"/></td>
+		                            	<c:if test="${null eq tlist.s }">
+		                            		<td>공강  &nbsp <c>/</c> &nbsp <a href="#?time=<c:out value='${tlist.time}'/>?day=2sun">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.s }">
+		                            		<td><c:out value="${tlist.s }"/></td>
+		                            	</c:if> 	
+		                            </tr>
+	                            </c:forEach> 
+	                            <tr>
+	                            	<th>등록하기</th>
+	                            	<td>등록하기</td>
+	                            	<td>등록하기</td>
+	                            	<td>등록하기</td>
+	                            	<td>등록하기</td>
+	                            	<td>등록하기</td>
+	                            	<td>등록하기</td>
+	                            	<td>등록하기</td>
+	                            </tr>
+                            </tbody>
                             	
                             </table>
                             

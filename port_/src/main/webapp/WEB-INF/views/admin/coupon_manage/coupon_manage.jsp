@@ -1,38 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     
 <!-- Form Start -->
           <div class="col-sm-12 col-xl-10 m-sm-auto" style="border:3px solid #e3e3e3">
                         <div class="rounded h-100 p-4">
                             <h6 class="mb-4">Horizontal Form</h6>
-                            <form action="insert" method="get">
+                            <form action="search" id="searchid" method="post">
                                 <div class="row mb-3">
-                                    <label for="subject" class="col-sm-2 col-form-label">제목</label>
+                                    <label for="title" class="col-sm-2 col-form-label">제목</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="subject" name="subject">
+                                        <input type="text" class="form-control" id="title" name="title">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="teacher" class="col-sm-2 col-form-label">작성자</label>
+                                    <label for="active" class="col-sm-2 col-form-label">활성화여부</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="teacher" name="teacher">
+                                        <input type="text" class="form-control" id="active" name="active">
                                     </div>
                                 </div>
                                
                                 <div class="row mb-3">
                                     <label for="date" class="col-sm-2 col-form-label">기간</label>
                                     <div class="col-sm-10 ">
-                                        <input type="text" class="w-25 form-control datepicker d-inline-block" id="start_date" placeholder="start_date" name="start_date">
+                                        <input type="text" class="w-25 form-control datepicker d-inline-block" id="start_date" placeholder="시작일" name="start_date">
                                         ~
-                                        <input type="text" class="w-25 form-control datepicker d-inline-block" id="end_date" placeholder="end_date" name="end_date">
+                                        <input type="text" class="w-25 form-control datepicker d-inline-block" id="end_date" placeholder="종료일" name="end_date">
                                     </div>
-
-                                   
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                                <button type="reset" class="btn btn-primary">reset</button>
+                                </div>                              
+                                <button type="submit" class="btn btn-primary">검색</button>
+                                <button type="reset" class="btn btn-primary">초기화</button>
                             </form>
                         </div>
                     </div>
@@ -58,22 +58,18 @@
                                     <th scope="col">등록날짜</th>
                                     <th scope="col"></th>
                                 </tr>
+                                <c:forEach items="${couponList}" var="Clist">
                                 <tr>
-                                    <td>{번호}</td>
-                                    <td>{제목]</td>
-                                    <td>{기간}</td>
-                                    <td>{활성여부}</td>
-                                    <td>{등록날짜}</td> 
-                                    <td>{등록날짜}</td>    
+                                	
+                                    <td><c:out value="${Clist.id }"/></td>
+                                    <td><c:out value="${Clist.name }"/></td>
+                                    <td><fmt:formatDate value="${Clist.start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${Clist.end_date }" pattern="yyyy-MM-dd"/> </td>
+                                    <td><c:out value="${Clist.active }"/></td>
+                                    <td><fmt:formatDate value="${Clist.reg_date}" pattern="yyyy-MM-dd"/></td> 
+                                    <td><c:out value="${Clist.rn}"/></td>    
                                 </tr>
-                                 <tr>
-                                    <td>{번호}</td>
-                                    <td>{제목]</td>
-                                    <td>{기간}</td>
-                                    <td>{활성여부}</td>
-                                    <td>{등록날짜}</td>   
-                                    <td>{등록날짜}</td>  
-                                </tr>
+                                </c:forEach>
+                                
                                
                                 
                                
@@ -90,21 +86,81 @@
             </div>
             <!-- Select table End -->
             
+             <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="btn-toolbar justify-content-center" role="toolbar">
+                                <div class="btn-group me-2" role="group" aria-label="First group">
+                                   
+	                                    <ul class="pagination ">
+						            		<c:if test="${pageMaker.prev}">
+						            			<li class="paginate_button previous btn btn-primary me-1">
+						            				<a href="${pageMaker.startPage-1}" style="color:white;">Previous</a>
+						            			</li>
+						            		</c:if>
+						            		<c:forEach var ="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						            			<li class="paginate_button btn btn-primary me-1"><a href="${num}" style="color:white;">${num}</a></li>
+						            		</c:forEach>
+						            		<c:if test="${pageMaker.next}">
+						            			<li class="paginate_button next btn btn-primary">
+						            				<a href="${pageMaker.endPage + 1}" style="color:white;" >Next</a>
+						            			</li>
+						            		</c:if>
+						            	</ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="pull-right">
+            	
+            </div>
+            
+            <form id="actionForm" action="coupon_manage" method="get">
+            	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"/>
+            	<input type="hidden" name="amount" value="${pageMaker.cri.amount }"/>
+            </form>
+            <!-- end page -->
+            
 <script>
+window.name="test";
 $(function(){
       $('#start_date').datepicker();
       $('#end_date').datepicker();
    });
    
+$(document).ready(function(){
+	
+	var actionForm= $("#actionForm");
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+	
+});
+   
    
 function Popupopen(){
 	 
-	 var url = "coupoon_enroll";
+	 var url = "coupon_enrollpop";
 	 
-	 var name="coupoon_enroll";
+	 var name="coupon_enrollpop";
 	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
 
 	 window.open(url, name, status);
 	 
 }
+
+
+$.ajax({
+	  type: "post",
+	  url  : search,
+	  data : $("#searchid").serialize(),
+	  success : function(){
+	    alert("성공했네?!");
+	  },
+	  error : function(){
+		  alert("실패염");
+	  }
+	});
 </script>

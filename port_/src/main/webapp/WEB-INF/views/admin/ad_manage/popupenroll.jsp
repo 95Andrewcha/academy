@@ -16,24 +16,24 @@
 				<form>
 					<div class="mb-3 mt-3">
 						<label for="bno" class="form-label">제목</label> <input type="text"
-							class="form-control update" id="subject" name="subject" disabled>
+							class="form-control update" id="subject" name="subject" >
 					</div>
 					<div class="mb-3">
 						<label for="regDate" class="form-label">기간선택</label><br>
-						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="start_date" name="start_date" disabled>
+						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="start_date" name="start_date" >
 						 &nbsp;&nbsp;&nbsp;
-						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="end_date" name="end_date" disabled>
+						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="end_date" name="end_date" >
 					</div>
 					
 					<div class="mb-3">
 						<label for="xpx" class="form-label">좌표값 입력</label><br>
-						 x:  &nbsp;<input type="text" class="form-control update w-25" style="display:inline-block;" id="xpx" name="xpx" disabled> px
+						 x:  &nbsp;<input type="text" class="form-control update w-25" style="display:inline-block;" id="xpx" name="xpx"> px
 						 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;
-						 y: &nbsp; <input type="text" class="form-control update w-25" style="display:inline-block;" id="ypx" name="ypx" disabled> px
+						 y: &nbsp; <input type="text" class="form-control update w-25" style="display:inline-block;" id="ypx" name="ypx" > px
 					</div>
 					<div class="mb-3">
 						<label for="content" class="form-label">참고</label>
-						<textarea class="form-control update" id="content" name="content" disabled
+						<textarea class="form-control update" id="content" name="content" 
 							></textarea>
 					</div>
 					
@@ -44,7 +44,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="popuplink" class="form-label">팝업링크</label>
-						 <input type="text" class="form-control update" id="popuplink" name="popuplink" disabled>
+						 <input type="text" class="form-control update" id="popuplink" name="popuplink" >
 					</div>
 					<div class="mb-3">
 						<label for="xpx" class="form-label">오늘 하루 안보기여부</label><br>

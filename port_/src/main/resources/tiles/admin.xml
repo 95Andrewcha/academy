@@ -32,10 +32,6 @@
 		<put-attribute name="popupbody" value="/WEB-INF/views/admin/ad_manage/reasonpopup.jsp"/>
 	</definition>
 	
-	<definition name="/admin/board/enroll" extends="adminPopupLayout">
-		<put-attribute name="popupbody" value="/WEB-INF/views/admin/board/enroll.jsp"/>
-	</definition>
-	
 	<!-- adminpopup end -->
 	
 	<definition name="/admin/*" extends="adminLayout">

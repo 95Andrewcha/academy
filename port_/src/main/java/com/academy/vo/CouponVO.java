@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class CouponVO {
 
+	private int rn;
 	private int id; /*쿠폰번호*/
 	private String name; /*쿠폰이름*/
 	private String discount;

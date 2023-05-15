@@ -23,6 +23,8 @@
                             <a href="/admin/ac_info/subject_info" class="dropdown-item">수강과목</a>
                             <a href="/admin/ac_info/ac_schedule" class="dropdown-item">시간표</a>
                              <a href="/admin/ac_info/ac_test_manage" class="dropdown-item">시험관리</a>
+                            <a href="/admin/ac_info/join" class="dropdown-item">아이디 생성</a>
+                            <a href="/admin/ac_info/schedule" class="dropdwon-item">일정관리</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -52,7 +54,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>광고관리</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/admin/ad_manage/ad_manage" class="dropdown-item">광고관리</a>
-                            <a href="/admin/ad_manage/popup" class="dropdown-item">팝업관리</a>
+                            <a href="/admin/ad_manage/popup?value=popup&tdArr=" class="dropdown-item">팝업관리</a>
                             <a href="/admin/ad_manage/ac_accept" class="dropdown-item">입점허가관리</a>
                         </div>
                     </div>

@@ -60,35 +60,31 @@
                                 </tr>
                                 <c:forEach items="${list}" var="Plist">
                                 <tr>
-                                    <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
+                                    <td><input class="form-check-input" type="checkbox" name="chkbox" value="${Plist.id }"></td>
                                     <td><c:out value="${Plist.NAME }"/></td>
                                    
                                     <td><fmt:formatDate value="${Plist.START_DATE}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${Plist.END_DATE }" pattern="yyyy-MM-dd"/> </td>
                                     <td><c:out value="${Plist.REG_ID}"/></td>
                                     <td><c:out value="${Plist.CONTENT}"/></td>
-                                    <td><button id="detail" class="btn btn-sm btn-primary" >자세히보기</button></td>
+                                    <td><button id="detail" class="btn btn-sm btn-primary" data-id="${Plist.id }">자세히보기</button></td>
                                 </tr>
                                 </c:forEach>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox" name="chkbox"></td>
-                                    <td>{제목}</td>
-                                    <td>{기간]</td>
-                                    <td>{등록자}</td>
-                                    <td>{내용}</td>
-                                    <td><button id="detail" class="btn btn-sm btn-primary" >자세히보기</button></td>
-                                </tr>
-                               
-                                
-                               
                             </tbody>
                         </table>
                        
                     </div>
+                     <form name="frmPopup">
+                     <input type="hidden" name="popupenroll">
+                     </form>
+         	
+       
                     <div class="my-2 text-end">
-                    	<button class="btn btn-primary" onclick="Popupopen()";>등록하기</button>
-                    	<button class="btn btn-primary" id="t_update">수정하기</button>
-                    	<button class="btn btn-primary" >삭제</button>
+                    	<button class="btn btn-primary" onclick="Popupopen(name)";>등록하기</button>
+                    	<button class="btn btn-primary" id="t_update" type="submit" data-oper="update">수정하기</button>
+                    	<button class="btn btn-primary" id="pop_delete" type="submit" data-oper="delete" >삭제</button>
                     </div>
+                    
+                 
                      
                 </div>
             </div>
@@ -110,9 +106,11 @@
 		<div class="card mb-4">
 			<div class="card-body">
 				<form>
+				
+					
 					<div class="mb-3 mt-3">
-						<label for="bno" class="form-label">제목</label> <input type="text"
-							class="form-control update" id="subject" name="subject" disabled>
+						<label for="bno" class="form-label">제목</label>
+						 <input type="text" class="form-control update" id="subject" name="subject" value="" disabled>
 					</div>
 					<div class="mb-3">
 						<label for="regDate" class="form-label">기간선택</label><br>
@@ -128,9 +126,11 @@
 						 y: &nbsp; <input type="text" class="form-control update w-25" style="display:inline-block;" id="ypx" name="ypx" disabled> px
 					</div>
 					<div class="mb-3">
+					<c:out value="${Plist.CONTENT}"/>
 						<label for="content" class="form-label">참고</label>
-						<textarea class="form-control update" id="content" name="content" disabled
-							></textarea>
+						<textarea class="form-control update" id="content" name="content" disabled>
+						
+						</textarea>
 					</div>
 					
 					<div class="mb-3">
@@ -173,11 +173,14 @@
 		$(function(){
 	         $('#start_date').datepicker();
 	         $('#end_date').datepicker();
-	      })
+	      });
 	      
 	      
 		$('#detail').click(function(e){
 			e.preventDefault();
+			
+			
+			
 			$('#testModal').modal("show");
 		});
 		
@@ -221,7 +224,7 @@
          	
          });
          
-         $("#t_update").click(function(){
+         $("#pop_delete").click(function(){
          	
         
          var tdArr = new Array();
@@ -232,32 +235,44 @@
          	var td = tr.children();
          	
          	
+         	var id = $(this).val();
          	var subject = td.eq(1).text() + ",";
          	var teacher = td.eq(2).text() + ",";
          	
          	subject = subject.substring(0,subject.length-1);
          	teacher = teacher.substring(0, teacher.length-1);
          	
-         	tdArr.push(subject);
-         	tdArr.push(teacher);
+         	tdArr.push(id);
+         	console.log(tdArr);
          	
-         	console.log("subject :" + subject);
-         	console.log("teacher :" + teacher);
-         	console.log("tdArr:" + tdArr);
+         	$.ajax({
+    			type : 'get',
+    			url : 'popup?value=delete',
+    			data : {tdArr : tdArr},
+    			success : function(result){
+    				location.href='popup?value=popup'
+    				console.log(result);
+    			},
+    			error : function(xhr){
+    				console.log(xhr.responseText);
+    			}
+    		});
          	
          	});
          
          });
+        
          
-         function Popupopen(){
-        	 
-        	 var url = "popupenroll";
-        	 
-        	 var name="popupenroll";
+         function Popupopen(name){
+        	
+        	 var url = "popup?value=popupenroll";
+        	 var name = "popupenroll";
         	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
        
         	 window.open(url, name, status);
         	 
+        	
+			        	 
          }
 		
 

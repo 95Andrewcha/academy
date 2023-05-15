@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class PopupVO {
 
+	private int id;
 	private int POSITION_TOP;
 	private int POSITION_LEFT;
 	private String NAME;
@@ -18,6 +19,7 @@ public class PopupVO {
 	private int ACTIVE;
 	private String LINK;
 	private String REG_ID;
+	
 	
 	
 }

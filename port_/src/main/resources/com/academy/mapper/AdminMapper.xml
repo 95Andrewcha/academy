@@ -10,4 +10,89 @@
 	]]>
 	
 </select>
+
+<select id="getCoupList" resultType="com.academy.vo.CouponVO">
+	<![CDATA[
+		select *
+		from 
+		(select rownum rn, a.* from COUPON_TBL a
+		where rownum <= #{pageNum} * #{amount}
+		)
+		where rn > (#{pageNum} -1) * #{amount}
+		
+	
+	
+	]]>
+</select>
+
+<select id="getTotalCount" resultType="int">
+	<![CDATA[
+		select count(*) from coupon_tbl where id>0
+	
+	]]>
+	
+</select>
+
+<insert id="couponInsert" parameterType="com.academy.vo.CouponVO">
+	<![CDATA[
+			INSERT INTO COUPON_TBL
+			(
+				id, name, start_date, end_date, CONTENT,discount, discount2
+			)
+			VALUES
+			(
+				coupon_id_seq.nextval, #{name}, 
+				#{start_date},
+				#{end_date},
+				#{content},
+				#{discount},
+				#{discount2}
+			)
+		]]>
+</insert>
+
+<!--   	where schedule_date >=#{db_startDate}  db_startDate db_startDate
+	and schedule_date <=#{db_endDate}
+
+ -->
+<!-- schedule -->
+<select id="schedule_list" resultType="com.academy.vo.ScheduleVO">
+	<![CDATA[
+		select 
+		*
+		  from schedule_tbl 
+	where schedule_date >= '2023-5-1'
+	and schedule_date <= '2023-5-31'
+			
+		
+		
+		order by schedule_date, schedule_num, schedule_idx 
+	
+	]]>
+</select>
+
+<select id="getLst" resultType="com.academy.vo.Time_tblVO">
+	<![CDATA[
+		select time,
+			listagg(m,',') within group (order by time) as m,
+			listagg(t, ',') within group (order by time) as t,
+			listagg(w, ',') within group (order by time) as w,
+			listagg(t, ',') within group (order by time) as th,
+			listagg(f, ',') within group (order by time) as f,
+			listagg(sa, ',') within group (order by time) as sa,
+			listagg(s, ',') within group (order by time) as s
+			from(
+			select time, 
+			case when day= '월' then subject end as m
+			, case when day= '화' then subject end as t
+			, case when day= '수' then subject end as w
+			, case when day= '목' then subject end as th
+			, case when day= '금' then subject end as f
+			, case when day ='토' then subject end as sa
+			, case when day='일' then subject end as s
+			
+			from Time_tblVO)
+group by time
+	]]>
+</select>
   </mapper>
