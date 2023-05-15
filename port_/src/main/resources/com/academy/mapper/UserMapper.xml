@@ -83,18 +83,4 @@
 			    ROWNUM <= 4
 		]]>
 	</select>
-	
-	<select id="test" resultType="com.academy.vo.TVO">
-		SELECT
-			academy_id,
-		    gyosi,
-		    day,
-		    subject,
-		    start_time,
-		    end_time
-		FROM
-			SCHEDULE A
-			LEFT JOIN ACADEMY_TBL B ON A.academy_id = B.id
-	</select>
-	
 </mapper>
