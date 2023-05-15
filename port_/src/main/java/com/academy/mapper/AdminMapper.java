@@ -23,4 +23,8 @@ public interface AdminMapper {
 	public void couponInsert(CouponVO couponvo);
 	
 	public List<Time_tblVO> getLst();
+	
+	public void add_timetable(Time_tblVO time_tblvo) ;
+	
+	public void add_time(String time);
 }

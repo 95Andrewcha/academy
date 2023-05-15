@@ -47,6 +47,20 @@ public class AdminServiceImpl implements AdminService{
 		/*시간표 조회*/
 		return adminMapper.getLst();
 	}
+
+	@Override
+	public void add_timetable(Time_tblVO time_tblvo) {
+		adminMapper.add_timetable(time_tblvo);
+	}
+
+
+	@Override
+	public void add_time(String time) {
+		adminMapper.add_time(time);
+		
+	}
+
+	
 	
 
 }
