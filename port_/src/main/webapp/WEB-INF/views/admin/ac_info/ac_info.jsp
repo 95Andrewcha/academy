@@ -27,14 +27,59 @@
 	                                		<th>비어 있습니다.
 	                                	</c:if>
 		                            	<th><c:out value="${tlist.time}"/></th>
-		                            	<td><c:out value="${tlist.m }"/></td>
-		                            	<td><c:out value="${tlist.t }"/></td>
-		                            	<td><c:out value="${tlist.w }"/></td>
-		                            	<td><c:out value="${tlist.th }"/></td>
-		                            	<td><c:out value="${tlist.f }"/></td>
-		                            	<td><c:out value="${tlist.sa }"/></td>
+		                            	
+		                            	
+		                            	<c:if test="${null eq tlist.m }">
+		                            		<td>공강 <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=m">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.m }">
+		                            		<td><c:out value="${tlist.m }"/></td>
+		                            	</c:if> 
+		                            	
+		                            	
+		                            	<c:if test="${null eq tlist.t }">
+		                            		<td>공강 <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=t">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.t }">
+		                            		<td><c:out value="${tlist.t }"/></td>
+		                            	</c:if> 
+		                            	
+		                            	
+		                            	<c:if test="${null eq tlist.w }">
+		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=w">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.w }">
+		                            		<td><c:out value="${tlist.w }"/></td>
+		                            	</c:if> 
+		                            	
+		                            	
+		                            	
+		                            	<c:if test="${null eq tlist.th }">
+		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=th">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.th }">
+		                            		<td><c:out value="${tlist.th }"/></td>
+		                            	</c:if> 
+		                            	
+		                            	
+		                            	<c:if test="${null eq tlist.f }">
+		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=f">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.f }">
+		                            		<td><c:out value="${tlist.f }"/></td>
+		                            	</c:if> 	
+		                            	
+		                            	
+		                            	<c:if test="${null eq tlist.sa }">
+		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=sa">등록하기</a></td>
+		                            	</c:if>
+		                            	<c:if test="${null ne tlist.sa }">
+		                            		<td><c:out value="${tlist.sa }"/></td>
+		                            	</c:if> 	
+		                            	
+		                            	
 		                            	<c:if test="${null eq tlist.s }">
-		                            		<td>공강  &nbsp <c>/</c> &nbsp <a href="#?time=<c:out value='${tlist.time}'/>?day=2sun">등록하기</a></td>
+		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=s">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.s }">
 		                            		<td><c:out value="${tlist.s }"/></td>
