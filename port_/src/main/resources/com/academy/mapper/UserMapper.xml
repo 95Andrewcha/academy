@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.academy.mapper.UserMapper">
+	
+	<!-- 메인 > 회원 수 조회 -->
+	<select id="getUserCount" resultType="int">
+		SELECT COUNT(*) FROM USERS_TBL
+	</select>
+	
+	<!-- 메인 > 리뷰 수 조회 -->
+	<select id="getReviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW_TBL
+	</select>
+	
+	<!-- 메인 > 학원 수 조회 -->
+	<select id="getAcademyCount" resultType="int">
+		SELECT COUNT(*) FROM ACADEMY_TBL
+	</select>
+	
+	
+	<!-- 가장 인기 많은 학원 TOP 4 조회 -->
+	<select id="getMostPopularAcademyTop4" resultType="AdVO">
+		<![CDATA[
+			SELECT
+			    ROWNUM                        AS RN,
+			    NAME,
+			    ADDR,
+			    PRICE,
+			    ( RATE1 + RATE2 + RATE3 ) / 3 AS RATE,
+			    LINK
+			FROM
+			    (
+			        SELECT
+			            ACADEMY.NAME        AS NAME,
+			            ACADEMY.ADDR        AS ADDR,
+			            AD.PRICE            AS PRICE,
+			            AVG(REVIEW.REVIEW1) AS RATE1,
+			            AVG(REVIEW.REVIEW2) AS RATE2,
+			            AVG(REVIEW.REVIEW3) AS RATE3,
+			            AD.LINK             AS LINK
+			        FROM
+			            AD_TBL AD
+			            LEFT JOIN ACADEMY_TBL ACADEMY   ON AD.ACADEMY_ID = ACADEMY.ID
+			            LEFT JOIN REVIEW_TBL  REVIEW    ON AD.ACADEMY_ID = REVIEW.ACADEMY_ID
+			        GROUP BY
+			            ACADEMY.NAME,
+			            ACADEMY.ADDR,
+			            AD.PRICE,
+			            AD.LINK
+			        ORDER BY
+			            AD.PRICE DESC
+			    )
+			WHERE
+			    ROWNUM <= 4
+		]]>
+	</select>
+	
+	<!-- 메인 > 리뷰 조회(최신 리뷰 4개 조회) -->
+	<select id="getReviewList" resultType="ReviewVO">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+			    (
+			        SELECT
+			            ACADEMY.NAME          AS NAME,
+			            REVIEW.REVIEW1        AS REVIEW1,
+			            REVIEW.REVIEW2        AS REVIEW2,
+			            REVIEW.REVIEW3        AS REVIEW3,
+			            REVIEW.REVIEW_TITLE   AS REVIEW_TITLE,
+			            REVIEW.REVIEW_CONTENT AS REVIEW_CONTENT,
+			            REVIEW.REG_DATE       AS REG_DATE
+			        FROM
+			            REVIEW_TBL REVIEW
+			            LEFT JOIN ACADEMY_TBL ACADEMY ON REVIEW.ACADEMY_ID = ACADEMY.ID
+			        ORDER BY
+			            REG_DATE DESC
+			    )
+			WHERE
+			    ROWNUM <= 4
+		]]>
+	</select>
+	
+	<select id="test" resultType="com.academy.vo.TVO">
+		SELECT
+			academy_id,
+		    gyosi,
+		    day,
+		    subject,
+		    start_time,
+		    end_time
+		FROM
+			SCHEDULE A
+			LEFT JOIN ACADEMY_TBL B ON A.academy_id = B.id
+	</select>
+	
+</mapper>

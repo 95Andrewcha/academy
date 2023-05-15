@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="main-banner">
 	<div class="row">
@@ -23,22 +24,40 @@
 		<div class="border-radius-white py-4 d-flex text-center">
 			<div class="col-4">
 				<p class="fs-1 main-color"><i class="fa-solid fa-comment-dots"></i></p>
-				<p class="fs-3 py-3 main-color">182,531개</p>
+				<p class="fs-3 py-3 main-color">${reviewCount }</p>
 				<p>누적 학원 평가</p>
 			</div>
 			<div class="col-4">
 				<p class="fs-1 main-color"><i class="fa-solid fa-user-group"></i></p>
-				<p class="fs-3 py-3 main-color">2,000,000명</p>
+				<p class="fs-3 py-3 main-color">${userCount }</p>
 				<p>누적 회원 수</p>
 			</div>
 			<div class="col-4">
 				<p class="fs-1 main-color"><i class="fa-solid fa-school"></i></p>
-				<p class="fs-3 py-3 main-color">255,321개</p>
+				<p class="fs-3 py-3 main-color">${academyCount }</p>
 				<p>누적 학원 수</p>
 			</div>
 		</div>
 	</div>
 </div>
+<table>
+	<tr>
+		<th>월</th>
+		<th>화</th>
+		<th>수</th>
+		<th>목</th>
+		<th>금</th>
+		<th>토</th>
+		<th>일</th>
+	</tr>
+	<c:forEach var="item" items="${test }">
+		<tr>
+			<td>${item.gyosi }</td>
+		</tr>
+	</c:forEach>
+</table>
+
+
 <div class="most-popular">
 	<div class="row">
 		<div class="col-lg-12">
@@ -49,70 +68,24 @@
 				</h4>
 			</div>
 			<div class="row">
-				<div class="col-lg-3 col-sm-6">
-					<div class="item">
-						<img
-							src="${contextPath }/resources/common/assets/images/popular-01.jpg"
-							alt="">
-						<h4>
-							학원명<br>
-							<span>주소</span>
-							<span>
-								<ul>
-									<li><i class="fa fa-star"></i> 4.8</li>
-								</ul>
-							</span>
-						</h4>
+				<c:forEach var="item" items="${top4List }" varStatus="status">
+					<div class="col-lg-3 col-sm-6">
+						<div class="item">
+							<a href="#">
+								<img src="${contextPath }/resources/common/assets/images/popular-0${status.count }.jpg" alt="">
+							</a>
+							<h4>
+								${item.name }<br>
+								<span>${item.addr }</span>
+								<span>
+									<ul>
+										<li><i class="fa fa-star"></i> ${item.rate }</li>
+									</ul>
+								</span>
+							</h4>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="item">
-						<img
-							src="${contextPath }/resources/common/assets/images/popular-02.jpg"
-							alt="">
-						<h4>
-							학원명<br>
-							<span>주소</span>
-							<span>
-								<ul>
-									<li><i class="fa fa-star"></i> 4.8</li>
-								</ul>
-							</span>
-						</h4>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="item">
-						<img
-							src="${contextPath }/resources/common/assets/images/popular-03.jpg"
-							alt="">
-						<h4>
-							학원명<br>
-							<span>주소</span>
-							<span>
-								<ul>
-									<li><i class="fa fa-star"></i> 4.8</li>
-								</ul>
-							</span>
-						</h4>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="item">
-						<img
-							src="${contextPath }/resources/common/assets/images/popular-04.jpg"
-							alt="">
-						<h4>
-							학원명<br>
-							<span>주소</span>
-							<span>
-								<ul>
-									<li><i class="fa fa-star"></i> 4.8</li>
-								</ul>
-							</span>
-						</h4>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -120,73 +93,21 @@
 <div class="start-stream">
 	<div class="col-lg-12">
 		<div class="heading-section">
-			<h4>학원 정보? 리뷰?</h4>
+			<h4>리뷰</h4>
 		</div>
 		<div class="row">
-			<div class="col-xl-3">
-				<div class="item">
-					<div class="icon">
-						<img
-							src="${contextPath }/resources/common/assets/images/service-01.jpg"
-							alt=""
-							style="max-width: 60px; border-radius: 50%;">
+			<c:forEach var="item" items="${reviewList }">
+				<div class="col-xl-3">
+					<div class="item">
+						<p>${item.name }</p>
+						<p>${item.review_title }</p>
+						<p>교육 코스 <i class="fa fa-star"></i> ${item.review1 }</p>
+						<p>강사진 <i class="fa fa-star"></i> ${item.review2 }</p>
+						<p>성적 <i class="fa fa-star"></i> ${item.review3 }</p>
+						<p>${item.review_content }</p>
 					</div>
-					<h4>Go To Your Profile</h4>
-					<p>Cyborg Gaming is free HTML CSS website template provided
-						by TemplateMo. This is Bootstrap v5.2.0 layout.</p>
 				</div>
-			</div>
-			<div class="col-xl-3">
-				<div class="item">
-					<div class="icon">
-						<img
-							src="${contextPath }/resources/common/assets/images/service-02.jpg"
-							alt=""
-							style="max-width: 60px; border-radius: 50%;">
-					</div>
-					<h4>Live Stream Button</h4>
-					<p>
-						If you wish to support us, you can make a <a
-							href="https://paypal.me/templatemo"
-							target="_blank">small contribution via PayPal</a> to info
-						[at] templatemo.com
-					</p>
-				</div>
-			</div>
-			<div class="col-xl-3">
-				<div class="item">
-					<div class="icon">
-						<img
-							src="${contextPath }/resources/common/assets/images/service-02.jpg"
-							alt=""
-							style="max-width: 60px; border-radius: 50%;">
-					</div>
-					<h4>Live Stream Button</h4>
-					<p>
-						If you wish to support us, you can make a <a
-							href="https://paypal.me/templatemo"
-							target="_blank">small contribution via PayPal</a> to info
-						[at] templatemo.com
-					</p>
-				</div>
-			</div>
-			<div class="col-xl-3">
-				<div class="item">
-					<div class="icon">
-						<img
-							src="${contextPath }/resources/common/assets/images/service-02.jpg"
-							alt=""
-							style="max-width: 60px; border-radius: 50%;">
-					</div>
-					<h4>Live Stream Button</h4>
-					<p>
-						If you wish to support us, you can make a <a
-							href="https://paypal.me/templatemo"
-							target="_blank">small contribution via PayPal</a> to info
-						[at] templatemo.com
-					</p>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>

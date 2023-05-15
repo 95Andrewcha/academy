@@ -21,7 +21,7 @@
 				   use-expressions="true"
 				   authentication-manager-ref="authManager">
 		<security:intercept-url pattern="/admin/login" access="permitAll"/>
-		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_AD', 'ROLE_A')"/>
+		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER')"/>
 		<security:form-login login-page="/admin/login"
 							 login-processing-url="/admin/loginProc"
 							 authentication-success-handler-ref="customAuthSuccessHandler"/>
@@ -43,7 +43,7 @@
 				   use-expressions="true"
 				   authentication-manager-ref="authManager">
 		<security:intercept-url pattern="/user/login" access="permitAll"/>
-		<security:intercept-url pattern="/user/my_page/**" access="hasAnyRole('ROLE_AD', 'ROLE_A', 'ROLE_C')"/>
+		<security:intercept-url pattern="/user/my_page/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER', 'ROLE_USER')"/>
 		<security:form-login login-page="/user/login"
 							 login-processing-url="/user/loginProc"
 							 authentication-success-handler-ref="customAuthSuccessHandler"/>

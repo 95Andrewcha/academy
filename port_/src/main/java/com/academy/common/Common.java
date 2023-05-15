@@ -1,5 +1,7 @@
 package com.academy.common;
 
+import java.text.DecimalFormat;
+
 public class Common {
 	
 	private static final String DASH = " - ";
@@ -16,10 +18,23 @@ public class Common {
 	 * 	setTitle("자료게시판", "커뮤니티") = "자료게시판 - 커뮤니티"
 	 * </p>
 	 * @param
-	 * @return
+	 * @return String
 	 */
 	public static String setTitle(String str1, String str2) {
 		return str1 + DASH + str2;
 	}
 	
+	/**
+	 * <b>숫자 천 단위마다 쉼표를 찍어준다.</b> <br/>
+	 * <p>
+	 * 	setComma(1000) = "1,000" <br/>
+	 * 	setComma(1000000) = "1,000,000"
+	 * </p>
+	 * @param
+	 * @return String
+	 */
+	public static String setComma(int num) {
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(num);
+	}
 }
