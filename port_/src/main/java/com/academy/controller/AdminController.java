@@ -119,6 +119,27 @@ public class AdminController {
 
 		return request.getRequestURI();
 	}
+	@RequestMapping(value = "ac_info/time_tbl_enroll", method = RequestMethod.GET)
+	public String time_tbl_enroll(HttpServletRequest request, @ModelAttribute("time") String time, @ModelAttribute("day") String day) {
+		System.out.println(request.getRequestURI());
+		
+		System.out.println("time:" + time);
+		System.out.println("day:" + day);
+		
+		
+
+		return request.getRequestURI();
+	}
+
+	
+	
+	
+	@RequestMapping(value = "ac_info/time_enroll", method = RequestMethod.GET)
+	public String time_enroll(HttpServletRequest request) {
+		System.out.println(request.getRequestURI());
+
+		return request.getRequestURI();
+	}
 
 	/* ������������������������������������ */
 	@RequestMapping(value = "ac_info/subject_info", method = RequestMethod.GET)
