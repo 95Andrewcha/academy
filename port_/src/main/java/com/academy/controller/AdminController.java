@@ -1,12 +1,9 @@
 package com.academy.controller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.academy.service.AdminService;
 import com.academy.vo.CouponVO;
 import com.academy.vo.Criteria;
-import com.academy.vo.DateData;
 import com.academy.vo.PageVO;
-import com.academy.vo.ScheduleVO;
 import com.academy.vo.Time_tblVO;
 import com.academy.vo.UserVO;
 
