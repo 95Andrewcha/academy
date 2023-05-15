@@ -30,15 +30,15 @@
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.m }">
-		                            		<td>공강 <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=m">등록하기</a></td>
+		                            		<td>공강 <br> <a href="time_tbl_enrollpop?time=<c:out value="${tlist.time}"/>&day=m">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.m }">
-		                            		<td><c:out value="${tlist.m }"/></td>
+		                            		<td><c:out value="${tlist.m}"/></td>
 		                            	</c:if> 
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.t }">
-		                            		<td>공강 <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=t">등록하기</a></td>
+		                            		<td>공강 <br> <a href="time_tbl_enrollpop?time=<c:out value="${tlist.time}"/>&day=t">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.t }">
 		                            		<td><c:out value="${tlist.t }"/></td>
@@ -46,7 +46,7 @@
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.w }">
-		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=w">등록하기</a></td>
+		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=w">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.w }">
 		                            		<td><c:out value="${tlist.w }"/></td>
@@ -55,7 +55,7 @@
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.th }">
-		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=th">등록하기</a></td>
+		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=th">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.th }">
 		                            		<td><c:out value="${tlist.th }"/></td>
@@ -63,7 +63,7 @@
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.f }">
-		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=f">등록하기</a></td>
+		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=f">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.f }">
 		                            		<td><c:out value="${tlist.f }"/></td>
@@ -71,7 +71,7 @@
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.sa }">
-		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=sa">등록하기</a></td>
+		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=sa">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.sa }">
 		                            		<td><c:out value="${tlist.sa }"/></td>
@@ -79,7 +79,7 @@
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.s }">
-		                            		<td>공강  <br> <a href="#?time=<c:out value='${tlist.time}'/>?day=s">등록하기</a></td>
+		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=s">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.s }">
 		                            		<td><c:out value="${tlist.s }"/></td>
@@ -87,14 +87,15 @@
 		                            </tr>
 	                            </c:forEach> 
 	                            <tr>
-	                            	<th>등록하기</th>
-	                            	<td>등록하기</td>
-	                            	<td>등록하기</td>
-	                            	<td>등록하기</td>
-	                            	<td>등록하기</td>
-	                            	<td>등록하기</td>
-	                            	<td>등록하기</td>
-	                            	<td>등록하기</td>
+	                            	<th><a href="time_tbl_enrollpop_time">시간 등록하기</a></th>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	<td><a href="#" onclick="alert('시간먼저 설정해주세요')">등록하기</a></td>
+	                            	
 	                            </tr>
                             </tbody>
                             	
@@ -153,5 +154,17 @@
 			console.log(input);
 			
 		}
+		
+/* 		function popup(time){
+			
+			var url = <c:url value='time_tbl_enrollpop?time="+time+"'/>"
+			var name="time_tbl_enrollpop"
+			var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
+
+			 window.open(url, name, status);
+				
+		} */
+		
+		
 	
 	</script>

@@ -119,27 +119,62 @@ public class AdminController {
 
 		return request.getRequestURI();
 	}
-	@RequestMapping(value = "ac_info/time_tbl_enroll", method = RequestMethod.GET)
-	public String time_tbl_enroll(HttpServletRequest request, @ModelAttribute("time") String time, @ModelAttribute("day") String day) {
+	
+	@RequestMapping(value = "ac_info/time_tbl_enrollpop", method = RequestMethod.GET)
+	public String time_enroll(HttpServletRequest request,  @ModelAttribute("time") String time, @ModelAttribute("day") String day, @ModelAttribute("subject") String subject) {
 		System.out.println(request.getRequestURI());
-		
 		System.out.println("time:" + time);
 		System.out.println("day:" + day);
 		
-		
-
 		return request.getRequestURI();
 	}
-
 	
-	
-	
-	@RequestMapping(value = "ac_info/time_enroll", method = RequestMethod.GET)
+	@RequestMapping(value = "ac_info/time_tbl_enrollpop_time", method = RequestMethod.GET)
 	public String time_enroll(HttpServletRequest request) {
 		System.out.println(request.getRequestURI());
-
+		
+		
 		return request.getRequestURI();
 	}
+	
+	
+	@RequestMapping(value = "ac_info/time_tbl_enroll", method = RequestMethod.GET)
+	public String time_tbl_enroll(HttpServletRequest request,  @ModelAttribute Time_tblVO time_tblVO)  {
+		System.out.println(request.getRequestURI());
+		
+		System.out.println("time:" + time_tblVO.getTime());
+		System.out.println("day:" + time_tblVO.getDay());
+		System.out.println("subject:" + time_tblVO.getSubject());
+		
+		String time= time_tblVO.getTime();
+		String subject = time_tblVO.getSubject();
+		String day= time_tblVO.getDay();
+		
+		
+		
+		if("".equals(day) &&  "".equals(subject)) {
+			adminservice.add_time(time);
+		}else {
+			Map<String, String> map = new HashMap<>();
+			map.put("m", "월");
+			map.put("t", "화");
+			map.put("w",  "수");
+			map.put("th", "목");
+			map.put("f", "금");
+			map.put("sa", "토");
+			map.put("s", "일");
+			time_tblVO.setDay(map.get(day));
+		
+		adminservice.add_timetable(time_tblVO);
+		}
+		
+		return "redirect:/admin/ac_info/ac_info";
+	}
+
+	
+	
+	
+
 
 	/* ������������������������������������ */
 	@RequestMapping(value = "ac_info/subject_info", method = RequestMethod.GET)

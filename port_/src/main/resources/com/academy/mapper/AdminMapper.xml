@@ -77,7 +77,7 @@
 			listagg(m,',') within group (order by time) as m,
 			listagg(t, ',') within group (order by time) as t,
 			listagg(w, ',') within group (order by time) as w,
-			listagg(t, ',') within group (order by time) as th,
+			listagg(th, ',') within group (order by time) as th,
 			listagg(f, ',') within group (order by time) as f,
 			listagg(sa, ',') within group (order by time) as sa,
 			listagg(s, ',') within group (order by time) as s
@@ -95,4 +95,12 @@
 group by time
 	]]>
 </select>
+
+<insert id="add_timetable">
+	insert into Time_tblVO values(#{time}, #{day},#{subject})
+</insert>
+
+<insert id="add_time">
+	insert into time_tblvo (time) values (#{time})
+</insert>
   </mapper>
