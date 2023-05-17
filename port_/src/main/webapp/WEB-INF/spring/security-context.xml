@@ -28,7 +28,7 @@
 		<security:logout logout-url="/admin/logout"
 						 invalidate-session="true"
 						 delete-cookies="true"/>
-		<security:csrf disabled="false"/>
+		<security:csrf disabled="true"/>
 		<security:access-denied-handler error-page="/accessError"/>
 	</security:http>
 
@@ -50,7 +50,7 @@
 		<security:logout logout-url="/user/logout"
 						 invalidate-session="true"
 						 delete-cookies="true"/>
-		<security:csrf disabled="false"/>
+		<security:csrf disabled="true"/>
 		<security:access-denied-handler error-page="/accessError"/>
 	</security:http>
 
