@@ -161,8 +161,9 @@ public class UserServiceImpl implements UserService {
 	 * @param board_id
 	 */
 	@Override
-	public void removeBoard(int board_id) {
-		userMapper.deleteBoardFile(board_id);
-		userMapper.deleteBoard(board_id);
+	public int removeBoard(int board_id) {
+		int delFileCnt = userMapper.deleteBoardFile(board_id);
+		int delBoardCnt = userMapper.deleteBoard(board_id);
+		return delFileCnt > 0 && delBoardCnt > 0 ? delFileCnt + delBoardCnt : 0;
 	}
 }

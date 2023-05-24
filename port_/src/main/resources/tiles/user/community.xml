@@ -27,6 +27,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/user/community/register.jsp" />
 	</definition>
 	
+	<!-- 메인 > 자료게시판 답글 등록페이지 -->
+	<definition name="/user/data_board/reply" extends="communityLayout">
+		<put-attribute name="title" value="자료게시판 답글 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/reply.jsp" />
+	</definition>
+	
 	<!-- 메인 > 자료게시판 상세페이지 -->
 	<definition name="/user/data_board/detail" extends="communityLayout">
 		<put-attribute name="title" value="자료게시판 상세페이지" />

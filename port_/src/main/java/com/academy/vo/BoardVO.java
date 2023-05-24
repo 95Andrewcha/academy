@@ -9,6 +9,7 @@ import lombok.Data;
 
 @Data
 public class BoardVO {
+	private int level;
 	private int rn;
 	private String gubun;
 	private int board_group;
@@ -29,4 +30,5 @@ public class BoardVO {
 	private String file_name;
 	private Date date; /*업로드 날짜*/
 	private List<MultipartFile> file;
+	private int fileCount;
 }

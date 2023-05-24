@@ -1,5 +1,6 @@
 package com.academy.controller;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,8 +34,6 @@ import com.academy.vo.AttachVO;
 import com.academy.vo.BoardVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.PageVO;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -214,15 +216,52 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/data_board/test/{board_no}")
 	public String removeDataBoard(@PathVariable int board_no, @RequestParam String jsonData) throws Exception {
-		System.out.println(jsonData);
-//		for(String delFile : deleteFilesArr) {
-//			String[] delFileSplit = delFile.split("_");
-//			File file = new File(Common.BOARD_REPO + delFileSplit[0] + delFileSplit[1]);
-//			file.delete();
-//		}
-//		
-//		userService.removeBoard(board_no);
+		JSONArray jsonArray = new JSONArray();
+		JSONParser jsonParser = new JSONParser();
 		
-		return "success";
+		jsonArray = (JSONArray) jsonParser.parse(jsonData);
+		
+		for(int i=0; i<jsonArray.size(); i++) {
+			JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+			String[] deleteFilesArr = jsonObject.get("deleteFiles").toString().split("_");
+			File file = new File(Common.BOARD_REPO + deleteFilesArr[0] + deleteFilesArr[1]);
+			file.delete();
+		}
+		
+		int result = userService.removeBoard(board_no);
+		
+		return result > 0 ? "success" : "fail";
+	}
+	
+	@RequestMapping(value = "/data_board/reply", method = RequestMethod.GET)
+	public String reply(HttpServletRequest request, @ModelAttribute BoardVO boardVO, Model model, Authentication authentication) {
+		model.addAttribute("user", authentication.getPrincipal());
+		return request.getRequestURI();
+	}
+	
+	/**
+	 * 메인 > 자료게시판 > 자료게시판 답글 등록
+	 * @param multipartRequest
+	 * @return 자료게시판 답글 등록 후 자료게시판 페이지 리다이렉트
+	 */
+	@ResponseBody
+	@PostMapping("/data_board/reply")
+	public Map<String, Object> addDataBoardReply(MultipartHttpServletRequest multipartRequest) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		Enumeration<String> paramNames = multipartRequest.getParameterNames();
+		
+		while(paramNames.hasMoreElements()) {
+			String name = paramNames.nextElement();
+			String value = multipartRequest.getParameter(name);
+			System.out.println("name: " + name);
+			System.out.println("value: " + value);
+			paramMap.put(name, value);
+		}
+		
+		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		paramMap.put("fileList", fileList);
+		Map<String, Object> result = userService.insertNewDataBoard(paramMap);
+		
+		return result;
 	}
 }

@@ -23,14 +23,19 @@
 		$.ajax({
 			type: "post",
 			url: "/user/data_board/test/" + board_no,
-			traditional: true,
-			dataType: "json",
 			data: {
-				"jsonData": JSON.stringify(deleteFilesArr)
+				jsonData: JSON.stringify(deleteFilesArr)
 			},
 			success: function(data) {
-				alert("글이 삭제되었습니다.");
-				location.href = "/user/data_board?title=${criteria.title }&pageNum=${criteria.pageNum }";
+				if(data == "success") {
+					alert("글이 삭제되었습니다.");
+					location.href = "/user/data_board?title=${criteria.title }&pageNum=${criteria.pageNum }";
+				} else {
+					alert("에러가 발생했습니다. 다시 시도해주세요.");
+				}
+			},
+			error: function(data) {
+				alert("에러가 발생했습니다.");
 			}
 		});
 	}

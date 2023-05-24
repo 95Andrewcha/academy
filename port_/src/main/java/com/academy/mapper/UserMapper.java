@@ -104,11 +104,11 @@ public interface UserMapper {
 	 * 자료게시판 파일 삭제
 	 * @param board_no
 	 */
-	public void deleteBoardFile(int board_no);
+	public int deleteBoardFile(int board_no);
 	
 	/**
 	 * 자료게시판 글 삭제
 	 * @param board_no
 	 */
-	public void deleteBoard(int board_no);
+	public int deleteBoard(int board_no);
 }

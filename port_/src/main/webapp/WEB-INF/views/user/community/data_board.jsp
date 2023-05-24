@@ -53,8 +53,14 @@
 				<tr>
 					<td>${item.rn }</td>
 					<td class="text-start">
+						<c:if test="${item.level > 1 }">
+							<c:forEach var="num" begin="2" end="${item.level }">
+								<span class="ps-1"></span>
+							</c:forEach>
+							<i class="fa-solid fa-reply fa-rotate-180"></i>
+						</c:if>
 						<c:choose>
-							<c:when test="${empty item.uuid }">
+							<c:when test="${item.fileCount == 0 }">
 								<span><i class="fa-solid fa-comment-dots"></i></span>
 							</c:when>
 							<c:otherwise>
@@ -70,7 +76,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<div class="pagination d-flex">
+	<div class="pagination d-flex mt-4">
 		<div class="col-12">
 			<ul class="d-flex justify-content-center">
 				<c:if test="${pageVO.prev }">

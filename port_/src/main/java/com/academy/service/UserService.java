@@ -86,5 +86,5 @@ public interface UserService {
 	 * 자료게시판 글 삭제
 	 * @param board_id
 	 */
-	public void removeBoard(int board_id);
+	public int removeBoard(int board_id);
 }

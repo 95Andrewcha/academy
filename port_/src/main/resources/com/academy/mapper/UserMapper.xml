@@ -8,7 +8,7 @@
 	<!-- 검색 조건 -->
 	<sql id="searchCondition">
 		<if test="title != null">
-			AND BOARD.BOARD_TITLE LIKE '%' || #{title} || '%'
+			AND B.BOARD_TITLE LIKE '%' || #{title} || '%'
 		</if>
 	</sql>
 	
@@ -102,14 +102,17 @@
 				FROM
 					(
 						SELECT
-							*
+							LEVEL,
+							B.*,
+							(SELECT COUNT(*) FROM ATTACH_TBL WHERE BOARD_NO = B.BOARD_NO) AS fileCount
 						FROM
-							BOARD_TBL
+							BOARD_TBL B
 						WHERE
 							1 = 1
 							<include refid="searchCondition" />
-						ORDER BY
-							BOARD_DATE DESC
+						START WITH PARENT_NO = 0
+						CONNECT BY PRIOR BOARD_NO = PARENT_NO
+						ORDER SIBLINGS BY BOARD_DATE DESC
 					) BOARD
 			)
 	<![CDATA[
@@ -162,7 +165,14 @@
 			0,
 			SYSDATE,
 			0,
-			0,
+			<choose>
+				<when test="parent_no == 0">
+					0,
+				</when>
+				<otherwise>
+					#{parent_no},
+				</otherwise>
+			</choose>
 			#{board_content}
 		)
 	</insert>
