@@ -66,7 +66,7 @@
                                     <td><fmt:formatDate value="${Plist.START_DATE}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${Plist.END_DATE }" pattern="yyyy-MM-dd"/> </td>
                                     <td><c:out value="${Plist.REG_ID}"/></td>
                                     <td><c:out value="${Plist.CONTENT}"/></td>
-                                    <td><button id="detail" class="btn btn-sm btn-primary" data-id="${Plist.id }">자세히보기</button></td>
+                                    <td><button id="detail" class="btn btn-sm btn-primary" data-id="${Plist.id }" onclick="javascript:showDetail('${Plist.id}');">자세히보기</button></td>
                                 </tr>
                                 </c:forEach>
                             </tbody>
@@ -174,17 +174,45 @@
 	         $('#start_date').datepicker();
 	         $('#end_date').datepicker();
 	      });
-	      
-	      
-		$('#detail').click(function(e){
+		/* $('#detail').click(function(e){
 			e.preventDefault();
-			
-			
-			
 			$('#testModal').modal("show");
-		});
+		}); */
+		
+		function showDetail(id) {
+			$.ajax({
+				type: "get",
+				url: "popupDetail/" + id,
+				success: function(data) {
+					var list = data.list;
+					var modal = $('#testModal');
+					console.log(data.list);
+					
+					var start = new Date(list.start_DATE);
+					
+					modal.find("input[name='subject']").val(list.name);
+					modal.find("input[name='start_date']").val(start);
+					modal.find("input[name='end_date']").val(list.end_DATE);
+					alert("성공");
+					
+					
+					
+					
+					
+					$('#testModal').modal("show");
+				},
+				error: function(data) {
+					alert("실패");
+				}
+			});
+		}
 		
 		$('#close').click(function(e){
+			e.preventDefault();
+			$('#testModal').modal("hide");
+		});
+		
+		$('.close').click(function(e){
 			e.preventDefault();
 			$('#testModal').modal("hide");
 		});
@@ -202,77 +230,59 @@
          		$("input[name=chkbox]").prop("checked", false);
          	}
          }
-         
+		 
+		 
+		//전체 체크 선택
          $(document).on("click", "input:checkbox[name=chkbox]", function(e) {
-         	
          	var chks = document.getElementsByName("chkbox");
          	var chksChecked = 0;
-         	
          	for(var i=0; i<chks.length; i++) {
          		var cbox = chks[i];
-         		
          		if(cbox.checked) {
          			chksChecked++;
          		}
          	}
-         	
          	if(chks.length == chksChecked){
          		$("#chkboxAll").prop("checked", true);
          	}else{
          		$("#chkboxAll").prop("checked",false);
          	}
-         	
          });
          
          $("#pop_delete").click(function(){
-         	
-        
          var tdArr = new Array();
          var checkbox = $("input[name=chkbox]:checked");
          
          checkbox.each(function(index){
          	var tr = checkbox.parent().parent().eq(index);
          	var td = tr.children();
-         	
-         	
          	var id = $(this).val();
-         	var subject = td.eq(1).text() + ",";
-         	var teacher = td.eq(2).text() + ",";
-         	
-         	subject = subject.substring(0,subject.length-1);
-         	teacher = teacher.substring(0, teacher.length-1);
-         	
          	tdArr.push(id);
-         	console.log(tdArr);
-         	
-         	$.ajax({
-    			type : 'get',
-    			url : 'popup?value=delete',
-    			data : {tdArr : tdArr},
-    			success : function(result){
-    				location.href='popup?value=popup'
-    				console.log(result);
-    			},
-    			error : function(xhr){
-    				console.log(xhr.responseText);
-    			}
-    		});
-         	
-         	});
+         });
+         $.ajax({
+ 			type : 'post',
+ 			url : 'delete',
+ 			traditional: true,
+ 			data : {
+ 				"tdArr" : tdArr
+ 			},
+ 			success : function(result){
+ 				location.href='popup'
+ 				console.log(result);
+ 			},
+ 			error : function(xhr){
+ 				console.log(xhr.responseText);
+ 			}
+ 		});
          
          });
         
          
          function Popupopen(name){
-        	
-        	 var url = "popup?value=popupenroll";
+        	 var url = "popupenroll";
         	 var name = "popupenroll";
         	 var status ="width=1000, height=600,toolbar=no,status=no,location=no,scrollbars=yes,menubar=no,resizable=yes,left=50,right=50";
-       
-        	 window.open(url, name, status);
-        	 
-        	
-			        	 
+        	 window.open(url, name, status);        	 
          }
 		
 

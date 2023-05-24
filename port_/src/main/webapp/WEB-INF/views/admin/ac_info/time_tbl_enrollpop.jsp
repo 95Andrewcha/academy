@@ -1,11 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-    
-    <form action="time_tbl_enroll" method="GET">
-    	<input type="text" name="time" value="${time }">
-    	<input type="text" name="subject" value="${subject }">
-    	<input type="text" name="day" value="${day }">
-    	
-    	<input type="submit">
-    </form>
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-body">
+			<div class="container-fluid px-4">
+				<h1 class="mt-2">과목 등록</h1>
+				<div class="card mb-4">
+					<div class="card-body">
+						<form action="time_tbl_enroll" method="post">
+
+							<div class="mb-3">
+								<label for="title" class="form-label">시간</label>
+								 <input type="text" class="form-control update" id="time" name="time" value="${time_tblVO.time}" readonly>
+							</div>
+							<div class="mb-3">
+								<label for="content" class="form-label">등록할 과목</label>
+								 <input type="text" class="form-control update" name="subject" value="" />
+							</div>
+							<div class="mb-3">
+								<label for="content" class="form-label">요일</label>
+								<c:if test="${time_tblVO.day eq 'm'}">
+									<input type="text" class="form-control update" name="day" value="월" readonly />
+								</c:if>
+								<c:if test="${time_tblVO.day eq 'w'}">
+									<input type="text" class="form-control update" name="day" value="화" readonly />
+								</c:if>
+								<c:if test="${time_tblVO.day eq 'w'}">
+									<input type="text" class="form-control update" name="day" value="수" readonly />
+								</c:if>
+								<c:if test="${time_tblVO.day eq 'th'}">
+									<input type="text" class="form-control update" name="day" value="목" readonly />
+								</c:if>
+								<c:if test="${time_tblVO.day eq 'f'}">
+									<input type="text" class="form-control update" name="day" value="금" readonly />
+								</c:if>
+								<c:if test="${time_tblVO.day eq 'sa'}">
+									<input type="text" class="form-control update" name="day" value="토" readonly />
+								</c:if>
+								<c:if test="${time_tblVO.day eq 's'}">
+									<input type="text" class="form-control update" name="day" value="일" readonly />
+								</c:if>
+							</div>
+							<input type="submit" value="등록하기" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

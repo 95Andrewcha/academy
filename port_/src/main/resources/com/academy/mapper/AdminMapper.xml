@@ -4,75 +4,117 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.academy.mapper.AdminMapper">
   
+  
+<select id="totalchild" resultType="HashMap">
+	<![CDATA[
+	SELECT
+ 	DECODE(gender, NULL, 2, gender) AS gender,
+  SUM(COALESCE(Ja, 0)) AS Ja,
+  SUM(COALESCE(Fe, 0)) AS Fe,
+  SUM(COALESCE(March, 0)) AS March,
+  SUM(COALESCE(A, 0)) AS A,
+  SUM(COALESCE(Ma, 0)) AS Ma,
+  SUM(COALESCE(June, 0)) AS June,
+  SUM(COALESCE(July, 0)) AS July,
+  SUM(COALESCE(agust, 0)) AS agust,
+  SUM(COALESCE(sep, 0)) AS sep,
+  SUM(COALESCE(oct, 0)) AS oct,
+  SUM(COALESCE(nom, 0)) AS nom,
+  SUM(COALESCE(de, 0)) AS de
+FROM
+  (SELECT
+    gender,
+    EXTRACT(MONTH FROM aca_reg_date) AS month
+  FROM
+children_tbl)
+PIVOT
+  (COUNT(*) FOR month IN (1 AS Ja, 2 AS Fe, 3 AS March, 4 AS A, 5 AS Ma, 6 AS June, 7 AS July, 8 AS agust, 9 AS sep, 10 AS oct, 11 AS nom, 12 AS de))
+
+ GROUP BY
+ rollup
+  (gender)
+		
+	]]>
+	
+</select>
 <select id="getPopup" resultType="com.academy.vo.PopupVO">
 	<![CDATA[
 		SELECT * FROM POP_UP
 	]]>
+</select>
+
+<select id="getPopupDetail" resultType="com.academy.vo.PopupVO">
+	<![CDATA[
+		select * from pop_up where id= #{id}
+	]]>
+</select>
+
+<delete id="deletepopup">
+	<![CDATA[
+		delete from pop_up where id=#{id}
+	]]>
+</delete>
+
+<select id="getCoupList" resultType="com.academy.vo.CouponVO">
+	 <![CDATA[
+
+     
+     
+     SELECT *
+    FROM (
+      SELECT *
+      FROM (
+        SELECT rownum rn, a.*
+        FROM coupon_tbl a
+        ORDER BY a.reg_date DESC
+      )
+      WHERE rownum <= #{pageNum} * #{amount}
+    )
+    WHERE rn > (#{pageNum} - 1) * #{amount}
+     
+	]]> 
+	
 	
 </select>
 
-<select id="getCoupList" resultType="com.academy.vo.CouponVO">
-	<![CDATA[
-		select *
-		from 
-		(select rownum rn, a.* from COUPON_TBL a
-		where rownum <= #{pageNum} * #{amount}
-		)
-		where rn > (#{pageNum} -1) * #{amount}
-		
-	
-	
-	]]>
-</select>
 
 <select id="getTotalCount" resultType="int">
 	<![CDATA[
 		select count(*) from coupon_tbl where id>0
-	
 	]]>
 	
 </select>
 
-<insert id="couponInsert" parameterType="com.academy.vo.CouponVO">
-	<![CDATA[
-			INSERT INTO COUPON_TBL
-			(
-				id, name, start_date, end_date, CONTENT,discount, discount2
-			)
-			VALUES
-			(
-				coupon_id_seq.nextval, #{name}, 
-				#{start_date},
-				#{end_date},
-				#{content},
-				#{discount},
-				#{discount2}
-			)
+	<insert id="couponInsert" parameterType="com.academy.vo.CouponVO">
+				INSERT INTO COUPON_TBL
+				(
+					id, name, start_date, end_date, content, discount, discount2, active
+				)
+				VALUES
+				(
+					coupon_id_seq.nextval, #{name}, 
+					#{start_date},
+					#{end_date},
+					#{content},
+					#{active}
+					
+					<if test="discount != null"> #{discount, jdbcType=VARCHAR},</if>
+				    <if test="discount == null"> NULL, </if>
+	    			<if test="discount2 != null">#{discount2, jdbcType=VARCHAR}</if>
+				    <if test="discount2 == null">NULL</if>
+				)
+	</insert>
+
+	<select id="couponsearch" resultType="com.academy.vo.CouponVO">
+		<![CDATA[
+			select * from coupon_tbl 
+			where 
+			name = #{name} and active = #{active} and start_date >= #{start_date} and end_date <= #{end_date}
 		]]>
-</insert>
+	</select>
 
-<!--   	where schedule_date >=#{db_startDate}  db_startDate db_startDate
-	and schedule_date <=#{db_endDate}
-
- -->
-<!-- schedule -->
-<select id="schedule_list" resultType="com.academy.vo.ScheduleVO">
-	<![CDATA[
-		select 
-		*
-		  from schedule_tbl 
-	where schedule_date >= '2023-5-1'
-	and schedule_date <= '2023-5-31'
-			
-		
-		
-		order by schedule_date, schedule_num, schedule_idx 
-	
-	]]>
-</select>
-
-<select id="getLst" resultType="com.academy.vo.Time_tblVO">
-	<![CDATA[
+	<!-- 시간표 -->
+	<select id="getLst" resultType="com.academy.vo.Time_tblVO">
 		select time,
 			listagg(m,',') within group (order by time) as m,
 			listagg(t, ',') within group (order by time) as t,
@@ -92,15 +134,56 @@
 			, case when day='일' then subject end as s
 			
 			from Time_tblVO)
-group by time
-	]]>
-</select>
+		group by time
+	</select>
 
-<insert id="add_timetable">
-	insert into Time_tblVO values(#{time}, #{day},#{subject})
-</insert>
+	<insert id="add_timetable">
+		insert into Time_tblVO values(#{time}, #{day},#{subject})
+	</insert>
 
-<insert id="add_time">
-	insert into time_tblvo (time) values (#{time})
-</insert>
+	<insert id="add_time">
+		insert into time_tblvo (time) values (#{time})
+	</insert>
+	
+	<update id="update_time">
+		update time_tblVO set time=#{time2}
+		where time =#{time}
+	</update>
+	
+	<update id="update_timetable">
+		update time_tblVO set subject = #{subject2} where time =#{time} and day=#{day} and subject=#{subject}
+	</update>
+
+	<!-- 일정관리 Calendar -->
+	<select id="calendarList" resultType="com.academy.vo.CalendarVO">
+		SELECT id, title,
+		TO_char(start_date, 'YYYY-MM-DD"T"HH24:MI:SS') start_date,
+		TO_char(end_date, 'YYYY-MM-DD"T"HH24:MI:SS') end_date,
+		ALLDAY,
+		TEXTCOLOR,
+		BACKGROUNDCOLOR,
+		BORDERCOLOR 
+		FROM CALENDAR
+	</select>
+	
+	<insert id="calednarinsert" parameterType="com.academy.vo.CalendarVO">
+		insert into calendar(
+		id,
+		title,
+		content,
+		start_date, 
+		end_date) 
+		values 
+		(cal_seq.nextval,
+			#{title},
+		  	#{content},
+		   	#{start_date},
+		    #{end_date}
+		)
+	</insert>
+	
+	<insert id="schedule_insert" parameterType="com.academy.vo.CalendarVO">
+		insert into calendar (id, title, start_date, end_date, content)
+		values(cal_seq.nextval, #{title}, #{start_date}, #{end_date}, #{content})
+	</insert>
   </mapper>

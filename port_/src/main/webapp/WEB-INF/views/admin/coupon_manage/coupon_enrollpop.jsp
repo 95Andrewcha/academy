@@ -5,11 +5,12 @@
 		<div class="col-sm-12 col-xl-6">
 			<div class="bg-light rounded h-100 p-4">
 				<h6 class="mb-4">쿠폰등록</h6>
-				<form id="enroll" method='get'>
+				<form id="enroll" method='POST'>
 					<div class="row mb-3">
+						<input type="hidden" class="form-control" name="active" value="1">
 						<label for="inputEmail3" class="col-sm-2 col-form-label">제목</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="title">
+							<input type="text" class="form-control" id="title" name="name">
 						</div>
 					</div>
 					<div class="row mb-3">
@@ -28,7 +29,7 @@
 					<div class="row mb-3">
 						<label for="inputPassword3" class="col-sm-2 col-form-label">내용</label>
 						<div class="col-sm-10">
-							<textarea style="width: 100%" ; class="form-contorl" id="content"></textarea>
+							<textarea style="width: 100%" ; class="form-contorl" id="content" name="content"></textarea>
 
 						</div>
 					</div>
@@ -84,8 +85,7 @@
 </div>
 <script>
 var frm = document.getElementById("enroll");
-
- function insert(){
+function insert(){
 	frm.action="coupon_enroll";
 	frm.submit();
 	alert(등록);
@@ -95,33 +95,21 @@ $(function(){
       $('#start_date').datepicker();
       $('#end_date').datepicker();
    });
-   
-   
-   
-	var dis = document.getElementsByClassName('dis');
-	
-	for(var i=0; i<dis.length; i++){
-		dis[i].addEventListener('click', () =>{
-			var check_pay = document.getElementById('check_pay');
-			var check_per = document.getElementById('check_per');
-			if(check_pay.checked){
-				document.getElementById('pay').disabled = false;
-				document.getElementById('percent').value ="";
-				document.getElementById('percent').disabled = true;	
+var dis = document.getElementsByClassName('dis');
+for(var i=0; i<dis.length; i++){
+	dis[i].addEventListener('click', () =>{
+		var check_pay = document.getElementById('check_pay');
+		var check_per = document.getElementById('check_per');
+		if(check_pay.checked){
+			document.getElementById('pay').disabled = false;
+			document.getElementById('percent').value ="";
+			document.getElementById('percent').disabled = true;	
+		}
+		if(check_per.checked){
+			document.getElementById('percent').disabled = false;
+			document.getElementById('pay').value="";
+			document.getElementById('pay').disabled = true;
 			}
-			
-			
-			if(check_per.checked){
-				document.getElementById('percent').disabled = false;
-				document.getElementById('pay').value="";
-				document.getElementById('pay').disabled = true;
-				
-				}
-			
-		});
-	}
-	
-	
-
-	
+	});
+}
 </script>

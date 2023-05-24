@@ -9,12 +9,14 @@ import lombok.ToString;
 @ToString
 public class ScheduleVO {
 
-	int schedule_idx;
-	int schedule_num;
-	String schedule_subject; //제목
-	String schedule_desc;
-	Date schedule_date;
-	String schedule_share; //공유여부
-	String schedule_mycolor;
+	int scheule_id;
+	Date create_date;
+	String creator_id;
+	Date schedule_date_time_end;
+	Date schedule_date_time_start;
+	Date update_date;
+	String update_id;
+	
+	
 
 }

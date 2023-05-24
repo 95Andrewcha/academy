@@ -15,6 +15,8 @@ public class Time_tblVO {
 	private String f;
 	private String sa;
 	private String s;
+	private String time2;
+	private String subject2;
 	
 	
 }

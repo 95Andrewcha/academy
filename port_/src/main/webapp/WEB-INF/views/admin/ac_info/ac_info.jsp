@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+
+<style>
+	.timecolor{color:black;}
+	.subjectcolor{color:black;}
+</style>
     
 <div class="col-sm-12 col-xl-10 m-sm-auto" style="border:3px solid #e3e3e3">
                         <div class="rounded h-100 p-4">
@@ -26,14 +31,14 @@
 	                                	<c:if test="${null ne time }">
 	                                		<th>비어 있습니다.
 	                                	</c:if>
-		                            	<th><c:out value="${tlist.time}"/></th>
+		                            	<th><a class="timecolor" href="time_tbl_update_time?time=<c:out value="${tlist.time}"/>"><c:out value="${tlist.time}" /></a></th>
 		                            	
 		                            	
 		                            	<c:if test="${null eq tlist.m }">
 		                            		<td>공강 <br> <a href="time_tbl_enrollpop?time=<c:out value="${tlist.time}"/>&day=m">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.m }">
-		                            		<td><c:out value="${tlist.m}"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.m}"></c:out>"><c:out value="${tlist.m}"/></a></td>
 		                            	</c:if> 
 		                            	
 		                            	
@@ -41,7 +46,7 @@
 		                            		<td>공강 <br> <a href="time_tbl_enrollpop?time=<c:out value="${tlist.time}"/>&day=t">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.t }">
-		                            		<td><c:out value="${tlist.t }"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.t}"></c:out>"><c:out value="${tlist.t }"/></a></td>
 		                            	</c:if> 
 		                            	
 		                            	
@@ -49,7 +54,7 @@
 		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=w">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.w }">
-		                            		<td><c:out value="${tlist.w }"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.w}"></c:out>"><c:out value="${tlist.w }"/></a></td>
 		                            	</c:if> 
 		                            	
 		                            	
@@ -58,7 +63,7 @@
 		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=th">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.th }">
-		                            		<td><c:out value="${tlist.th }"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.th}"></c:out>"><c:out value="${tlist.th }"/></a></td>
 		                            	</c:if> 
 		                            	
 		                            	
@@ -66,7 +71,7 @@
 		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=f">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.f }">
-		                            		<td><c:out value="${tlist.f }"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.f}"></c:out>"><c:out value="${tlist.f }"/></a></td>
 		                            	</c:if> 	
 		                            	
 		                            	
@@ -74,7 +79,7 @@
 		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=sa">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.sa }">
-		                            		<td><c:out value="${tlist.sa }"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.sa}"></c:out>"><c:out value="${tlist.sa }"/></a></td>
 		                            	</c:if> 	
 		                            	
 		                            	
@@ -82,7 +87,7 @@
 		                            		<td>공강  <br> <a href="time_tbl_enrollpop?time=<c:out value='${tlist.time}'/>&day=s">등록하기</a></td>
 		                            	</c:if>
 		                            	<c:if test="${null ne tlist.s }">
-		                            		<td><c:out value="${tlist.s }"/></td>
+		                            		<td><a class="subjectcolor" href="time_tbl_update?time=<c:out value="${tlist.time}"/>&day=m&subject=<c:out value="${tlist.s}"></c:out>"><c:out value="${tlist.s }"/></a></td>
 		                            	</c:if> 	
 		                            </tr>
 	                            </c:forEach> 

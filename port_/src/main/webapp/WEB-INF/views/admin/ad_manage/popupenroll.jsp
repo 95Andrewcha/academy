@@ -13,7 +13,7 @@
 		<h1 class="mt-4">자세히보기</h1>
 		<div class="card mb-4">
 			<div class="card-body">
-				<form>
+				<form method="post">
 					<div class="mb-3 mt-3">
 						<label for="bno" class="form-label">제목</label> <input type="text"
 							class="form-control update" id="subject" name="subject" >

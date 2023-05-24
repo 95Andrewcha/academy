@@ -1,5 +1,6 @@
 package com.academy.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,14 +22,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.academy.service.AdminService;
+import com.academy.vo.CalendarVO;
+import com.academy.vo.ChildrenVO;
 import com.academy.vo.CouponVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.PageVO;
+import com.academy.vo.PopupVO;
 import com.academy.vo.Time_tblVO;
 import com.academy.vo.UserVO;
 
@@ -39,11 +49,31 @@ public class AdminController {
 	private AdminService adminservice;
 
 	@RequestMapping(value = "admin", method = RequestMethod.GET)
-	public String Admin(HttpServletRequest request, UserVO uservo, Object UserDetails, Authentication authentication) {
+	public String Admin(HttpServletRequest request, UserVO uservo, Object UserDetails, Authentication authentication, ChildrenVO childrenvo, Model model) {
 		System.out.println("adminpage");
 
 		UserDetails user = (UserDetails) authentication.getPrincipal();
 		System.out.println("users:" + user);
+		
+		List<Map<String, Object>> charlist = adminservice.totalchild();
+		List<Map<String, Object>> gender1Maps = new ArrayList<>();
+		List<Map<String, Object>> gender0Maps = new ArrayList<>();
+		List<Map<String, Object>> genderSum = new ArrayList<>();
+
+		for (Map<String, Object> map : charlist) {
+		    int gender = Integer.parseInt(String.valueOf(map.get("GENDER")));
+		    if (gender == 1) {
+		        gender1Maps.add(map);
+		    } else if (gender == 0) {
+		        gender0Maps.add(map);
+		    } else if (gender ==2) {
+		    	genderSum.add(map);
+		    }
+		}
+		model.addAttribute("charlist", charlist);
+		model.addAttribute("woman", gender1Maps);
+		model.addAttribute("man", gender0Maps);
+		model.addAttribute("sum", genderSum);
 
 		return request.getRequestURI();
 	}
@@ -67,7 +97,7 @@ public class AdminController {
 		log.info(auth);
 
 		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-
+		
 		for (GrantedAuthority authority : authorities) {
 			// 이미 로그인 된 관리자일 경우 관리자 메인 페이지로 이동
 			if (authority.getAuthority().equals("ROLE_AD")) {
@@ -112,7 +142,6 @@ public class AdminController {
 	/* ���살�몄�� ������������ */
 	@RequestMapping(value = "ac_info/ac_info", method = RequestMethod.GET)
 	public String ac_info(HttpServletRequest request, Model model) {
-		System.out.println(request.getRequestURI());
 		model.addAttribute("timetableList", adminservice.getLst());
 		List<Time_tblVO> timetableList = adminservice.getLst();
 		System.out.println("timetableList:" + timetableList);
@@ -121,24 +150,44 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "ac_info/time_tbl_enrollpop", method = RequestMethod.GET)
-	public String time_enroll(HttpServletRequest request,  @ModelAttribute("time") String time, @ModelAttribute("day") String day, @ModelAttribute("subject") String subject) {
-		System.out.println(request.getRequestURI());
-		System.out.println("time:" + time);
-		System.out.println("day:" + day);
-		
+	public String time_enroll(HttpServletRequest request, @ModelAttribute Time_tblVO time_tblVO) {
+	
 		return request.getRequestURI();
 	}
 	
 	@RequestMapping(value = "ac_info/time_tbl_enrollpop_time", method = RequestMethod.GET)
 	public String time_enroll(HttpServletRequest request) {
-		System.out.println(request.getRequestURI());
-		
-		
 		return request.getRequestURI();
 	}
 	
+	@RequestMapping(value = "ac_info/time_tbl_update", method = RequestMethod.GET)
+	public String time_tbl_update(HttpServletRequest request, @ModelAttribute Time_tblVO time_tblVO) {
+		return request.getRequestURI();
+	}
 	
-	@RequestMapping(value = "ac_info/time_tbl_enroll", method = RequestMethod.GET)
+	@RequestMapping(value = "ac_info/time_tbl_update_time", method = RequestMethod.GET)
+	public String time_update(HttpServletRequest request, @ModelAttribute Time_tblVO time_tblVO) {
+		return request.getRequestURI();
+	}
+	@RequestMapping(value = "ac_info/time_tbl_doupdate", method=RequestMethod.POST)
+	public String time_tbl_doupdate(HttpServletRequest request, @ModelAttribute Time_tblVO time_tblVO) {
+		
+		String subject = time_tblVO.getSubject();
+		String day= time_tblVO.getDay();
+		String time = time_tblVO.getTime();
+		String subject2 = time_tblVO.getSubject2();
+		
+		if("".equals(day) && "".equals(subject)) {
+			adminservice.update_time(time_tblVO);
+		}else {
+			adminservice.update_timetable(time_tblVO);
+		}
+		
+		return "redirect:/admin/ac_info/ac_info";
+	}
+	
+	
+	@RequestMapping(value = "ac_info/time_tbl_enroll", method = {RequestMethod.GET, RequestMethod.POST})
 	public String time_tbl_enroll(HttpServletRequest request,  @ModelAttribute Time_tblVO time_tblVO)  {
 		System.out.println(request.getRequestURI());
 		
@@ -155,15 +204,11 @@ public class AdminController {
 		if("".equals(day) &&  "".equals(subject)) {
 			adminservice.add_time(time);
 		}else {
-			Map<String, String> map = new HashMap<>();
-			map.put("m", "월");
-			map.put("t", "화");
-			map.put("w",  "수");
-			map.put("th", "목");
-			map.put("f", "금");
-			map.put("sa", "토");
-			map.put("s", "일");
-			time_tblVO.setDay(map.get(day));
+			/*
+			 * Map<String, String> map = new HashMap<>(); map.put("m", "월"); map.put("t",
+			 * "화"); map.put("w", "수"); map.put("th", "목"); map.put("f", "금"); map.put("sa",
+			 * "토"); map.put("s", "일"); time_tblVO.setDay(map.get(day));
+			 */
 		
 		adminservice.add_timetable(time_tblVO);
 		}
@@ -200,67 +245,74 @@ public class AdminController {
 
 		return request.getRequestURI();
 	}
+	
+	@RequestMapping(value="ac_info/schedule",  method=RequestMethod.GET)
+	public String schedule(HttpServletRequest request, Model model) {
+		List<CalendarVO> listAll = adminservice.calendarList();
+		System.out.println("ac_info/schedule 진입");
+		model.addAttribute("listAll", listAll);
+		return request.getRequestURI();
+	}
+	
 
-	/*
-	 * @RequestMapping(value = "ac_info/schedule", method = RequestMethod.GET)
-	 * public String schedule(HttpServletRequest request,DateData dateData , Model
-	 * model){
-	 * 
-	 * Calendar cal = Calendar.getInstance(); DateData calendarData;
-	 * 
-	 * if(dateData.getDate().equals("") && dateData.getMonth().equals("")) {
-	 * dateData = new DateData(String.valueOf(cal.get(Calendar.YEAR)),
-	 * String.valueOf(cal.get(Calendar.MONTH)),
-	 * String.valueOf(cal.get(Calendar.DATE)), null, value null); arr
-	 * DateData(String year, String month, String date, String value, ScheduleVO[]
-	 * schedule_data_arr)
-	 * 
-	 * } Map<String, Integer> today_info = dateData.today_info(dateData);
-	 * List<DateData> dateList = new ArrayList<DateData>(); ArrayList<ScheduleVO>
-	 * Schedule_list = adminservice.schedule_list(dateData); 네이터 배열 추가
-	 * ScheduleVO[][] schedule_data_arr = new ScheduleVO[32][4]; if
-	 * (Schedule_list.isEmpty() != true) { int j = 0; for (int i = 0; i <
-	 * Schedule_list.size(); i++) { int date =
-	 * Integer.parseInt(String.valueOf(Schedule_list.get(i).getSchedule_date()).
-	 * substring( String.valueOf(Schedule_list.get(i).getSchedule_date()).length() -
-	 * 2, String.valueOf(Schedule_list.get(i).getSchedule_date()).length())); if (i
-	 * > 0) { int date_before = Integer.parseInt(String.valueOf(Schedule_list.get(i
-	 * - 1).getSchedule_date()) .substring(String.valueOf(Schedule_list.get(i -
-	 * 1).getSchedule_date()).length() - 2, String.valueOf(Schedule_list.get(i -
-	 * 1).getSchedule_date()).length())); if (date_before == date) { j = j + 1;
-	 * schedule_data_arr[date][j] = Schedule_list.get(i); } else { j = 0;
-	 * schedule_data_arr[date][j] = Schedule_list.get(i); } } else {
-	 * schedule_data_arr[date][j] = Schedule_list.get(i); } } }
-	 * 
-	 * // 실질적인 달력 데이터 리스트에 데이터 삽입 시작. // 일단 시작 인덱스까지 아무것도 없는 데이터 삽입 for (int i = 1;
-	 * i < today_info.get("start"); i++) { calendarData = new DateData(null, null,
-	 * null, null, null); dateList.add(calendarData); }
-	 * 
-	 * // 날짜 삽입 for (int i = today_info.get("startDay"); i <=
-	 * today_info.get("endDay"); i++) { ScheduleVO[] schedule_data_arr3 = new
-	 * ScheduleVO[4]; schedule_data_arr3 = schedule_data_arr[i];
-	 * 
-	 * if (i == today_info.get("today")) { calendarData = new
-	 * DateData(String.valueOf(dateData.getYear()),
-	 * String.valueOf(dateData.getMonth()), String.valueOf(i), "today",
-	 * schedule_data_arr3); } else { calendarData = new
-	 * DateData(String.valueOf(dateData.getYear()),
-	 * String.valueOf(dateData.getMonth()), String.valueOf(i), "normal_date",
-	 * schedule_data_arr3); } dateList.add(calendarData);
-	 * 
-	 * }
-	 * 
-	 * // 달력 빈 곳 빈 데이터로 삽입 int index = 7 - dateList.size() % 7;
-	 * 
-	 * if (dateList.size() % 7 != 0) {
-	 * 
-	 * for (int i = 0; i < index; i++) { calendarData = new DateData(null, null,
-	 * null, null, null); dateList.add(calendarData); } }
-	 * 
-	 * // 배열에 담음 model.addAttribute("dateList", dateList); // 날짜 데이터 배열
-	 * model.addAttribute("today_info", today_info); return request.getRequestURI();
-	 * }
-	 */
+
+	
+	
+	
+
+	
+	 @SuppressWarnings("unchecked")
+	@RequestMapping(value="ac_info/schedule_info")
+	  @ResponseBody 
+	  public List<Map<String, Object>> monthPlan() {
+		  List<CalendarVO> listAll = adminservice.calendarList();
+		  JSONObject jsonObj = new JSONObject();
+		  JSONArray jsonArr = new JSONArray();
+		  HashMap<String, Object> hash = new HashMap<>();
+	        for (int i = 0; i < listAll.size(); i++) {
+	            hash.put("title", listAll.get(i).getTitle());
+	            hash.put("start", listAll.get(i).getStart_date());
+	            hash.put("end", listAll.get(i).getEnd_date());
+	            jsonObj = new JSONObject(hash);
+	            jsonArr.add(jsonObj);
+	        }
+	        
+	        System.out.println("jsonArr:::::" + jsonArr);
+
+
+	     return jsonArr;
+
+	  }
+	 
+		@RequestMapping(value="ac_info/schedulepopup", method=RequestMethod.GET)
+		public String schedulepopup(HttpServletRequest request, Model model) {
+			System.out.println("ac_info/schedule/schedulepopup 진입");
+			return request.getRequestURI();
+		}
+		
+	 
+		@ResponseBody
+		@RequestMapping(value = "ac_info/scheduleadd", method= RequestMethod.POST)
+		public Map<Object, Object>scheduleadd(HttpServletRequest request, @RequestBody CalendarVO calendarvo){
+			
+			Map<Object, Object>map = new HashMap<Object, Object>();
+			
+		
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			String start_date = request.getParameter("start_date");
+			System.out.println("title::::" + title);
+			System.out.println("content::::" + content);
+			System.out.println("start_date:::" +start_date);
+			
+			adminservice.schedule_insert(calendarvo);
+			
+			return map;
+		}
+	
+
+	 
+	
 
 	/*--------------------------------------------------------------------------------------------------------------*/
 	/* ���살�쇱�� ������������ */
@@ -362,29 +414,28 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "ad_manage/popup", method = { RequestMethod.GET, RequestMethod.POST })
-	public String popup(HttpServletRequest request, Model model, Map<String, String> map,
-			@RequestParam String[] tdArr) {
+	public String popup(HttpServletRequest request, Model model, Map<String, String> map) {
 		System.out.println("popupMainPage");
+		
+		model.addAttribute("list", adminservice.getPopup());
+		System.out.println("list");
 
-		Map<String, String> controller = new HashMap<String, String>();
+		/*Map<String, String> controller = new HashMap<String, String>();
 		String value = "";
 		value = request.getParameter("value");
 		controller.put("controller", value);
 		System.out.println("controller :" + controller.get("controller"));
 
-		if (value.equals("popupenroll")) {
+		if(value.equals(null)) {
+			return "/admin/ad_manage/popup";
+		}else if (value.equals("popupenroll")) {
 			System.out.println("popupenroll");
 			return "/admin/ad_manage/popupenroll";
 
-		} /*
-			 * else if(value.equals("delete")) { String id[] =
-			 * request.getParameterValues("id"); for(int i = 0 ; i < id.length ; i++){
-			 * System.out.println(id[i]+"<br/>"); } System.out.println("delete"); }
-			 */
+		}
 
 		else if (value.equals("popup")) {
-			model.addAttribute("list", adminservice.getPopup());
-			System.out.println("list");
+			
 
 		}
 
@@ -397,8 +448,52 @@ public class AdminController {
 
 			return "redirect:/admin/ad_manage/popup?value='popup'";
 		}
-
+*/
 		return request.getRequestURI();
+	}
+	
+	@RequestMapping(value = "ad_manage/popupenroll", method =  RequestMethod.GET )
+	public String popupenroll(HttpServletRequest request) {
+		
+		return request.getRequestURI();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "ad_manage/popupDetail/{id}", method =  RequestMethod.GET )
+	public JSONObject popupenroll(@PathVariable int id, HttpServletRequest request ) {
+		
+		PopupVO popupvo = adminservice.getPopupDetail(id); 
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", popupvo);
+		
+		return jsonObject;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value= "ad_manage/delete", method=RequestMethod.POST)
+	public String delete(HttpServletRequest request, @RequestParam String[] tdArr, PopupVO popupvo) {
+		
+		String [] ids = tdArr;
+		
+		for (int i = 0; i < ids.length; i++) {
+			System.out.println("tddArr:" + ids[i]);
+			
+			String did = ids[i];
+			int id=Integer.parseInt(did);
+			int r = adminservice.deletepopup(id);
+			if (r>0) {
+				System.out.println("삭제");
+			}else {
+				System.out.println("삭제실패");
+			}
+			
+			
+		}
+		
+		System.out.println("tdArr:::::::" + ids);
+		
+		return "test";
 	}
 
 	@RequestMapping(value = "ad_manage/ac_accept", method = RequestMethod.GET)
@@ -444,7 +539,7 @@ public class AdminController {
 		return request.getRequestURI();
 	}
 
-	@RequestMapping(value = "coupon_manage/coupon_enroll", method = RequestMethod.GET)
+	@RequestMapping(value = "coupon_manage/coupon_enroll", method = RequestMethod.POST)
 	public String coupoon_enroll(@ModelAttribute CouponVO couponvo, HttpServletRequest request) {
 		System.out.println("들어오니?");
 		adminservice.couponInsert(couponvo);
@@ -453,12 +548,38 @@ public class AdminController {
 		return "redirect:coupon_manage";
 	}
 
-	@RequestMapping(value = "coupon_manage/search", method = RequestMethod.GET)
-	public String search(@ModelAttribute CouponVO couponvo, HttpServletRequest request) {
+	@RequestMapping(value ="coupon_manage/search", method = RequestMethod.POST)
+	@ResponseBody
+	public String search(HttpServletRequest request,
+			/*
+			 * @RequestParam("name") String name,
+			 * 
+			 * @RequestParam("start_date") String startDate,
+			 * 
+			 * @RequestParam("end_date") String endDate,
+			 * 
+			 * @RequestParam("active") String active,
+			 */
+            
+			@ModelAttribute CouponVO couponVO) {
+		
+		
+//		System.out.println("name:::::" + name);
+//		System.out.println("start_date:::::" + startDate);
+//		System.out.println("end_date:::::" + endDate);
+//		System.out.println("active:::::" + active);
+		
 
+		List<CouponVO> couponlist = adminservice.couponsearch(couponVO);
+		System.out.println("couponlist:::::" + couponlist);
 		System.out.println(request.getRequestURI());
-
-		return "";
+		
+		JSONObject jsonObject = new JSONObject();
+		
+		
+		jsonObject.put("result", couponlist);
+		
+		return jsonObject.toString();
 	}
 
 	/*--------------------------------------------------------------------------------------------------------------*/

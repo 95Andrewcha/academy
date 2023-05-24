@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
   <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
@@ -11,7 +13,9 @@
                 <div class="d-flex align-items-center ms-4 mb-4">
                     
                     <div class="ms-3">
-                        <h6 class="mb-0">{user.name}</h6>
+                        <h6 class="mb-0">
+                        	로그인 아이디 : <sec:authentication property="principal.id"/>
+                        </h6>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -54,7 +58,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>광고관리</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/admin/ad_manage/ad_manage" class="dropdown-item">광고관리</a>
-                            <a href="/admin/ad_manage/popup?value=popup&tdArr=" class="dropdown-item">팝업관리</a>
+                            <a href="/admin/ad_manage/popup" class="dropdown-item">팝업관리</a>
                             <a href="/admin/ad_manage/ac_accept" class="dropdown-item">입점허가관리</a>
                         </div>
                     </div>
