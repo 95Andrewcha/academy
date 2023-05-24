@@ -43,10 +43,13 @@
 
 <div class="border-radius-white p-4 mb-4">
 	<div>
-		<div class="board-title border-bottom-line pb-2">
+		<div class="board-title border-bottom-line pb-2 mb-3" style="border-width: 2px; border-color: var(--custom-main-color); color: var(--custom-main-color);">
+			<span class="fs-5 fw-bold">자료게시판</span>
+		</div>
+		<div class="board-title">
 			<span class="fs-5 fw-bold">${list.board_title }</span>
 		</div>
-		<div class="d-flex justify-content-between pb-2 border-bottom-line">
+		<div class="d-flex justify-content-between pb-3 border-bottom-line fs-7">
 			<span>${list.board_writer }</span>
 			<div>
 				<span class="pe-2">조회수 <fmt:formatNumber type="number" value="${list.board_hit }" /></span>
