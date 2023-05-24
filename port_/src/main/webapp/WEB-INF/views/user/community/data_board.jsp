@@ -7,7 +7,12 @@
 <script type="text/javascript">
 	function paging(pageNum) {
 		var title = $("input[name='title']").val();
-		location.href = "/user/community/data_board?title=" + title + "&pageNum=" + pageNum;
+		location.href = "/user/data_board?title=" + title + "&pageNum=" + pageNum;
+	}
+	
+	function boardDetail(board_no) {
+		var title = $("input[name='title']").val();
+		location.href = "/user/data_board/detail?title=" + title + "&pageNum=" + "${pageVO.cri.pageNum}" + "&board_no=" + board_no;
 	}
 </script>
 <div class="border-radius-white p-4 mb-4">
@@ -18,8 +23,10 @@
 				<span class="fs-7 ps-1">${pageVO.total }건</span>
 			</div>
 			<sec:authorize access="!isAnonymous() && isAuthenticated()">
-				<div class="custom-btn fs-7 px-3 fw-bold">
-					<i class="fa-solid fa-pencil"></i> 글쓰기
+				<div class="">
+					<a class="custom-btn fs-7 px-3 fw-bold" href="/user/data_board/register">
+						<i class="fa-solid fa-pencil"></i> 글쓰기
+					</a>
 				</div>
 			</sec:authorize>
 		</div>

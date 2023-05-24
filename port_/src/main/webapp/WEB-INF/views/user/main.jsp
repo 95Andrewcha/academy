@@ -40,24 +40,6 @@
 		</div>
 	</div>
 </div>
-<table>
-	<tr>
-		<th>월</th>
-		<th>화</th>
-		<th>수</th>
-		<th>목</th>
-		<th>금</th>
-		<th>토</th>
-		<th>일</th>
-	</tr>
-	<c:forEach var="item" items="${test }">
-		<tr>
-			<td>${item.gyosi }</td>
-		</tr>
-	</c:forEach>
-</table>
-
-
 <div class="most-popular">
 	<div class="row">
 		<div class="col-lg-12">

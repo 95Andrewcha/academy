@@ -248,6 +248,13 @@ Common Style
     height: 100%;
 }
 
+textarea {
+	resize: none;
+}
+
+.mh-38vh {
+	min-height: 38vh;
+}
 /* 
 ---------------------------------------------
 Main Style
@@ -270,17 +277,6 @@ Main Style
 	border-left: 1px solid rgba(102,102,102,0.3);
 }
 
-.inner-menu, .main-menu-bg {
-/* 	-webkit-transition: all 0.3s ease 0s;
-	-moz-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s; */
-	overflow: hidden;
-	height: 0;
-	top: 80px;
-	left: 0;
-}
-
 .inner-menu li {
 	display: block !important;
 	padding: 8px 0 !important;
@@ -293,19 +289,6 @@ Main Style
 
 .inner-menu li a:hover {
 	color: var(--custom-main-color);
-}
-
-.main-menu:hover .inner-menu {
-	overflow: visible;
-	height: auto;
-}
-
-.main-menu:hover .main-menu-bg {
-	opacity: 1;
-	border-top: 1px solid rgba(102,102,102,0.1);
-	box-shadow: 0px 5px 10px rgba(150,150,150,0.2)!important;
-	overflow: visible;
-	height: 180px;
 }
 
 /* 

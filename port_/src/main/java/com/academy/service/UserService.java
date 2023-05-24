@@ -1,8 +1,10 @@
 package com.academy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.academy.vo.AdVO;
+import com.academy.vo.AttachVO;
 import com.academy.vo.BoardVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.ReviewVO;
@@ -44,12 +46,45 @@ public interface UserService {
 	 * @param cri
 	 * @return List<BoardVO>
 	 */
-	public List<BoardVO> getBoardsList(Criteria cri);
+	public List<BoardVO> selectBoardsList(Criteria cri);
 	
 	/**
 	 * 자료게시판 갯수 조회
 	 * @param cri
 	 * @return int
 	 */
-	public int getBoardsCount(Criteria cri);
+	public int selectBoardsCount(Criteria cri);
+	
+	/**
+	 * 자료게시판 글 상세 조회
+	 * @param boardVO
+	 * @return 글 상세 데이터
+	 */
+	public BoardVO selectBoard(BoardVO boardVO);
+	
+	/**
+	 * 자료게시판 글 등록
+	 * @param boardVO
+	 */
+	public Map<String, Object> insertNewDataBoard(Map<String, Object> paramMap);
+	
+	/**
+	 * 자료게시판 글 파일 목록 조회
+	 * @param boardVO
+	 * @return 자료게시판 글 파일 목록
+	 */
+	public List<AttachVO> selectBoardFiles(BoardVO boardVO);
+	
+	/**
+	 * 자료게시판 글 수정
+	 * @param paramMap
+	 * @return
+	 */
+	public Map<String, Object> modifyDataBoard(Map<String, Object> paramMap);
+	
+	/**
+	 * 자료게시판 글 삭제
+	 * @param board_id
+	 */
+	public void removeBoard(int board_id);
 }

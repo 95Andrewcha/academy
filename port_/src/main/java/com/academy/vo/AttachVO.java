@@ -5,8 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Attach_tbl {
-
+public class AttachVO {
 	private String uuid; /*파일명*/
 	private String upload_path;
 	private String file_type;

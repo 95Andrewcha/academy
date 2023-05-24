@@ -15,10 +15,27 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/user/common/tiles/tile/footer.jsp" />
 	</definition>
 
-
-	<!-- 메인 > 커뮤니티 > 수다게시판 -->
-	<definition name="/user/community/*" extends="communityLayout">
-		<put-attribute name="title" expression="${title}" />
-		<put-attribute name="body" value="/WEB-INF/views/user/community/{1}.jsp" />
+	<!-- 메인 > 자료게시판 -->
+	<definition name="/user/data_board" extends="communityLayout">
+		<put-attribute name="title" value="자료게시판" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/data_board.jsp" />
+	</definition>
+	
+	<!-- 메인 > 자료게시판 글 등록페이지 -->
+	<definition name="/user/data_board/register" extends="communityLayout">
+		<put-attribute name="title" value="자료게시판 글 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/register.jsp" />
+	</definition>
+	
+	<!-- 메인 > 자료게시판 상세페이지 -->
+	<definition name="/user/data_board/detail" extends="communityLayout">
+		<put-attribute name="title" value="자료게시판 상세페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/detail.jsp" />
+	</definition>
+	
+	<!-- 메인 > 자료게시판 수정페이지 -->
+	<definition name="/user/data_board/modify" extends="communityLayout">
+		<put-attribute name="title" value="자료게시판 수정페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/user/community/modify.jsp" />
 	</definition>
 </tiles-definitions>

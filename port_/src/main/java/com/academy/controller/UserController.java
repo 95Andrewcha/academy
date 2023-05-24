@@ -1,5 +1,10 @@
 package com.academy.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,18 +16,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.academy.common.Common;
 import com.academy.service.UserService;
+import com.academy.vo.AttachVO;
+import com.academy.vo.BoardVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.PageVO;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-@RequestMapping("/user/*")
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
@@ -35,9 +50,9 @@ public class UserController {
 	 */
 	@GetMapping("main")
 	public String main(HttpServletRequest request, Model model) {
-		model.addAttribute("userCount", Common.setComma(userService.getUserCount()));		// 회원 수 조회
-		model.addAttribute("reviewCount", Common.setComma(userService.getReviewCount()));	// 리뷰 수 조회
-		model.addAttribute("academyCount", Common.setComma(userService.getAcademyCount()));	// 학원 수 조회
+		model.addAttribute("userCount", userService.getUserCount());		// 회원 수 조회
+		model.addAttribute("reviewCount", userService.getReviewCount());	// 리뷰 수 조회
+		model.addAttribute("academyCount", userService.getAcademyCount());	// 학원 수 조회
 		model.addAttribute("top4List", userService.getMostPopularAcademyTop4());			// 가장 인기 많은 학원 TOP4 조회
 		model.addAttribute("reviewList", userService.getReviewList());						// 리뷰 조회(최신 리뷰 4개 조회)
 		return request.getRequestURI();
@@ -85,29 +100,129 @@ public class UserController {
 
 		return "redirect:/user/main";
 	}
-	
+
 	/**
-	 * 메인 > 커뮤니티 > 수다게시판
-	 * @param 
-	 * @return String
+	 * 메인 > 자료게시판
+	 * @param cri
+	 * @param request
+	 * @param model
+	 * @return 자료게시판 페이지
 	 */
-	@GetMapping("community/free_board")
-	public String free_board(HttpServletRequest request, Model model) {
-		model.addAttribute("title", Common.setTitle("수다게시판", Common.COMMUNITY));
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 커뮤니티 > 자료게시판
-	 * @param 
-	 * @return String
-	 */
-	@GetMapping("community/data_board")
+	@RequestMapping(value = "/data_board", method = RequestMethod.GET)
 	public String data_board(@ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
-		model.addAttribute("title", Common.setTitle("자료게시판", Common.COMMUNITY));
-		model.addAttribute("list", userService.getBoardsList(cri));
-		model.addAttribute("pageVO", new PageVO(cri, userService.getBoardsCount(cri)));
+		model.addAttribute("list", userService.selectBoardsList(cri));
+		model.addAttribute("pageVO", new PageVO(cri, userService.selectBoardsCount(cri)));
 		return request.getRequestURI();
 	}
 	
+	/**
+	 * 메인 > 자료게시판 > 자료게시판 글 상세 페이지
+	 * @param boardVO
+	 * @param cri
+	 * @param request
+	 * @param model
+	 * @return 자료게시판 글 상세 페이지
+	 */
+	@RequestMapping(value = "/data_board/detail", method = RequestMethod.GET)
+	public String data_board_detail(@ModelAttribute BoardVO boardVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
+		model.addAttribute("list", userService.selectBoard(boardVO));
+		model.addAttribute("fileList", userService.selectBoardFiles(boardVO));
+		return request.getRequestURI();
+	}
+	
+	/**
+	 * 메인 > 자료게시판 > 자료게시판 글 등록 페이지
+	 * @param request
+	 * @param model
+	 * @return 자료게시판 글 등록 페이지
+	 */
+	@RequestMapping(value = "/data_board/register", method = RequestMethod.GET)
+	public String register(HttpServletRequest request, Model model, Authentication authentication) {
+		model.addAttribute("user", authentication.getPrincipal());
+		return request.getRequestURI();
+	}
+	
+	/**
+	 * 메인 > 자료게시판 > 자료게시판 글 등록
+	 * @param multipartRequest
+	 * @return 자료게시판 글 등록 후 자료게시판 페이지 리다이렉트
+	 */
+	@ResponseBody
+	@PostMapping("/data_board")
+	public Map<String, Object> addDataBoard(MultipartHttpServletRequest multipartRequest) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		Enumeration<String> paramNames = multipartRequest.getParameterNames();
+		
+		while(paramNames.hasMoreElements()) {
+			String name = paramNames.nextElement();
+			String value = multipartRequest.getParameter(name);
+			System.out.println("name: " + name);
+			System.out.println("value: " + value);
+			paramMap.put(name, value);
+		}
+		
+		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		paramMap.put("fileList", fileList);
+		Map<String, Object> result = userService.insertNewDataBoard(paramMap);
+		
+		return result;
+	}
+	
+	/**
+	 * 자료게시판 글 수정
+	 * @param board_no
+	 * @param multipartRequest
+	 * @return 자료게시판 글 수정 후 자료게시판 리다이렉트
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@PostMapping("/data_board/{board_no}")
+	public Map<String, Object> modifyDataBoard(@PathVariable int board_no, MultipartHttpServletRequest multipartRequest) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		Enumeration<String> paramNames = multipartRequest.getParameterNames();
+		
+		while(paramNames.hasMoreElements()) {
+			String name = paramNames.nextElement();
+			String value = multipartRequest.getParameter(name);
+			paramMap.put(name, value);
+		}
+		
+		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		paramMap.put("fileList", fileList);
+		List<AttachVO> delFileList = Common.deleteFile(multipartRequest);
+		paramMap.put("delFileList", delFileList);
+		
+		Map<String, Object> result = userService.modifyDataBoard(paramMap);
+		
+		return result;
+	}
+	
+	/**
+	 * 메인 > 자료게시판 > 자료게시판 글 수정 페이지
+	 * @param request
+	 * @param model
+	 * @return 자료게시판 글 수정 페이지
+	 */
+	@RequestMapping(value = "/data_board/modify", method = RequestMethod.GET)
+	public String modify(@ModelAttribute BoardVO boardVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
+		model.addAttribute("list", userService.selectBoard(boardVO));
+		model.addAttribute("fileList", userService.selectBoardFiles(boardVO));
+		return request.getRequestURI();
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/data_board/test/{board_no}")
+	public String removeDataBoard(@PathVariable int board_no, @RequestParam String jsonData) throws Exception {
+		System.out.println(jsonData);
+//		for(String delFile : deleteFilesArr) {
+//			String[] delFileSplit = delFile.split("_");
+//			File file = new File(Common.BOARD_REPO + delFileSplit[0] + delFileSplit[1]);
+//			file.delete();
+//		}
+//		
+//		userService.removeBoard(board_no);
+		
+		return "success";
+	}
 }
