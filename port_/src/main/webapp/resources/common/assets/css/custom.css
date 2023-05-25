@@ -23,6 +23,10 @@ Common Style
 	padding-bottom: 120px;
 }
 
+.border-line {
+	border: 1px solid var(--custom-border-color);
+}
+
 .border-bottom-line {
 	border-bottom: 1px solid var(--custom-border-color);
 }
@@ -254,6 +258,10 @@ textarea {
 
 .mh-38vh {
 	min-height: 38vh;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }
 /* 
 ---------------------------------------------

@@ -12,6 +12,7 @@ import com.academy.mapper.UserMapper;
 import com.academy.vo.AdVO;
 import com.academy.vo.AttachVO;
 import com.academy.vo.BoardVO;
+import com.academy.vo.CommentVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.ReviewVO;
 
@@ -166,4 +167,32 @@ public class UserServiceImpl implements UserService {
 		int delBoardCnt = userMapper.deleteBoard(board_id);
 		return delFileCnt > 0 && delBoardCnt > 0 ? delFileCnt + delBoardCnt : 0;
 	}
+
+	@Override
+	public List<CommentVO> selectBoardComments(Criteria cri) {
+		return userMapper.selectBoardComments(cri);
+	}
+
+	@Override
+	public int selectBoardCommentsCount(int board_no) {
+		return userMapper.selectBoardCommentsCount(board_no);
+	}
+
+	@Override
+	public int insertBoardComment(CommentVO commentVO) {
+		int comment_no = userMapper.selectNewCommentNo();
+		commentVO.setComment_no(comment_no);
+		return userMapper.insertBoardComment(commentVO);
+	}
+
+	@Override
+	public int deleteComment(int comment_no) {
+		return userMapper.deleteComment(comment_no);
+	}
+
+	@Override
+	public int updateComment(CommentVO commentVO) {
+		return userMapper.updateComment(commentVO);
+	}
+
 }

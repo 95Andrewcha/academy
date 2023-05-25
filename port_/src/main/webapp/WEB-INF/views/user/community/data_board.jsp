@@ -57,7 +57,7 @@
 							<c:forEach var="num" begin="2" end="${item.level }">
 								<span class="ps-1"></span>
 							</c:forEach>
-							<i class="fa-solid fa-reply fa-rotate-180"></i>
+							<span class="pe-1"><i class="fa-solid fa-reply fa-rotate-180"></i></span>
 						</c:if>
 						<c:choose>
 							<c:when test="${item.fileCount == 0 }">

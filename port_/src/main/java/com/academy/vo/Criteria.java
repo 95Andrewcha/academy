@@ -15,6 +15,7 @@ public class Criteria {
 	private Date end_date;  // 종료일
 	private int active; // 활성화 여부 (0 , 1)- 0 이면 false 1 = true
 	private String title; //제목
+	private String board_no;
 	
 	public Criteria() {    //amount 20 으로 늘리면 20개씩보임
 		this(1,10);

@@ -10,5 +10,6 @@
 		<typeAlias type="com.academy.vo.ReviewVO" alias="ReviewVO"/>
 		<typeAlias type="com.academy.vo.BoardVO" alias="BoardVO"/>
 		<typeAlias type="com.academy.vo.AttachVO" alias="AttachVO"/>
+		<typeAlias type="com.academy.vo.CommentVO" alias="CommentVO"/>
 	</typeAliases>
 </configuration>

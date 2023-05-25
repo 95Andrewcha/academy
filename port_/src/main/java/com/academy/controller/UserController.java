@@ -18,10 +18,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +34,7 @@ import com.academy.common.Common;
 import com.academy.service.UserService;
 import com.academy.vo.AttachVO;
 import com.academy.vo.BoardVO;
+import com.academy.vo.CommentVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.PageVO;
 
@@ -132,6 +135,39 @@ public class UserController {
 		return request.getRequestURI();
 	}
 	
+	@ResponseBody
+	@GetMapping("/data_board/comment")
+	public JSONObject getComment(@ModelAttribute Criteria cri) {
+		JSONObject jsonObject = new JSONObject();
+		
+		List<CommentVO> commentList = userService.selectBoardComments(cri);
+		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(Integer.parseInt(cri.getBoard_no())));
+		
+		jsonObject.put("commentList", commentList);
+		jsonObject.put("pageVO", pageVO);
+		
+		return jsonObject;
+	}
+	
+	@ResponseBody
+	@PostMapping("/data_board/comment")
+	public JSONObject addComment(@ModelAttribute CommentVO commentVO) {
+		JSONObject jsonObject = new JSONObject();
+		
+		int result = userService.insertBoardComment(commentVO);
+		
+		Criteria cri = new Criteria();
+		cri.setBoard_no(commentVO.getBoard_no() + "");
+		
+		List<CommentVO> commentList = userService.selectBoardComments(cri);
+		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
+		
+		jsonObject.put("commentList", commentList);
+		jsonObject.put("pageVO", pageVO);
+		
+		return jsonObject;
+	}
+	
 	/**
 	 * 메인 > 자료게시판 > 자료게시판 글 등록 페이지
 	 * @param request
@@ -214,7 +250,7 @@ public class UserController {
 	
 	
 	@ResponseBody
-	@PostMapping("/data_board/test/{board_no}")
+	@DeleteMapping("/data_board/{board_no}")
 	public String removeDataBoard(@PathVariable int board_no, @RequestParam String jsonData) throws Exception {
 		JSONArray jsonArray = new JSONArray();
 		JSONParser jsonParser = new JSONParser();
@@ -263,5 +299,62 @@ public class UserController {
 		Map<String, Object> result = userService.insertNewDataBoard(paramMap);
 		
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/data_board/comment/reply")
+	public Map<String, Object> addCommentReply(@ModelAttribute CommentVO commentVO) {
+		JSONObject jsonObject = new JSONObject();
+		
+		int result = userService.insertBoardComment(commentVO);
+		
+		Criteria cri = new Criteria();
+		cri.setBoard_no(commentVO.getBoard_no() + "");
+		
+		List<CommentVO> commentList = userService.selectBoardComments(cri);
+		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
+		
+		jsonObject.put("commentList", commentList);
+		jsonObject.put("pageVO", pageVO);
+		
+		return jsonObject;
+	}
+	
+	@ResponseBody
+	@DeleteMapping("/data_board/comment/{comment_no}")
+	public Map<String, Object> removeComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
+		JSONObject jsonObject = new JSONObject();
+		
+		int result = userService.deleteComment(comment_no);
+		
+		Criteria cri = new Criteria();
+		cri.setBoard_no(commentVO.getBoard_no() + "");
+		
+		List<CommentVO> commentList = userService.selectBoardComments(cri);
+		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
+		
+		jsonObject.put("commentList", commentList);
+		jsonObject.put("pageVO", pageVO);
+		
+		return jsonObject;
+	}
+	
+	@ResponseBody
+	@PutMapping("/data_board/comment/{comment_no}")
+	public Map<String, Object> modifyComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
+		JSONObject jsonObject = new JSONObject();
+		
+		int result = userService.updateComment(commentVO);
+		
+		Criteria cri = new Criteria();
+		cri.setBoard_no(commentVO.getBoard_no() + "");
+		
+		List<CommentVO> commentList = userService.selectBoardComments(cri);
+		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
+		
+		jsonObject.put("commentList", commentList);
+		jsonObject.put("pageVO", pageVO);
+		
+		return jsonObject;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.academy.vo.AdVO;
 import com.academy.vo.AttachVO;
 import com.academy.vo.BoardVO;
+import com.academy.vo.CommentVO;
 import com.academy.vo.Criteria;
 import com.academy.vo.ReviewVO;
 
@@ -87,4 +88,14 @@ public interface UserService {
 	 * @param board_id
 	 */
 	public int removeBoard(int board_id);
+	
+	public List<CommentVO> selectBoardComments(Criteria cri);
+	
+	public int selectBoardCommentsCount(int board_no);
+	
+	public int insertBoardComment(CommentVO commentVO);
+	
+	public int deleteComment(int comment_no);
+	
+	public int updateComment(CommentVO commentVO);
 }

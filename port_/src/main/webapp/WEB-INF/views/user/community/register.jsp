@@ -14,6 +14,7 @@
 		
 		formData.append("board_title", board_title);
 		formData.append("board_content", board_content);
+		formData.append("parent_no", 0);
 		formData.append("board_writer", "${user.username}");
 		
 		for(var i=0; i<files.length; i++) {

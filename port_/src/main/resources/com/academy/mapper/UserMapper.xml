@@ -8,7 +8,7 @@
 	<!-- 검색 조건 -->
 	<sql id="searchCondition">
 		<if test="title != null">
-			AND B.BOARD_TITLE LIKE '%' || #{title} || '%'
+			AND BOARD_TITLE LIKE '%' || #{title} || '%'
 		</if>
 	</sql>
 	
@@ -123,13 +123,10 @@
 	
 	<!-- 자료게시판 갯수 조회 -->
 	<select id="selectBoardsCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			BOARD_TBL
-		WHERE
-			1 = 1
-			<include refid="searchCondition" />
+		SELECT COUNT(*)
+		FROM BOARD_TBL
+		WHERE 1 = 1
+			  <include refid="searchCondition" />
 	</select>
 	
 	<!-- 자료게시판 글 상세 조회 -->
@@ -165,27 +162,24 @@
 			0,
 			SYSDATE,
 			0,
-			<choose>
-				<when test="parent_no == 0">
-					0,
-				</when>
-				<otherwise>
-					#{parent_no},
-				</otherwise>
-			</choose>
+	<choose>
+		<when test="parent_no == 0">
+			0,
+		</when>
+		<otherwise>
+			#{parent_no},
+		</otherwise>
+	</choose>
 			#{board_content}
 		)
 	</insert>
 	
 	<!-- 자료게시판 글 수정 -->
 	<update id="updateDataBoard">
-		UPDATE
-			BOARD_TBL
-		SET
-			BOARD_TITLE = #{board_title},
+		UPDATE BOARD_TBL
+		SET BOARD_TITLE = #{board_title},
 			BOARD_CONTENT = #{board_content}
-		WHERE
-			BOARD_NO = #{board_no}
+		WHERE BOARD_NO = #{board_no}
 	</update>
 	
 	<!-- 자료게시판 파일 등록 -->
@@ -210,19 +204,93 @@
 	<!-- 자료게시판 파일 삭제 -->
 	<delete id="deleteBoardFiles">
 		DELETE FROM ATTACH_TBL
-		WHERE
-			UUID = #{uuid}
-			AND FILE_NAME = #{file_name}
-			AND BOARD_NO = #{board_no}
+		WHERE UUID = #{uuid}
+			  AND FILE_NAME = #{file_name}
+			  AND BOARD_NO = #{board_no}
 	</delete>
 	
 	<!-- 자료게시판 파일 삭제 -->
 	<delete id="deleteBoardFile">
-		DELETE FROM ATTACH_TBL WHERE BOARD_NO = #{board_no}
+		DELETE FROM ATTACH_TBL
+		WHERE BOARD_NO IN ( SELECT BOARD_NO
+						  	FROM BOARD_TBL
+						  	START WITH BOARD_NO = #{board_NO}
+						  	CONNECT BY PRIOR BOARD_NO = PARENT_NO )
 	</delete>
 	
 	<!-- 자료게시판 글 삭제 -->
 	<delete id="deleteBoard">
-		DELETE FROM BOARD_TBL WHERE BOARD_NO = #{board_no}
+		DELETE FROM BOARD_TBL
+		WHERE BOARD_NO IN ( SELECT BOARD_NO
+						  	FROM BOARD_TBL
+						  	START WITH BOARD_NO = #{board_NO}
+						  	CONNECT BY PRIOR BOARD_NO = PARENT_NO )
 	</delete>
+	
+	<!-- 자료게시판 댓글 조회 -->
+	<select id="selectBoardComments" resultType="CommentVO">
+		<![CDATA[
+			SELECT *
+			FROM ( SELECT ROWNUM RN,
+						  CMT.*
+				   FROM ( SELECT LEVEL,
+								 C.*
+						  FROM COMMENT_TBL C
+						  WHERE BOARD_NO = #{board_no}
+						  START WITH PARENT_NO = 0
+						  CONNECT BY PRIOR COMMENT_NO = PARENT_NO
+						  ORDER SIBLINGS BY REG_DATE ) CMT )
+			WHERE (#{pageNum} - 1) * #{amount} < RN AND RN <= #{pageNum} * #{amount}
+		]]>
+	</select>
+	
+	<!-- 자료게시판 댓글 갯수 조회 -->
+	<select id="selectBoardCommentsCount" resultType="int">
+		SELECT COUNT(*) FROM COMMENT_TBL WHERE BOARD_NO = #{board_no}
+	</select>
+	
+	<!-- 자료게시판 댓글 추가 -->
+	<insert id="insertBoardComment">
+		INSERT INTO COMMENT_TBL (
+			COMMENT_NO,
+			PARENT_NO,
+			BOARD_NO,
+		    COMMENT_WRITER,
+			CONTENT,
+			REG_DATE
+		) VALUES (
+			#{comment_no},
+	<choose>
+		<when test="parent_no == 0">
+			0,
+		</when>
+		<otherwise>
+			#{parent_no},
+		</otherwise>
+	</choose>
+			#{board_no},
+			#{comment_writer},
+			#{content},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 자료게시판 댓글 테이블 일련번호 생성 -->
+	<select id="selectNewCommentNo" resultType="int">
+		SELECT NVL(MAX(COMMENT_NO), 0) + 1 FROM COMMENT_TBL
+	</select>
+	
+	<!-- 자료게시판 글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM COMMENT_TBL
+		WHERE COMMENT_NO IN ( SELECT COMMENT_NO
+						  	  FROM COMMENT_TBL
+						  	  START WITH COMMENT_NO = #{comment_no}
+						  	  CONNECT BY PRIOR COMMENT_NO = PARENT_NO )
+	</delete>
+	
+	<!-- 자료게시판 글 수정 -->
+	<update id="updateComment">
+		UPDATE COMMENT_TBL SET CONTENT = #{content} WHERE COMMENT_NO = #{comment_no}
+	</update>
 </mapper>
