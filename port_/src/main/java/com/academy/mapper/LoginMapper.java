@@ -10,14 +10,14 @@ public interface LoginMapper {
 	/**
 	 * 로그인 정보 조회
 	 * @param username
-	 * @return UserVO
+	 * @return 로그인 정보
 	 */
 	public UserVO login(String username);
 	
 	/**
 	 * 권한 정보 조회
 	 * @param username
-	 * @return List<AuthVO>
+	 * @return 권한 정보
 	 */
 	public List<AuthVO> getAuthList(String username);
 	

@@ -20,6 +20,12 @@ public class Common {
 	 */
 	public static final String BOARD_REPO = "C:\\board\\";
 	
+	/**
+	 * 파일 업로드
+	 * @param multipartRequest
+	 * @return 파일 업로드 결과 데이터
+	 * @throws Exception
+	 */
 	public static Map<String, Object> uploadFile(MultipartHttpServletRequest multipartRequest) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		Enumeration<String> paramNames = multipartRequest.getParameterNames();
@@ -70,6 +76,12 @@ public class Common {
 		return paramMap;
 	}
 	
+	/**
+	 * 파일 삭제
+	 * @param multipartRequest
+	 * @return 파일 삭제 결과 데이터
+	 * @throws Exception
+	 */
 	public static List<AttachVO> deleteFile(MultipartHttpServletRequest multipartRequest) throws Exception {
 		List<AttachVO> fileList = new ArrayList<>();
 		String[] delFiles = multipartRequest.getParameterValues("delete_files");

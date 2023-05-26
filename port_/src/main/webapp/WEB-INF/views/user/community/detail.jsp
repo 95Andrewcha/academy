@@ -157,7 +157,6 @@
 			},
 			success: function(data) {
 				$("textarea[name='content']").val("");
-				console.log("중복 코드 없애는 중");
 				getComment();
 			},
 			error: function(data) {
@@ -179,8 +178,6 @@
 			},
 			success: function(data) {
 				$(obj).parents(".replyCommentForm").addClass("d-none");
-				//showComments(data);
-				console.log("중복 코드 없애는 중");
 				getComment();
 			},
 			error: function(data) {
@@ -201,8 +198,6 @@
 			},
 			success: function(data) {
 				$(obj).parents(".replyCommentForm").addClass("d-none");
-				//showComments(data);
-				console.log("중복 코드 없애는 중");
 				getComment();
 			},
 			error: function(data) {
@@ -220,8 +215,6 @@
 				board_no: board_no
 			},
 			success: function(data) {
-				//showComments(data);
-				console.log("중복 코드 없애는 중");
 				getComment();
 			},
 			error: function(data) {

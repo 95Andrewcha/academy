@@ -79,13 +79,13 @@ public interface UserMapper {
 	
 	/**
 	 * 자료게시판 글 등록
-	 * @param boardVO
+	 * @param paramMap
 	 */
 	public void insertBoard(Map<String, Object> paramMap);
 	
 	/**
 	 * 자료게시판 파일 등록
-	 * @param boardVO
+	 * @param attachVO
 	 */
 	public void insertBoardFiles(AttachVO attachVO);
 	
@@ -104,21 +104,38 @@ public interface UserMapper {
 	/**
 	 * 자료게시판 파일 삭제
 	 * @param board_no
+	 * @return 삭제된 파일 갯수
 	 */
 	public int deleteBoardFile(int board_no);
 	
 	/**
 	 * 자료게시판 글 삭제
 	 * @param board_no
+	 * @return 삭제된 글 갯수
 	 */
 	public int deleteBoard(int board_no);
 	
+	/**
+	 * 자료게시판 댓글 조회
+	 * @param cri
+	 * @return 조회된 댓글 데이터
+	 */
 	public List<CommentVO> selectBoardComments(Criteria cri);
 	
+	/**
+	 * 자료게시판 댓글 갯수 조회
+	 * @param board_no
+	 * @return 해당 board_no에 대한 댓글 갯수
+	 */
 	public int selectBoardCommentsCount(int board_no);
 	
+	/**
+	 * 자료게시판 댓글 등록
+	 * @param commentVO
+	 * @return 댓글 등록 갯수
+	 */
 	public int insertBoardComment(CommentVO commentVO);
-	
+
 	public int selectNewCommentNo();
 	
 	public int deleteComment(int comment_no);

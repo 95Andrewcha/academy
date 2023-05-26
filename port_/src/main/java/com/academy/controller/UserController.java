@@ -233,6 +233,11 @@ public class UserController {
 		return result > 0 ? "success" : "fail";
 	}
 	
+	/**
+	 * 자료게시판 댓글 조회
+	 * @param cri
+	 * @return 댓글 조회 결과 데이터
+	 */
 	@ResponseBody
 	@GetMapping("/data_board/comment")
 	public JSONObject getComment(@ModelAttribute Criteria cri) {
@@ -247,13 +252,24 @@ public class UserController {
 		return jsonObject;
 	}
 	
+	/**
+	 * 자료게시판 댓글 등록
+	 * @param commentVO
+	 * @return 댓글 등록 결과 (성공: success, 실패: fail)
+	 */
 	@ResponseBody
 	@PostMapping("/data_board/comment")
 	public String addComment(@ModelAttribute CommentVO commentVO) {
 		int result = userService.insertBoardComment(commentVO);
 		return result > 0 ? "success" : "fail";
 	}
-
+	
+	/**
+	 * 자료게시판 댓글 삭제
+	 * @param comment_no
+	 * @param commentVO
+	 * @return 댓글 삭제 결과 (성공: success, 실패: fail)
+	 */
 	@ResponseBody
 	@DeleteMapping("/data_board/comment/{comment_no}")
 	public String removeComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
@@ -261,6 +277,12 @@ public class UserController {
 		return result > 0 ? "success" : "fail";
 	}
 	
+	/**
+	 * 자료게시판 댓글 수정
+	 * @param comment_no
+	 * @param commentVO
+	 * @return 댓글 수정 결과 (성공: success, 실패: fail)
+	 */
 	@ResponseBody
 	@PutMapping("/data_board/comment/{comment_no}")
 	public String modifyComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
