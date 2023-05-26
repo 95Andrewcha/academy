@@ -116,21 +116,6 @@ public class AdminServiceImpl implements AdminService{
 		return paramMap;
 		
 	}
-	@Override
-	public Map<String, Object> updatepopup(Map<String, Object> paramMap) {
-		
-		adminMapper.updatepopup(paramMap);
-		
-		return paramMap;
-	}
-	
 
-
-
-
-
-	
-	
-	
 
 }

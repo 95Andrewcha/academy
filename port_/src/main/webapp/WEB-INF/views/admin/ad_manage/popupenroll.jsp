@@ -92,16 +92,12 @@
 	         $('#end_date').datepicker();
 	         
 	         $("input[name='file']").on("change", function(e) {
-		        	
 		 			var formData = new FormData();
 		 			var inputFile = $("input[name='file']");
 		 			var files = inputFile[0].files;
-		 			
 		 			for(var i=0; i<files.length; i++){
-		 				
 		 				formData.append("uploadFile", files[i]);
 		 			}
-		 			
 		 			$.ajax({
 		 				url : '/admin/uploadAjaxAction',
 		 				processData : false,
@@ -116,13 +112,9 @@
 		 							var thumhtml = "<img src='/thumbnails?uuid="+ res.uuid +"&file_name="+ res.file_name +"'>";
 		 							$(".uploadresult > ul").html(thumhtml);
 		 						} ;
-		 						
 		 					}
 		 			});
-		 			
-		 			
 		 		});
-	         
 	      })
 	      
 	      function enroll(){
@@ -142,7 +134,6 @@
 			for(var i=0; i<file2.length; i++) {
 				formData.append("file", file2[i]);
 			}
-			
 			formData.append('subject', subject);
 			formData.append('start_date', start_date);
 			formData.append('end_date', end_date);
@@ -156,8 +147,6 @@
 			for (let key of formData.keys()) {
 				console.log(key, ":", formData.get(key));
 			}
-			
-			
 			$.ajax({
 				type: "post",
 				url: "dopopupenroll",

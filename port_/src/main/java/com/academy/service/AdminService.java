@@ -47,9 +47,5 @@ public interface AdminService {
 	public int update_timetable(Time_tblVO time_tblvo);
 	
 	public Map<String, Object> insertPopupFiles(Map<String, Object> paramMap);
-	
-	public Map<String, Object> updatepopup(Map<String, Object> paramMap);
-	
-	
 
 }

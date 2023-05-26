@@ -14,10 +14,6 @@ function openpopup(){
 	var option =" width= 600, height=600";
 	window.open(url, name, option);
 }
- <c:forEach var="item" items="${listAll}">
-	 console.log("${item.start_date}");
- </c:forEach>
- 
  const date = new Date();
  const year = date.getFullYear();
  const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -27,7 +23,7 @@ function openpopup(){
  document.addEventListener('DOMContentLoaded', function () {
      $(function () {
          var request = $.ajax({
-             url: "schedule_info", // 변경하기
+             url: "schedule_info",
              method: "GET",
              dataType: "json", 
              contentType: 'application/json; charset=utf-8'
@@ -46,7 +42,6 @@ function openpopup(){
                          } 
                      } 
              },
-             
                  headerToolbar: {
                      left: 'prev,next today',
                      center: 'title',
