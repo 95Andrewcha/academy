@@ -67,7 +67,11 @@
                                     <td><fmt:formatDate value="${Plist.START_DATE}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${Plist.END_DATE }" pattern="yyyy-MM-dd"/> </td>
                                     <td><c:out value="${Plist.REG_ID}"/></td>
                                     <td><c:out value="${Plist.CONTENT}"/></td>
-                                    <td><button id="detail" class="btn btn-sm btn-primary" data-id="${Plist.id }" onclick="javascript:showDetail('${Plist.id}');">자세히보기</button></td>
+                                    <td>
+                                    	<button id="detail" class="btn btn-sm btn-primary" data-id="${Plist.id }" onclick="javascript:showDetail('${Plist.id}', this);">자세히보기</button>
+	                                    <input type="hidden" name="reg_id" id="reg_id" value="${Plist.REG_ID}">
+	                                 
+                                    </td>
                                 </tr>
                                 </c:forEach>
                             </tbody>
@@ -75,7 +79,7 @@
                        
                     </div>
                      <form name="frmPopup">
-                     <input type="hidden" name="popupenroll">
+                     	<input type="hidden" name="popupenroll">
                      </form>
          	
        
@@ -108,27 +112,28 @@
 			<div class="card-body">
 				<form>
 				
-					
+					<input type="hidden" name="reg_id" id="reg_id">
+					<input type="hidden" name="id" id="id">
 					<div class="mb-3 mt-3">
 						<label for="bno" class="form-label">제목</label>
-						 <input type="text" class="form-control update" id="subject" name="subject" value="" disabled>
+						 <input type="text" class="form-control update" id="subject" name="subject"  readonly>
 					</div>
 					<div class="mb-3">
 						<label for="regDate" class="form-label">기간선택</label><br>
-						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="start_date" name="start_date" disabled>
+						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="start_date" name="start_date" readonly>
 						 &nbsp;&nbsp;&nbsp;
-						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="end_date" name="end_date" disabled>
+						 <input type="text" class="form-control update" style="width:45% !important; display:inline-block;" id="end_date" name="end_date" readonly>
 					</div>
 					
 					<div class="mb-3">
 						<label for="xpx" class="form-label">좌표값 입력</label><br>
-						 x:  &nbsp;<input type="text" class="form-control update w-25" style="display:inline-block;" id="xpx" name="xpx" disabled> px
+						 x:  &nbsp;<input type="text" class="form-control update w-25" style="display:inline-block;" id="xpx" name="xpx" readonly> px
 						 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;
-						 y: &nbsp; <input type="text" class="form-control update w-25" style="display:inline-block;" id="ypx" name="ypx" disabled> px
+						 y: &nbsp; <input type="text" class="form-control update w-25" style="display:inline-block;" id="ypx" name="ypx" readonly> px
 					</div>
 					<div class="mb-3">
 						<label for="content" class="form-label">참고</label>
-						<textarea class="form-control update" id="content" name="content" disabled>
+						<textarea class="form-control update" id="content" name="content" readonly>
 						
 						</textarea>
 					</div>
@@ -145,14 +150,14 @@
 					</div><!-- uploadresult -->
 					<div class="mb-3">
 						<label for="popuplink" class="form-label">팝업링크</label>
-						 <input type="text" class="form-control update" id="popuplink" name="popuplink" disabled>
+						 <input type="text" class="form-control update" id="popuplink" name="popuplink" readonly>
 					</div>
 					<div class="mb-3">
 						<label for="xpx" class="form-label">오늘 하루 안보기여부</label><br>
 						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0">
 						<label class="form-check-label" for="gridRadios1">유</label>
 						
-						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1" checked>
+						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1">
 						 <label class="form-check-label" for="gridRadios2">무</label>
 					</div>
 					
@@ -166,7 +171,8 @@
 				</div>
 				<div class="modal-footer">
 					<a class="btn" href="#">미리보기</a>
-					<a class="btn" id="modalY" href="#">수정하기</a>
+					<a class="btn" id="modalY" onclick="modify(this);">수정하기</a>
+					<a class="btn d-none" id="enroll" onclick="update(this);">등록하기</a>
 					<button class="btn" type="button" data-dismiss="modal" id="close">닫기</button>
 				</div>
 			</div>
@@ -211,7 +217,75 @@
 	 			
 	 		});
 		
+		 function modify(obj){
+			 	var modal = $(obj).parents(".modal");
+
+			 	modal.find("#subject").removeAttr("readonly");
+				modal.find("#start_date").removeAttr("readonly");
+				modal.find("#end_date").removeAttr("readonly");
+
+				document.getElementById('popuplink').readOnly = false;
+				document.getElementById('xpx').readOnly =false;
+				document.getElementById('ypx').readOnly =false;
+				document.getElementById('content').readOnly =false;
+			
+				$(obj).siblings("#enroll").removeClass("d-none");
+				$(obj).addClass("d-none");
+				
+				
+			}
+		 
+		 function update(obj){
+			 	var modal = $(obj).parents(".modal");
 		
+		
+			 	
+				var formData = new FormData();
+				var id = modal.find("#id").val();
+				var subject = modal.find("#subject").val();
+				var start_date = modal.find("#start_date").val();
+				var end_date = modal.find("#end_date").val();
+				var xpx = $('#xpx').val();
+				var ypx = $('#ypx').val();
+				var content = $('#content').val();
+				var file = $('input[name="file"]');
+				var file2 = file[0].files;
+				var popuplink = $('#popuplink').val();
+				var gridRadios =$("input[name='gridRadios']:checked").val();
+				var reg_id = $("#reg_id").val();
+
+				for(var i=0; i<file2.length; i++) {
+					formData.append("file", file2[i]);
+				}
+				formData.append('id', id);
+				formData.append('subject', subject);
+				formData.append('start_date', start_date);
+				formData.append('end_date', end_date);
+				formData.append('xpx', xpx);
+				formData.append('ypx', ypx);
+				formData.append('content', content);
+				formData.append('popuplink', popuplink);
+				formData.append('gridRadios', gridRadios);
+				formData.append('reg_id', reg_id);
+				
+				for (let key of formData.keys()) {
+					console.log(key, ":", formData.get(key));
+				}
+				
+				
+				$.ajax({
+					type: "post",
+					url: "doupdate",
+					processData: false,
+					contentType: false,
+					enctype: "multipart/form-data",
+					data: formData,
+					success: function(data) {
+						alert("글이 등록되었습니다.");
+						location.href = "/admin/ad_manage/popup";
+					}
+				});
+			}
 		
 		
 		/* $('#detail').click(function(e){
@@ -221,7 +295,9 @@
 		
 		
 		
-		function showDetail(id) {
+		function showDetail(id, obj) {
+			var reg_id = $(obj).siblings("#reg_id").val();
+			
 			$.ajax({
 				type: "get",
 				url: "popupDetail/" + id,
@@ -229,6 +305,7 @@
 					var list = data.list;
 					var modal = $('#testModal');
 					console.log(data.list);
+					console.log(list.id);
 					
 					var start = new Date(list.start_DATE);
 					var year = start.getFullYear();
@@ -242,7 +319,7 @@
 					var end_day = String(end.getDate()).padStart(2, '0');
 					var end_formattedDate = end_year + '-' + end_month + '-' + end_day;
 				
-					
+					modal.find("input[name=id]").val(list.id);
 					modal.find("input[name='subject']").val(list.name);
 					modal.find("input[name='start_date']").val(formattedDate);
 					modal.find("input[name='end_date']").val(end_formattedDate);
@@ -250,7 +327,8 @@
 					modal.find("input[name='ypx']").val(list.position_TOP);
 					modal.find("textarea[name='content']").val(list.content);
 					modal.find("input[name='popuplink']").val(list.link);
-					modal.find("input[name='gridRadios']").val(list.day_CHECK);
+					modal.find("input[name='gridRadios']").val(list.active).prop('checked' , true);
+					modal.find("input[name='reg_id']").val(reg_id);
 					var thumhtml = "<img src='/thumbnails?uuid="+ list.uuid +"&file_name="+ list.file_name +"'>";
 						$(".uploadresult > ul").html(thumhtml);
 				

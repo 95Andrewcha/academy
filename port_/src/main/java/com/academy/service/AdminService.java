@@ -48,6 +48,8 @@ public interface AdminService {
 	
 	public Map<String, Object> insertPopupFiles(Map<String, Object> paramMap);
 	
+	public Map<String, Object> updatepopup(Map<String, Object> paramMap);
+	
 	
 
 }

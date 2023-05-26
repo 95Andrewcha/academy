@@ -220,13 +220,7 @@ public class AdminController {
 		if("".equals(day) &&  "".equals(subject)) {
 			adminservice.add_time(time);
 		}else {
-			/*
-			 * Map<String, String> map = new HashMap<>(); map.put("m", "월"); map.put("t",
-			 * "화"); map.put("w", "수"); map.put("th", "목"); map.put("f", "금"); map.put("sa",
-			 * "토"); map.put("s", "일"); time_tblVO.setDay(map.get(day));
-			 */
-		
-		adminservice.add_timetable(time_tblVO);
+			adminservice.add_timetable(time_tblVO);
 		}
 		
 		return "redirect:/admin/ac_info/ac_info";

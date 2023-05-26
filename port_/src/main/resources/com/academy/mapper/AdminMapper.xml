@@ -39,8 +39,16 @@ PIVOT
 </select>
 <select id="getPopup" resultType="com.academy.vo.PopupVO">
 	<![CDATA[
-		select * from pop_up a 
-		inner join attach_tbl b on a.uuid=b.uuid
+		SELECT *
+FROM (
+SELECT c. name, c.content, c.reg_id, c.start_date, c.end_date,c.id, rownum rn
+  FROM (
+    SELECT a.*, b.*
+    FROM pop_up a
+    INNER JOIN attach_tbl b ON a.uuid = b.uuid
+    ORDER BY a.id DESC
+  ) c
+)d order by rn asc
 	]]>
 </select>
 
@@ -64,6 +72,12 @@ inner join attach_tbl b on a.uuid=b.uuid
  where id= #{id}
 	]]>
 </select>
+
+<update id="updatepopup">
+	update pop_up set content = #{content}, position_top = #{position_top}, position_left = #{position_left}, name =#{name}, start_date = #{start_date},
+	end_date =#{end_date}, link = #{link}, uuid = #{uuid} where id=#{id}
+	
+</update>
 
 <delete id="deletepopup">
 	<![CDATA[

@@ -53,5 +53,7 @@ public interface AdminMapper {
 	
 	public void insertpopup(Map<String, Object> paramMap);
 	
+	public void updatepopup(Map<String, Object> paramMap);
+	
 	
 }
