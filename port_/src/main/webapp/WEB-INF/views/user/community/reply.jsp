@@ -9,13 +9,14 @@
 		var formData = new FormData();
 		var board_title = $("input[name='board_title']").val();
 		var board_content = $("textarea[name='board_content']").val();
+		var board_writer = $("input[name='board_writer']").val();
 		var file = $("input[name='file']");
 		var files = file[0].files;
 		
 		formData.append("parent_no", "${boardVO.board_no}");
 		formData.append("board_title", board_title);
 		formData.append("board_content", board_content);
-		formData.append("board_writer", "${user.username}");
+		formData.append("board_writer", board_writer);
 		
 		for(var i=0; i<files.length; i++) {
 			formData.append("file", files[i]);
@@ -36,6 +37,10 @@
 	}
 </script>
 
+<sec:authorize access="!isAnonymous() && isAuthenticated()">
+	<sec:authentication property="principal.id" var="user_id"/>
+	<input type="hidden" name="board_writer" value="${user_id }">
+</sec:authorize>
 <div class="border-radius-white p-4 mb-4">
 	<div class="board-title border-bottom-line pb-3 mb-3">
 		<span class="fs-5 fw-bold">답글 쓰기</span>

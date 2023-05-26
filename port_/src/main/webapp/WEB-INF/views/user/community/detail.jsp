@@ -151,12 +151,14 @@
 			url: "/user/data_board/comment",
 			data: {
 				board_no: board_no,
+				parent_no: 0,
 				comment_writer: $("input[name='comment_writer']").val(),
 				content: $("textarea[name='content']").val()
 			},
 			success: function(data) {
-				showComments(data);
 				$("textarea[name='content']").val("");
+				console.log("중복 코드 없애는 중");
+				getComment();
 			},
 			error: function(data) {
 				alert("에러가 발생했습니다.");
@@ -168,7 +170,7 @@
 	function addReplyComment(comment_no, board_no, obj) {
 		$.ajax({
 			type: "post",
-			url: "/user/data_board/comment/reply",
+			url: "/user/data_board/comment",
 			data: {
 				board_no: board_no,
 				parent_no: comment_no,
@@ -177,7 +179,9 @@
 			},
 			success: function(data) {
 				$(obj).parents(".replyCommentForm").addClass("d-none");
-				showComments(data);
+				//showComments(data);
+				console.log("중복 코드 없애는 중");
+				getComment();
 			},
 			error: function(data) {
 				alert("에러가 발생했습니다.");
@@ -197,7 +201,9 @@
 			},
 			success: function(data) {
 				$(obj).parents(".replyCommentForm").addClass("d-none");
-				showComments(data);
+				//showComments(data);
+				console.log("중복 코드 없애는 중");
+				getComment();
 			},
 			error: function(data) {
 				alert("에러가 발생했습니다.");
@@ -214,7 +220,9 @@
 				board_no: board_no
 			},
 			success: function(data) {
-				showComments(data);
+				//showComments(data);
+				console.log("중복 코드 없애는 중");
+				getComment();
 			},
 			error: function(data) {
 				alert("에러가 발생했습니다.");
@@ -303,7 +311,7 @@
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated() && principal.id != '${list.board_writer }'">
 			<div class="pt-4 text-end">
-				<a class="btn btn-primary main-bg-color" href="/user/data_board/reply?board_no=${list.board_no }">답글 달기</a>
+				<a class="btn btn-primary main-bg-color" href="/user/data_board/register?board_no=${list.board_no }&gubun=reply">답글 달기</a>
 				<a class="btn btn-danger" href="javascript:history.go(-1);">목록으로</a>
 			</div>
 		</sec:authorize>

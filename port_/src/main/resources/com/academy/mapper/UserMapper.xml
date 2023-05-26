@@ -260,14 +260,7 @@
 			REG_DATE
 		) VALUES (
 			#{comment_no},
-	<choose>
-		<when test="parent_no == 0">
-			0,
-		</when>
-		<otherwise>
 			#{parent_no},
-		</otherwise>
-	</choose>
 			#{board_no},
 			#{comment_writer},
 			#{content},

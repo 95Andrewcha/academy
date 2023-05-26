@@ -50,24 +50,25 @@ public class UserController {
 	UserService userService;
 	
 	/**
-	 * 메인
-	 * @param 
-	 * @return String
+	 * 메인 페이지
+	 * @param request
+	 * @param model
+	 * @return 메인 페이지
 	 */
 	@GetMapping("main")
 	public String main(HttpServletRequest request, Model model) {
-		model.addAttribute("userCount", userService.getUserCount());		// 회원 수 조회
-		model.addAttribute("reviewCount", userService.getReviewCount());	// 리뷰 수 조회
-		model.addAttribute("academyCount", userService.getAcademyCount());	// 학원 수 조회
-		model.addAttribute("top4List", userService.getMostPopularAcademyTop4());			// 가장 인기 많은 학원 TOP4 조회
-		model.addAttribute("reviewList", userService.getReviewList());						// 리뷰 조회(최신 리뷰 4개 조회)
+		model.addAttribute("userCount", userService.getUserCount());				// 회원 수 조회
+		model.addAttribute("reviewCount", userService.getReviewCount());			// 리뷰 수 조회
+		model.addAttribute("academyCount", userService.getAcademyCount());			// 학원 수 조회
+		model.addAttribute("top4List", userService.getMostPopularAcademyTop4());	// 가장 인기 많은 학원 TOP4 조회
+		model.addAttribute("reviewList", userService.getReviewList());				// 리뷰 조회(최신 리뷰 4개 조회)
 		return request.getRequestURI();
 	}
 
 	/**
-	 * 로그인
-	 * @param 
-	 * @return String
+	 * 로그인 페이지
+	 * @param request
+	 * @return 로그인 페이지
 	 */
 	@RequestMapping("login")
 	public String login(HttpServletRequest request) {
@@ -102,9 +103,10 @@ public class UserController {
 	}
 	
 	/**
-	 * 로그아웃
-	 * @param 
-	 * @return String
+	 * 로그아웃 후 메인 페이지로 이동
+	 * @param request
+	 * @param response
+	 * @return 메인 페이지
 	 */
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -118,7 +120,7 @@ public class UserController {
 	}
 
 	/**
-	 * 메인 > 자료게시판
+	 * 메인 > 자료게시판 페이지
 	 * @param cri
 	 * @param request
 	 * @param model
@@ -132,7 +134,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 메인 > 자료게시판 > 자료게시판 글 상세 페이지
+	 * 메인 > 자료게시판 > 글 상세 페이지
 	 * @param boardVO
 	 * @param cri
 	 * @param request
@@ -146,72 +148,41 @@ public class UserController {
 		return request.getRequestURI();
 	}
 	
-	@ResponseBody
-	@GetMapping("/data_board/comment")
-	public JSONObject getComment(@ModelAttribute Criteria cri) {
-		JSONObject jsonObject = new JSONObject();
-		
-		List<CommentVO> commentList = userService.selectBoardComments(cri);
-		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(Integer.parseInt(cri.getBoard_no())));
-		
-		jsonObject.put("commentList", commentList);
-		jsonObject.put("pageVO", pageVO);
-		
-		return jsonObject;
-	}
-	
-	@ResponseBody
-	@PostMapping("/data_board/comment")
-	public JSONObject addComment(@ModelAttribute CommentVO commentVO) {
-		JSONObject jsonObject = new JSONObject();
-		
-		int result = userService.insertBoardComment(commentVO);
-		
-		Criteria cri = new Criteria();
-		cri.setBoard_no(commentVO.getBoard_no() + "");
-		
-		List<CommentVO> commentList = userService.selectBoardComments(cri);
-		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
-		
-		jsonObject.put("commentList", commentList);
-		jsonObject.put("pageVO", pageVO);
-		
-		return jsonObject;
-	}
-	
 	/**
-	 * 메인 > 자료게시판 > 자료게시판 글 등록 페이지
+	 * 메인 > 자료게시판 > 글 등록 페이지
 	 * @param request
-	 * @param model
-	 * @return 자료게시판 글 등록 페이지
+	 * @return 글 혹은 답글 등록 페이지
 	 */
 	@RequestMapping(value = "/data_board/register", method = RequestMethod.GET)
-	public String register(HttpServletRequest request, Model model, Authentication authentication) {
-		model.addAttribute("user", authentication.getPrincipal());
+	public String register(HttpServletRequest request, @ModelAttribute BoardVO boardVO) {
 		return request.getRequestURI();
 	}
 	
 	/**
-	 * 메인 > 자료게시판 > 자료게시판 글 등록
+	 * 메인 > 자료게시판 > 글 수정 페이지
+	 * @param boardVO
+	 * @param cri
+	 * @param request
+	 * @param model
+	 * @return 글 혹은 답글 수정 페이지
+	 */
+	@RequestMapping(value = "/data_board/modify", method = RequestMethod.GET)
+	public String modify(@ModelAttribute BoardVO boardVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
+		model.addAttribute("list", userService.selectBoard(boardVO));
+		model.addAttribute("fileList", userService.selectBoardFiles(boardVO));
+		return request.getRequestURI();
+	}
+	
+	/**
+	 * 자료게시판 글 등록
 	 * @param multipartRequest
-	 * @return 자료게시판 글 등록 후 자료게시판 페이지 리다이렉트
+	 * @return 글 등록 결과 데이터
+	 * @throws Exception
 	 */
 	@ResponseBody
 	@PostMapping("/data_board")
 	public Map<String, Object> addDataBoard(MultipartHttpServletRequest multipartRequest) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		Enumeration<String> paramNames = multipartRequest.getParameterNames();
-		
-		while(paramNames.hasMoreElements()) {
-			String name = paramNames.nextElement();
-			String value = multipartRequest.getParameter(name);
-			System.out.println("name: " + name);
-			System.out.println("value: " + value);
-			paramMap.put(name, value);
-		}
-		
-		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
-		paramMap.put("fileList", fileList);
+		Map<String, Object> paramMap = Common.uploadFile(multipartRequest);
 		Map<String, Object> result = userService.insertNewDataBoard(paramMap);
 		
 		return result;
@@ -221,45 +192,27 @@ public class UserController {
 	 * 자료게시판 글 수정
 	 * @param board_no
 	 * @param multipartRequest
-	 * @return 자료게시판 글 수정 후 자료게시판 리다이렉트
+	 * @return 글 수정 결과 데이터
 	 * @throws Exception
 	 */
 	@ResponseBody
 	@PostMapping("/data_board/{board_no}")
 	public Map<String, Object> modifyDataBoard(@PathVariable int board_no, MultipartHttpServletRequest multipartRequest) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		Enumeration<String> paramNames = multipartRequest.getParameterNames();
-		
-		while(paramNames.hasMoreElements()) {
-			String name = paramNames.nextElement();
-			String value = multipartRequest.getParameter(name);
-			paramMap.put(name, value);
-		}
-		
-		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
-		paramMap.put("fileList", fileList);
+		Map<String, Object> paramMap = Common.uploadFile(multipartRequest);
 		List<AttachVO> delFileList = Common.deleteFile(multipartRequest);
 		paramMap.put("delFileList", delFileList);
-		
 		Map<String, Object> result = userService.modifyDataBoard(paramMap);
 		
 		return result;
 	}
 	
 	/**
-	 * 메인 > 자료게시판 > 자료게시판 글 수정 페이지
-	 * @param request
-	 * @param model
-	 * @return 자료게시판 글 수정 페이지
+	 * 자료게시판 글 삭제
+	 * @param board_no
+	 * @param jsonData
+	 * @return 글 삭제 결과 (성공: success, 실패: fail)
+	 * @throws Exception
 	 */
-	@RequestMapping(value = "/data_board/modify", method = RequestMethod.GET)
-	public String modify(@ModelAttribute BoardVO boardVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
-		model.addAttribute("list", userService.selectBoard(boardVO));
-		model.addAttribute("fileList", userService.selectBoardFiles(boardVO));
-		return request.getRequestURI();
-	}
-	
-	
 	@ResponseBody
 	@DeleteMapping("/data_board/{board_no}")
 	public String removeDataBoard(@PathVariable int board_no, @RequestParam String jsonData) throws Exception {
@@ -280,50 +233,13 @@ public class UserController {
 		return result > 0 ? "success" : "fail";
 	}
 	
-	@RequestMapping(value = "/data_board/reply", method = RequestMethod.GET)
-	public String reply(HttpServletRequest request, @ModelAttribute BoardVO boardVO, Model model, Authentication authentication) {
-		model.addAttribute("user", authentication.getPrincipal());
-		return request.getRequestURI();
-	}
-	
-	/**
-	 * 메인 > 자료게시판 > 자료게시판 답글 등록
-	 * @param multipartRequest
-	 * @return 자료게시판 답글 등록 후 자료게시판 페이지 리다이렉트
-	 */
 	@ResponseBody
-	@PostMapping("/data_board/reply")
-	public Map<String, Object> addDataBoardReply(MultipartHttpServletRequest multipartRequest) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		Enumeration<String> paramNames = multipartRequest.getParameterNames();
-		
-		while(paramNames.hasMoreElements()) {
-			String name = paramNames.nextElement();
-			String value = multipartRequest.getParameter(name);
-			System.out.println("name: " + name);
-			System.out.println("value: " + value);
-			paramMap.put(name, value);
-		}
-		
-		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
-		paramMap.put("fileList", fileList);
-		Map<String, Object> result = userService.insertNewDataBoard(paramMap);
-		
-		return result;
-	}
-	
-	@ResponseBody
-	@PostMapping("/data_board/comment/reply")
-	public Map<String, Object> addCommentReply(@ModelAttribute CommentVO commentVO) {
+	@GetMapping("/data_board/comment")
+	public JSONObject getComment(@ModelAttribute Criteria cri) {
 		JSONObject jsonObject = new JSONObject();
 		
-		int result = userService.insertBoardComment(commentVO);
-		
-		Criteria cri = new Criteria();
-		cri.setBoard_no(commentVO.getBoard_no() + "");
-		
 		List<CommentVO> commentList = userService.selectBoardComments(cri);
-		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
+		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(Integer.parseInt(cri.getBoard_no())));
 		
 		jsonObject.put("commentList", commentList);
 		jsonObject.put("pageVO", pageVO);
@@ -331,41 +247,24 @@ public class UserController {
 		return jsonObject;
 	}
 	
+	@ResponseBody
+	@PostMapping("/data_board/comment")
+	public String addComment(@ModelAttribute CommentVO commentVO) {
+		int result = userService.insertBoardComment(commentVO);
+		return result > 0 ? "success" : "fail";
+	}
+
 	@ResponseBody
 	@DeleteMapping("/data_board/comment/{comment_no}")
-	public Map<String, Object> removeComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
-		JSONObject jsonObject = new JSONObject();
-		
+	public String removeComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
 		int result = userService.deleteComment(comment_no);
-		
-		Criteria cri = new Criteria();
-		cri.setBoard_no(commentVO.getBoard_no() + "");
-		
-		List<CommentVO> commentList = userService.selectBoardComments(cri);
-		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
-		
-		jsonObject.put("commentList", commentList);
-		jsonObject.put("pageVO", pageVO);
-		
-		return jsonObject;
+		return result > 0 ? "success" : "fail";
 	}
 	
 	@ResponseBody
 	@PutMapping("/data_board/comment/{comment_no}")
-	public Map<String, Object> modifyComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
-		JSONObject jsonObject = new JSONObject();
-		
+	public String modifyComment(@PathVariable int comment_no, @ModelAttribute CommentVO commentVO) {
 		int result = userService.updateComment(commentVO);
-		
-		Criteria cri = new Criteria();
-		cri.setBoard_no(commentVO.getBoard_no() + "");
-		
-		List<CommentVO> commentList = userService.selectBoardComments(cri);
-		PageVO pageVO = new PageVO(cri, userService.selectBoardCommentsCount(commentVO.getBoard_no()));
-		
-		jsonObject.put("commentList", commentList);
-		jsonObject.put("pageVO", pageVO);
-		
-		return jsonObject;
+		return result > 0 ? "success" : "fail";
 	}
 }

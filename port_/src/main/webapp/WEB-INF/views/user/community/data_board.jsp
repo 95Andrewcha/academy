@@ -24,7 +24,7 @@
 			</div>
 			<sec:authorize access="!isAnonymous() && isAuthenticated()">
 				<div class="">
-					<a class="custom-btn fs-7 px-3 fw-bold" href="/user/data_board/register">
+					<a class="custom-btn fs-7 px-3 fw-bold" href="/user/data_board/register?gubun=new">
 						<i class="fa-solid fa-pencil"></i> 글쓰기
 					</a>
 				</div>

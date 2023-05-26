@@ -3,8 +3,10 @@ package com.academy.common;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +20,18 @@ public class Common {
 	 */
 	public static final String BOARD_REPO = "C:\\board\\";
 	
-	public static List<AttachVO> uploadFile(MultipartHttpServletRequest multipartRequest) throws Exception {
+	public static Map<String, Object> uploadFile(MultipartHttpServletRequest multipartRequest) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		Enumeration<String> paramNames = multipartRequest.getParameterNames();
+		
+		while(paramNames.hasMoreElements()) {
+			String name = paramNames.nextElement();
+			String value = multipartRequest.getParameter(name);
+			System.out.println("name: " + name);
+			System.out.println("value: " + value);
+			paramMap.put(name, value);
+		}
+		
 		List<AttachVO> fileList = new ArrayList<>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		
@@ -52,7 +65,9 @@ public class Common {
 			} // end for
 		} // end while
 		
-		return fileList;
+		paramMap.put("fileList", fileList);
+		
+		return paramMap;
 	}
 	
 	public static List<AttachVO> deleteFile(MultipartHttpServletRequest multipartRequest) throws Exception {
