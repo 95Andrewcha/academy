@@ -24,6 +24,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.info("username: " + username);
 		log.info(vo);
 		
+		if(vo == null) {
+			log.info("UsernameNotFoundException 발생!");
+			throw new UsernameNotFoundException("존재하지 않는 계정입니다.");
+		}
+		
 		return vo;
 	}
 

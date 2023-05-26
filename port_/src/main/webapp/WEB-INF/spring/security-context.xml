@@ -8,6 +8,8 @@
 	<bean id="customAuthProvider" class="com.academy.security.CustomAuthProvider"/>
 	<bean id="customUserDetailsService" class="com.academy.security.CustomUserDetailsService"/>
 	<bean id="customAuthSuccessHandler" class="com.academy.security.CustomAuthSuccessHandler"/>
+	<bean id="customAuthFailureHandler" class="com.academy.security.CustomAuthFailureHandler"/>
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 	<security:authentication-manager id="authManager">
 		<security:authentication-provider ref="customAuthProvider"/>
@@ -24,7 +26,8 @@
 		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER')"/>
 		<security:form-login login-page="/admin/login"
 							 login-processing-url="/admin/loginProc"
-							 authentication-success-handler-ref="customAuthSuccessHandler"/>
+							 authentication-success-handler-ref="customAuthSuccessHandler"
+							 authentication-failure-handler-ref="customAuthFailureHandler"/>
 		<security:logout logout-url="/admin/logout"
 						 invalidate-session="true"
 						 delete-cookies="true"/>
@@ -46,7 +49,8 @@
 		<security:intercept-url pattern="/user/my_page/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER', 'ROLE_USER')"/>
 		<security:form-login login-page="/user/login"
 							 login-processing-url="/user/loginProc"
-							 authentication-success-handler-ref="customAuthSuccessHandler"/>
+							 authentication-success-handler-ref="customAuthSuccessHandler"
+							 authentication-failure-handler-ref="customAuthFailureHandler"/>
 		<security:logout logout-url="/user/logout"
 						 invalidate-session="true"
 						 delete-cookies="true"/>

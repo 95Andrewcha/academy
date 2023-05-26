@@ -16,7 +16,6 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -36,11 +35,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 		}
 		
 		String prevPage = (String) request.getSession().getAttribute("prevPage");
-		
-		if(prevPage != null) {
-			request.getSession().removeAttribute("prevPage");
-		}
-		
+
 		String uri = "/user/main";
 		boolean isAdmin = (boolean) request.getSession().getAttribute("admin");
 		
@@ -57,7 +52,13 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 			uri = prevPage;
 			log.info("prevPage uri: " + uri);
 		}
+		
 		log.info("최종 uri: " + uri);
+		
+		if(prevPage != null) {
+			request.getSession().removeAttribute("prevPage");
+		}
+		
 		redirectStrategy.sendRedirect(request, response, uri);
 	}
 

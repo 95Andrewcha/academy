@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -70,7 +71,11 @@ public class UserController {
 	 */
 	@RequestMapping("login")
 	public String login(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("admin", false);
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
 		log.info(auth);
 		
 		// 이미 로그인한 사용자일 경우 메인 페이지로 이동
@@ -78,7 +83,13 @@ public class UserController {
 			return "redirect:/user/main";
 		}
 		
-		request.getSession().setAttribute("admin", false);
+		Boolean isError = Boolean.parseBoolean(request.getParameter("error"));
+		String message = request.getParameter("message");
+		
+		if(isError && message != null) {
+			request.setAttribute("isError", isError);
+			request.setAttribute("message", message);
+		}
 		
 		// 이전페이지 URI
 		String prevUri = request.getHeader("Referer");

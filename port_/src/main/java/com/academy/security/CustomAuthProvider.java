@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.academy.service.LoginService;
 import com.academy.vo.AuthVO;
@@ -28,6 +30,9 @@ public class CustomAuthProvider implements AuthenticationProvider {
 	@Autowired
 	private LoginService loginService;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		log.info("AuthenticationProvider > authenticate 접근");
@@ -39,8 +44,11 @@ public class CustomAuthProvider implements AuthenticationProvider {
 		
 		log.info("username: " + id);
 		log.info("password: " + pw);
-
-		if(user == null) {
+		
+		String password = passwordEncoder.encode(user.getPassword());
+		user.setPassword(password);
+		
+		if(!passwordEncoder.matches(pw, user.getPassword())) {
 			throw new BadCredentialsException("아이디 혹은 비밀번호가 틀립니다.");
 		}
 		

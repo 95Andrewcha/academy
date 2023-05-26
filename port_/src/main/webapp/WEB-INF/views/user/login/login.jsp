@@ -16,7 +16,7 @@
 					<label for="floatingInput"><i class="fa-solid fa-user"></i> 아이디</label>
 				</div>
 				<div class="form-floating">
-					<input type="password" class="form-control" placeholder="비밀번호">
+					<input type="password" name="password" class="form-control" placeholder="비밀번호">
 					<label for="floatingPassword"><i class="fa-solid fa-key"></i> 비밀번호</label>
 				</div>
 				<div class="checkbox mb-4 mt-2">
@@ -25,6 +25,9 @@
 					</label>
 				</div>
 				<button class="w-100 btn btn-lg btn-secondary main-bg-color main-btn" type="submit">로그인</button>
+				<c:if test="${isError }">
+					<div class="pt-2" style="color: var(--bs-danger);">${message }</div>
+				</c:if>
 		        <p class="mt-5 text-center">
 		        	Copyright © 2023 ACADEMY.<br/>All rights reserved.
 		        </p> 
