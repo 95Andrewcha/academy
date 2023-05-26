@@ -470,19 +470,9 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value ="ad_manage/dopopupenroll", method=RequestMethod.POST)
 	public Map<String, Object> dopopupenroll(MultipartHttpServletRequest multipartRequest) throws Exception  {
-		
-		Map<String, Object> paramMap = new HashMap<>();
-		Enumeration<String> paramNames = multipartRequest.getParameterNames();
-		while(paramNames.hasMoreElements()) {
-			String name = paramNames.nextElement();
-			String value = multipartRequest.getParameter(name);
-			System.out.println("name: " + name);
-			System.out.println("value: " + value);
-			paramMap.put(name, value);
-		}
-		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		Map<String, Object> paramMap = Common.uploadFile(multipartRequest);
+		List<AttachVO> fileList = (List<AttachVO>) paramMap.get("fileList");
 		paramMap.put("uuid", fileList.get(0).getUuid());
-		paramMap.put("fileList", fileList);
 		
 		System.out.println("paramMap:::" + paramMap.get("fileList"));
 		for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
@@ -644,18 +634,9 @@ public class AdminController {
 	@ResponseBody
 	@PostMapping("/uploadAjaxAction")
 	public JSONObject uploadAjaxAction(MultipartHttpServletRequest multipartRequest) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		Enumeration<String> paramNames = multipartRequest.getParameterNames();
-		while(paramNames.hasMoreElements()) {
-			String name = paramNames.nextElement();
-			String value = multipartRequest.getParameter(name);
-			System.out.println("name: " + name);
-			System.out.println("value: " + value);
-			paramMap.put(name, value);
-		}
-		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		Map<String, Object> paramMap = Common.uploadFile(multipartRequest);
+		List<AttachVO> fileList = (List<AttachVO>) paramMap.get("fileList");
 		paramMap.put("uuid", fileList.get(0).getUuid());
-		paramMap.put("fileList", fileList);
 		
 		System.out.println("paramMap:::" + paramMap.get("fileList"));
 		for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
