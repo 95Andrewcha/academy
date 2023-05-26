@@ -3,6 +3,7 @@ package com.academy.service;
 import java.util.List;
 import java.util.Map;
 
+import com.academy.vo.AttachVO;
 import com.academy.vo.CalendarVO;
 import com.academy.vo.CouponVO;
 import com.academy.vo.Criteria;
@@ -44,5 +45,9 @@ public interface AdminService {
 	public int update_time(Time_tblVO time_tblvo);
 	
 	public int update_timetable(Time_tblVO time_tblvo);
+	
+	public Map<String, Object> insertPopupFiles(Map<String, Object> paramMap);
+	
+	
 
 }

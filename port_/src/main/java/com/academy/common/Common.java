@@ -25,17 +25,6 @@ public class Common {
 		while(fileNames.hasNext()) {
 			String name = fileNames.next();
 			List<MultipartFile> files = multipartRequest.getFiles(name);
-			String[] delFiles = multipartRequest.getParameterValues("delete_files");
-			
-			if(delFiles != null) {
-				for(String delFile : delFiles) {
-					File file = new File(BOARD_REPO + delFile);
-					
-					if(file.exists()) {
-						file.delete();
-					}
-				}
-			}
 			
 			for(MultipartFile mFile : files) {
 				AttachVO attachVO = new AttachVO();

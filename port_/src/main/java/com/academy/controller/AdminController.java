@@ -2,6 +2,7 @@ package com.academy.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +24,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.academy.common.Common;
+import com.academy.mapper.AdminMapper;
 import com.academy.service.AdminService;
+import com.academy.vo.AttachVO;
 import com.academy.vo.CalendarVO;
 import com.academy.vo.ChildrenVO;
 import com.academy.vo.CouponVO;
@@ -454,8 +460,40 @@ public class AdminController {
 	
 	@RequestMapping(value = "ad_manage/popupenroll", method =  RequestMethod.GET )
 	public String popupenroll(HttpServletRequest request) {
-		
 		return request.getRequestURI();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="ad_manage/dopopupenroll", method=RequestMethod.POST)
+	public Map<String, Object> dopopupenroll(MultipartHttpServletRequest multipartRequest) throws Exception  {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		Enumeration<String> paramNames = multipartRequest.getParameterNames();
+		while(paramNames.hasMoreElements()) {
+			String name = paramNames.nextElement();
+			String value = multipartRequest.getParameter(name);
+			System.out.println("name: " + name);
+			System.out.println("value: " + value);
+			paramMap.put(name, value);
+		}
+		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		paramMap.put("uuid", fileList.get(0).getUuid());
+		paramMap.put("fileList", fileList);
+		
+		System.out.println("paramMap:::" + paramMap.get("fileList"));
+		for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+		    String name = entry.getKey();
+		    Object value = entry.getValue();
+		    System.out.println("name: " + name);
+		    System.out.println("value: " + value);
+		}
+		
+		
+		
+		Map<String, Object> result = adminservice.insertPopupFiles(paramMap);
+		
+		
+		return result;
 	}
 	
 	@ResponseBody
@@ -597,5 +635,35 @@ public class AdminController {
 		System.out.println("select");
 
 		return request.getRequestURI();
+	}
+	
+	@ResponseBody
+	@PostMapping("/uploadAjaxAction")
+	public JSONObject uploadAjaxAction(MultipartHttpServletRequest multipartRequest) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		Enumeration<String> paramNames = multipartRequest.getParameterNames();
+		while(paramNames.hasMoreElements()) {
+			String name = paramNames.nextElement();
+			String value = multipartRequest.getParameter(name);
+			System.out.println("name: " + name);
+			System.out.println("value: " + value);
+			paramMap.put(name, value);
+		}
+		List<AttachVO> fileList = Common.uploadFile(multipartRequest);
+		paramMap.put("uuid", fileList.get(0).getUuid());
+		paramMap.put("fileList", fileList);
+		
+		System.out.println("paramMap:::" + paramMap.get("fileList"));
+		for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+		    String name = entry.getKey();
+		    Object value = entry.getValue();
+		    System.out.println("name: " + name);
+		    System.out.println("value: " + value);
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("fileList", fileList);
+		
+		return jsonObject;
 	}
 }

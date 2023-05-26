@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.academy.vo.AttachVO;
 import com.academy.vo.CalendarVO;
 import com.academy.vo.ChildrenVO;
 import com.academy.vo.CouponVO;
@@ -47,6 +48,10 @@ public interface AdminMapper {
 	public int update_time(Time_tblVO time_tblvo);
 	
 	public int update_timetable(Time_tblVO time_tblvo); 
+	
+	public void insertBoardFiles(AttachVO attachVO);
+	
+	public void insertpopup(Map<String, Object> paramMap);
 	
 	
 }

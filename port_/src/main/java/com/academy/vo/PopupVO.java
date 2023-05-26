@@ -19,7 +19,10 @@ public class PopupVO {
 	private int ACTIVE;
 	private String LINK;
 	private String REG_ID;
-	
+	private String upload_path;
+	private String file_type;
+	private String file_name;
+	private Date regdate; /*업로드 날짜*/
 	
 	
 }

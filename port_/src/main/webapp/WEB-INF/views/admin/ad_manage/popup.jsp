@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
+ 
 
 <!-- Form Start -->
           <div class="col-sm-12 col-xl-10 m-sm-auto" style="border:3px solid #e3e3e3">
@@ -126,7 +127,6 @@
 						 y: &nbsp; <input type="text" class="form-control update w-25" style="display:inline-block;" id="ypx" name="ypx" disabled> px
 					</div>
 					<div class="mb-3">
-					<c:out value="${Plist.CONTENT}"/>
 						<label for="content" class="form-label">참고</label>
 						<textarea class="form-control update" id="content" name="content" disabled>
 						
@@ -135,19 +135,24 @@
 					
 					<div class="mb-3">
 							<label for="formFileMultiple" class="form-label">첨부파일</label>
-								 <input class="form-control" type="file"
-								id="formFileMultiple" multiple>
+								 <input class="form-control" type="file" id="formFileMultiple" name="file" multiple>
 					</div>
+					<div class="mb-3 uploadresult"> 
+						<label for="formFileMultiple" class="form-label">업로드 파일</label>
+							<ul>
+							
+							</ul>
+					</div><!-- uploadresult -->
 					<div class="mb-3">
 						<label for="popuplink" class="form-label">팝업링크</label>
 						 <input type="text" class="form-control update" id="popuplink" name="popuplink" disabled>
 					</div>
 					<div class="mb-3">
 						<label for="xpx" class="form-label">오늘 하루 안보기여부</label><br>
-						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="유">
+						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0">
 						<label class="form-check-label" for="gridRadios1">유</label>
 						
-						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="무" checked>
+						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1" checked>
 						 <label class="form-check-label" for="gridRadios2">무</label>
 					</div>
 					
@@ -174,10 +179,47 @@
 	         $('#start_date').datepicker();
 	         $('#end_date').datepicker();
 	      });
+		 $("input[name='file']").on("change", function(e) {
+	        	
+	 			var formData = new FormData();
+	 			var inputFile = $("input[name='file']");
+	 			var files = inputFile[0].files;
+	 			
+	 			for(var i=0; i<files.length; i++){
+	 				
+	 				formData.append("uploadFile", files[i]);
+	 			}
+	 			
+	 			$.ajax({
+	 				url : '/admin/uploadAjaxAction',
+	 				processData : false,
+	 				contentType : false, 
+	 				data : formData,
+	 				type : 'POST',
+	 				dataType : 'json',
+	 					success:function(result){
+	 						var data = result['fileList'];
+	 						for(var info in data) {
+	 							var res = data[info];
+	 							var thumhtml = "<img src='/thumbnails?uuid="+ res.uuid +"&file_name="+ res.file_name +"'>";
+	 							$(".uploadresult > ul").html(thumhtml);
+	 						} ;
+	 						
+	 					}
+	 			});
+	 			
+	 			
+	 		});
+		
+		
+		
+		
 		/* $('#detail').click(function(e){
 			e.preventDefault();
 			$('#testModal').modal("show");
 		}); */
+		
+		
 		
 		function showDetail(id) {
 			$.ajax({
@@ -189,14 +231,29 @@
 					console.log(data.list);
 					
 					var start = new Date(list.start_DATE);
+					var year = start.getFullYear();
+					var month = String(start.getMonth() + 1).padStart(2, '0');
+					var day = String(start.getDate()).padStart(2, '0');
+					var formattedDate = year + '-' + month + '-' + day;
+					
+					var end = new Date(list.end_DATE);
+					var end_year = end.getFullYear();
+					var end_month = String(end.getMonth() + 1).padStart(2, '0');
+					var end_day = String(end.getDate()).padStart(2, '0');
+					var end_formattedDate = end_year + '-' + end_month + '-' + end_day;
+				
 					
 					modal.find("input[name='subject']").val(list.name);
-					modal.find("input[name='start_date']").val(start);
-					modal.find("input[name='end_date']").val(list.end_DATE);
-					alert("성공");
-					
-					
-					
+					modal.find("input[name='start_date']").val(formattedDate);
+					modal.find("input[name='end_date']").val(end_formattedDate);
+					modal.find("input[name='xpx']").val(list.position_LEFT);
+					modal.find("input[name='ypx']").val(list.position_TOP);
+					modal.find("textarea[name='content']").val(list.content);
+					modal.find("input[name='popuplink']").val(list.link);
+					modal.find("input[name='gridRadios']").val(list.day_CHECK);
+					var thumhtml = "<img src='/thumbnails?uuid="+ list.uuid +"&file_name="+ list.file_name +"'>";
+						$(".uploadresult > ul").html(thumhtml);
+				
 					
 					
 					$('#testModal').modal("show");

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.academy.mapper.AdminMapper;
+import com.academy.vo.AttachVO;
 import com.academy.vo.CalendarVO;
 import com.academy.vo.CouponVO;
 import com.academy.vo.Criteria;
@@ -100,6 +101,22 @@ public class AdminServiceImpl implements AdminService{
 	public int update_timetable(Time_tblVO time_tblvo) {
 		return adminMapper.update_timetable(time_tblvo);
 	}
+	@Override
+	public Map<String, Object> insertPopupFiles(Map<String, Object> paramMap) {
+		List<AttachVO> fileList = (List<AttachVO>) paramMap.get("fileList");
+		
+		adminMapper.insertpopup(paramMap);
+		
+		for(AttachVO vo : fileList) {
+			adminMapper.insertBoardFiles(vo);
+		}
+		
+		paramMap.put("fileList", fileList);
+		
+		return paramMap;
+		
+	}
+	
 
 
 

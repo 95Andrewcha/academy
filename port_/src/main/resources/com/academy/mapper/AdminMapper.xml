@@ -39,13 +39,29 @@ PIVOT
 </select>
 <select id="getPopup" resultType="com.academy.vo.PopupVO">
 	<![CDATA[
-		SELECT * FROM POP_UP
+		select * from pop_up a 
+		inner join attach_tbl b on a.uuid=b.uuid
 	]]>
 </select>
 
 <select id="getPopupDetail" resultType="com.academy.vo.PopupVO">
 	<![CDATA[
-		select * from pop_up where id= #{id}
+		select position_top,
+			position_left,
+			name,
+			content,
+			start_date,  
+			end_date,
+			link,
+			active,
+			reg_id,
+			id,
+			a.uuid,
+			upload_path,
+			file_type,   
+file_name from pop_up a 
+inner join attach_tbl b on a.uuid=b.uuid
+ where id= #{id}
 	]]>
 </select>
 
@@ -57,19 +73,16 @@ PIVOT
 
 <select id="getCoupList" resultType="com.academy.vo.CouponVO">
 	 <![CDATA[
-
-     
-     
      SELECT *
-    FROM (
-      SELECT *
-      FROM (
-        SELECT rownum rn, a.*
-        FROM coupon_tbl a
-        ORDER BY a.reg_date DESC
-      )
-      WHERE rownum <= #{pageNum} * #{amount}
-    )
+    		FROM (
+     			 SELECT *
+     				 FROM (
+							SELECT rownum rn, a.*
+							FROM coupon_tbl a
+        					ORDER BY a.reg_date DESC
+     						)
+      							WHERE rownum <= #{pageNum} * #{amount}
+    			)
     WHERE rn > (#{pageNum} - 1) * #{amount}
      
 	]]> 
@@ -186,4 +199,55 @@ PIVOT
 		insert into calendar (id, title, start_date, end_date, content)
 		values(cal_seq.nextval, #{title}, #{start_date}, #{end_date}, #{content})
 	</insert>
+	
+	
+	
+	<!-- popup -->
+	
+		<insert id="insertBoardFiles">
+		INSERT INTO ATTACH_TBL (
+			UUID,
+			UPLOAD_PATH,
+			FILE_TYPE,
+			FILE_NAME,
+			REGDATE
+		) VALUES (
+			#{uuid},
+			#{upload_path},
+			#{file_type},
+			#{file_name},
+			SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertpopup">
+		insert into pop_up(
+		name,
+		content,
+		start_Date,
+		end_Date,
+		active,
+		link,
+		reg_id,
+		position_left,
+		position_top,
+		id,
+		uuid)
+		values(
+		#{subject},
+		#{content},
+		sysdate,
+		sysdate,
+		#{gridRadios},
+		#{popuplink},
+		#{reg_id},
+		#{xpx},
+		#{ypx},
+		pop_up_id_seq.nextval,
+		#{uuid}
+		)
+	</insert>
+	
+	
+	
   </mapper>
