@@ -51,7 +51,10 @@
                             
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">login</button>
-                        
+                        <c:if test="${isError }">
+							<div class="pt-2" style="color: var(--bs-danger);">${message }</div>
+							<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+						</c:if>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }"/>
        </form>
                     </div>
@@ -65,13 +68,7 @@
        
        
         
-       	<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-			<font color="red">
-				로그인 실패<br/>
-				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-				<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
-			</font>
-		</c:if>
+       	
        
         <!-- Sign In End -->
     </div>

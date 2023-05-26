@@ -15,6 +15,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
+import jdk.internal.org.jline.utils.Log;
+
 public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -38,6 +40,8 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
 		
 		HttpSession session = request.getSession();
 		boolean isAdmin = (boolean) session.getAttribute("admin");
+		
+		System.out.println("isAdmin" + isAdmin);
 
 		if(isAdmin) {
 			setDefaultFailureUrl("/admin/login?error=true&message=" + message);

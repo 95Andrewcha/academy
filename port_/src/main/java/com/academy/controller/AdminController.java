@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
@@ -99,6 +100,9 @@ public class AdminController {
 
 	@GetMapping(value = "login")
 	public String doLogin(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("admin", true);
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		log.info(auth);
 
@@ -111,8 +115,14 @@ public class AdminController {
 				return "redirect:/admin/admin";
 			}
 		}
-
-		request.getSession().setAttribute("admin", true);
+		
+		Boolean isError = Boolean.parseBoolean(request.getParameter("error"));
+		String message = request.getParameter("message");
+		
+		if(isError && message != null) {
+			request.setAttribute("isError", isError);
+			request.setAttribute("message", message);
+		}
 
 		// 이전 페이지 URI
 		String prevUri = request.getHeader("Referer");

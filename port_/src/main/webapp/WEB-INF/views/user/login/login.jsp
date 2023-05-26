@@ -27,6 +27,7 @@
 				<button class="w-100 btn btn-lg btn-secondary main-bg-color main-btn" type="submit">로그인</button>
 				<c:if test="${isError }">
 					<div class="pt-2" style="color: var(--bs-danger);">${message }</div>
+					<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
 				</c:if>
 		        <p class="mt-5 text-center">
 		        	Copyright © 2023 ACADEMY.<br/>All rights reserved.
