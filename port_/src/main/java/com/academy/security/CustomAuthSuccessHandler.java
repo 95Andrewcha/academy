@@ -34,8 +34,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 			session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		}
 		
-		String prevPage = (String) request.getSession().getAttribute("prevPage");
-
+		String prevUri = (String) request.getSession().getAttribute("prevUri");
 		String uri = "/user/main";
 		boolean isAdmin = (boolean) request.getSession().getAttribute("admin");
 		
@@ -44,19 +43,19 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 		}
 		
 		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		
+
 		if(savedRequest != null) {
 			uri = savedRequest.getRedirectUrl();
 			log.info("savedRequest uri: " + uri);
-		} else if(prevPage != null && !prevPage.equals("")) {
-			uri = prevPage;
-			log.info("prevPage uri: " + uri);
+		} else if(prevUri != null && !prevUri.equals("")) {
+			uri = prevUri;
+			log.info("prevUri uri: " + uri);
 		}
 		
 		log.info("최종 uri: " + uri);
 		
-		if(prevPage != null) {
-			request.getSession().removeAttribute("prevPage");
+		if(prevUri != null) {
+			request.getSession().removeAttribute("prevUri");
 		}
 		
 		redirectStrategy.sendRedirect(request, response, uri);

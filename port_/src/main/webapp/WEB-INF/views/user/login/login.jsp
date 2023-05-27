@@ -15,16 +15,11 @@
 					<input type="text" class="form-control" name="username" placeholder="아이디">
 					<label for="floatingInput"><i class="fa-solid fa-user"></i> 아이디</label>
 				</div>
-				<div class="form-floating">
+				<div class="form-floating mb-4">
 					<input type="password" name="password" class="form-control" placeholder="비밀번호">
 					<label for="floatingPassword"><i class="fa-solid fa-key"></i> 비밀번호</label>
 				</div>
-				<div class="checkbox mb-4 mt-2">
-					<label>
-						<input type="checkbox" name="remember-me"> 로그인 유지
-					</label>
-				</div>
-				<button class="w-100 btn btn-lg btn-secondary main-bg-color main-btn" type="submit">로그인</button>
+				<button class="w-100 btn btn-lg btn-secondary main-bg-color main-btn mt-2" type="submit">로그인</button>
 				<c:if test="${isError }">
 					<div class="pt-2" style="color: var(--bs-danger);">${message }</div>
 					<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
